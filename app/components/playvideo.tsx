@@ -10,7 +10,7 @@ const PlayVideo = () => {
 
   return (
     <>
-      <span className="relative inline-block align-text-top">
+      <span className="relative inline-block">
         <span className="cursor-pointer" onClick={toggleVideo}>.</span>
         <Play 
           className="absolute bottom-1/4 right-1/4 transform translate-x-1/2 translate-y-1/2 cursor-pointer text-white" 

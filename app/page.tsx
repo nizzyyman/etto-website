@@ -17,9 +17,10 @@ const LandingPage = () => {
             Etto is the magic mirror camera that brings your wardrobe to life. 
           </p>
         </div>
-        <div className="w-full overflow-hidden">
-          <h2 className="font-raptor text-[30vw] sm:text-[35vw] md:text-[38vw] leading-[.9] whitespace-nowrap">
-            ETTO<PlayVideo />
+        <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6">
+          <h2 className="font-raptor text-[35vw] leading-[0.8] mt-auto w-full px-0">
+            ETTO
+            <PlayVideo />
           </h2>
         </div>
       </main>
