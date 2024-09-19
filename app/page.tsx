@@ -8,7 +8,7 @@ const LandingPage = () => {
         <div className="font-raptor text-2xl">ETTO</div>
         <div>SIGN UP</div>
       </header>
-      <main className="flex-grow flex flex-col justify-between items-center text-center px-4 sm:px-5 pt-20 sm:pt-24 md:pt-32">
+      <main className="flex-grow flex flex-col justify-between items-center text-center pt-20 sm:pt-24 md:pt-32">
         <div className="flex flex-col items-center mb-auto">
           <h1 className="font-raptor text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
             the wardrobe that speaks to you
@@ -17,8 +17,8 @@ const LandingPage = () => {
             Etto is the magic mirror camera that brings your wardrobe to life. 
           </p>
         </div>
-        <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6">
-          <h2 className="font-raptor text-[35vw] leading-[0.8] mt-auto w-full px-0">
+        <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6 px-1 sm:px-4">
+          <h2 className="font-raptor text-[37vw] leading-[0.8] mt-auto w-full">
             ETTO
             <PlayVideo />
           </h2>
