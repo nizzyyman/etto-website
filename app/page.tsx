@@ -6,7 +6,7 @@ const LandingPage = () => {
     <div className="min-h-screen flex flex-col bg-white text-black relative">
       <header className="flex justify-between p-4 sm:p-5">
         <div className="font-raptor text-2xl">ETTO</div>
-        <div>SIGN UP</div>
+        <a href="https://signup.etto.ai/" className="cursor-pointer hover:underline">SIGN UP</a>
       </header>
       <main className="flex-grow flex flex-col justify-between items-center text-center pt-20 sm:pt-24 md:pt-32">
         <div className="flex flex-col items-center mb-auto px-[12px] sm:px-0">
