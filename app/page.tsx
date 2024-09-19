@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayVideo from './components/PlayVideo';
+import styles from './page.module.css';
 
 const LandingPage = () => {
   return (
@@ -29,6 +30,20 @@ const LandingPage = () => {
           </h2>
         </div>
       </main>
+      
+      <footer className="w-full text-xs sm:text-sm">
+        <div className="flex justify-between items-center px-4 py-2">
+          <span>© 2024 Etto</span>
+          <a 
+            href="https://youtu.be/4-umSC9I_uM?feature=shared" 
+            className="text-[#A000E7] hover:underline"
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            watch film
+          </a>
+        </div>
+      </footer>
     </div>
   );
 };
