@@ -5,8 +5,13 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white text-black relative">
       <header className="flex justify-between p-4 sm:p-5">
-        <div className="font-raptor text-2xl">ETTO</div>
-        <a href="https://signup.etto.ai/" className="cursor-pointer hover:underline">SIGN UP</a>
+        <div className="font-raptor text-2xl text-[#A000E7]">ETTO</div>
+        <a 
+          href="https://signup.etto.ai/" 
+          className="cursor-pointer hover:text-[#A000E7] hover:underline transition-all duration-300"
+        >
+          SIGN UP
+        </a>
       </header>
       <main className="flex-grow flex flex-col justify-between items-center text-center pt-20 sm:pt-24 md:pt-32">
         <div className="flex flex-col items-center mb-auto px-[12px] sm:px-0">
