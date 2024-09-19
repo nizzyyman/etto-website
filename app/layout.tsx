@@ -8,15 +8,31 @@ const raptorV2 = localFont({
   variable: '--font-raptor',
 })
 
-const abcDiatypeLight = localFont({
-  src: './fonts/ABCDiatype Light.otf',
+const abcdiatype = localFont({
+  src: [
+    {
+      path: './fonts/ABCDiatype Light.otf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: './fonts/ABCDiatype Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './fonts/ABCDiatype Bold.otf',
+      weight: '700',
+      style: 'normal',
+    },
+  ],
   display: 'swap',
   variable: '--font-abcdiatype',
 })
 
 export const metadata: Metadata = {
   title: "ETTO - The Wardrobe That Speaks To You",
-  description: "ETTO is a innovative wardrobe solution that understands your style.",
+  description: "ETTO is an innovative wardrobe solution that understands your style.",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
@@ -26,12 +42,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${raptorV2.variable} ${abcDiatypeLight.variable}`}>
+    <html lang="en" className={`${raptorV2.variable} ${abcdiatype.variable}`}>
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       </head>
-      <body className={abcDiatypeLight.className}>
+      <body className={abcdiatype.className}>
         {children}
       </body>
     </html>
