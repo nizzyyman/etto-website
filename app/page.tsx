@@ -9,11 +9,11 @@ const LandingPage = () => {
         <div>SIGN UP</div>
       </header>
       <main className="flex-grow flex flex-col justify-between items-center text-center pt-20 sm:pt-24 md:pt-32">
-        <div className="flex flex-col items-center mb-auto">
-          <h1 className="font-raptor text-xl sm:text-2xl md:text-3xl mb-3 sm:mb-4">
+        <div className="flex flex-col items-center mb-auto px-[12px] sm:px-0">
+          <h1 className="font-raptor text-lg sm:text-2xl md:text-3xl mb-3 sm:mb-4">
             the wardrobe that speaks to you
           </h1>
-          <p className="max-w-sm sm:max-w-md md:max-w-lg text-sm sm:text-base">
+          <p className="max-w-sm sm:max-w-md md:max-w-lg text-xs sm:text-sm md:text-base">
             Etto is the magic mirror camera that brings your wardrobe to life. 
           </p>
         </div>
