@@ -1,17 +1,18 @@
+import localFont from 'next/font/local'
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const raptorV2 = localFont({
+  src: './fonts/Raptor V2 Premium Semibold.ttf',
+  display: 'swap',
+  variable: '--font-raptor',
+})
+
+const abcDiatypeLight = localFont({
+  src: './fonts/ABCDiatype Light.otf',
+  display: 'swap',
+  variable: '--font-abcdiatype',
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -24,10 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={`${raptorV2.variable} ${abcDiatypeLight.variable}`}>
+      <body className={abcDiatypeLight.className}>
         {children}
       </body>
     </html>
