@@ -1,15 +1,14 @@
 import React from 'react';
 import PlayVideo from './components/PlayVideo';
-import styles from './page.module.css';
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-black relative">
+    <div className="min-h-screen flex flex-col bg-white text-black">
       <header className="flex justify-between p-4 sm:p-5">
-        <div className="font-raptor text-2xl text-[#A000E7]">ETTO</div>
+        <div className="font-raptor text-2xl text-[#514F8C]">ETTO</div>
         <a 
           href="https://signup.etto.ai/" 
-          className="cursor-pointer hover:text-[#A000E7] hover:underline transition-all duration-300"
+          className="cursor-pointer hover:text-[#514F8C] hover:underline transition-all duration-300"
         >
           SIGN UP
         </a>
@@ -31,12 +30,12 @@ const LandingPage = () => {
         </div>
       </main>
       
-      <footer className="w-full text-xs sm:text-sm">
+      <footer className="w-full mt-auto">
         <div className="flex justify-between items-center px-4 py-2">
-          <span>© 2024 Etto</span>
+          <span className="text-xs sm:text-sm">© 2024 Etto</span>
           <a 
             href="https://youtu.be/4-umSC9I_uM?feature=shared" 
-            className="text-[#A000E7] hover:underline"
+            className="text-xs sm:text-sm text-[#514F8C] hover:underline"
             target="_blank" 
             rel="noopener noreferrer"
           >
