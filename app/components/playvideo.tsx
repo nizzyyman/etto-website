@@ -28,7 +28,7 @@ const PlayVideo = () => {
             <iframe 
               width="100%" 
               height="100%" 
-              src="https://youtu.be/4-umSC9I_uM?feature=shared" 
+              src="https://www.youtube.com/embed/4-umSC9I_uM" 
               frameBorder="0" 
               allow="autoplay; encrypted-media" 
               allowFullScreen
