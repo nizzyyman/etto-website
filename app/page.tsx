@@ -25,7 +25,7 @@ const LandingPage = () => {
         <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6 px-1 sm:px-4">
           <h2 className="font-raptor text-[37vw] leading-[0.8] mt-auto w-full">
             ETTO
-            <PlayVideo videoId="https://youtu.be/4-umSC9I_uM?feature=shared" />
+            <PlayVideo />
           </h2>
         </div>
       </main>
