@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayVideo from './components/PlayVideo';
+import PlayVideo from './components/playvideo';
 
 const LandingPage = () => {
   return (
