@@ -19,7 +19,6 @@ const LandingPage = () => {
             the wardrobe that speaks to you
           </h1>
           <p className="max-w-sm sm:max-w-md md:max-w-lg text-xs sm:text-sm md:text-base">
-<<<<<<< HEAD
             Etto is the magic mirror for your personal style - aligning and refining your wardrobe to bring you closer to yourself.
             
           </p>
