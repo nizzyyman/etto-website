@@ -64,7 +64,7 @@ export default function Page() {
                   placeholder="enter name here"
                   required
                   className="w-full p-3 bg-[#e6e6e6] border-none text-sm text-center 
-                           placeholder-gray-600 font-['Cutive_Mono']"
+                           placeholder-gray-600 font-[&quot;Cutive_Mono&quot;]"
                 />
                 <input
                   type="email"
@@ -72,15 +72,15 @@ export default function Page() {
                   placeholder="enter email here"
                   required
                   className="w-full p-3 bg-[#e6e6e6] border-none text-sm text-center 
-                           placeholder-gray-600 font-['Cutive_Mono']"
+                           placeholder-gray-600 font-[&quot;Cutive_Mono&quot;]"
                 />
                 <button
                   type="submit"
                   className="px-6 py-2 mt-1 border border-gray-700 bg-[#e6e6e6] 
                            text-sm text-gray-700 cursor-pointer transition-all 
-                           hover:bg-[#d9d9d9] font-['Cutive_Mono']"
+                           hover:bg-[#d9d9d9] font-[&quot;Cutive_Mono&quot;]"
                 >
-                  Yes, I'm coming!
+                  Yes, I&apos;m coming!
                 </button>
               </form>
             </div>
@@ -89,6 +89,13 @@ export default function Page() {
       </div>
     );
   } catch (error) {
-    return <Error statusCode={500} />;
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl mb-4">Something went wrong</h1>
+          <p>Please try again later</p>
+        </div>
+      </div>
+    );
   }
-} 
+}
