@@ -1,8 +1,8 @@
 'use client';
 
-import { Cutive_Mono } from 'next/font/google';
 import { FormEvent } from 'react';
 import Image from 'next/image';
+import { Cutive_Mono } from 'next/font/google';
 
 const cutiveMono = Cutive_Mono({
   weight: '400',
@@ -26,61 +26,69 @@ export default function Page() {
     form.reset();
   };
 
-  return (
-    <div className={`min-h-screen bg-white`}>
-      <div className="max-w-[1000px] w-full mx-auto p-5 flex flex-col items-center">
-        <div className="w-full flex justify-between items-center mb-8">
-          <div className="text-[#494684] text-[32px] font-raptor">
+  // Add error boundary
+  try {
+    return (
+      <div className="min-h-screen bg-white p-8">
+        <div className="max-w-[1200px] mx-auto">
+          {/* ETTO Logo */}
+          <div className="text-[#494684] text-[32px] font-raptor mb-12">
             ETTO.
           </div>
-        </div>
 
-        <div className={cutiveMono.className}>
-          <div className="w-full max-w-[600px] relative">
-            <Image
-              src="/invitation.jpg"
-              alt="Fashion x Technology Event"
-              width={600}
-              height={450}
-              className="w-full h-auto"
-              priority
-            />
-          </div>
-
-          <div className="w-full max-w-[600px] text-center mt-4 text-gray-700">
-            <p className="text-base mb-4">
-              RSVP 732.915.2768 or enter info below
-            </p>
-
-            <form onSubmit={handleSubmit} className="flex flex-col items-center">
-              <input
-                type="text"
-                name="name"
-                placeholder="enter name here"
-                required
-                className="w-full max-w-[600px] p-3 mb-2.5 bg-[#e6e6e6] border-none 
-                         font-['Cutive_Mono'] text-sm text-center placeholder-gray-600"
+          {/* Main Content */}
+          <div className={`${cutiveMono.className} flex flex-col items-center`}>
+            {/* Image Container */}
+            <div className="w-full max-w-[500px] mb-8">
+              <Image
+                src="/invitation.jpg"
+                alt="Fashion x Technology Event"
+                width={500}
+                height={707}  // Adjusted for correct aspect ratio
+                className="w-full"
+                priority
+                style={{ objectFit: 'contain' }}
               />
-              <input
-                type="email"
-                name="email"
-                placeholder="enter email here"
-                required
-                className="w-full max-w-[600px] p-3 mb-2.5 bg-[#e6e6e6] border-none 
-                         font-['Cutive_Mono'] text-sm text-center placeholder-gray-600"
-              />
-              <button
-                type="submit"
-                className="px-8 py-3 border border-gray-700 bg-[#e6e6e6] 
-                         font-['Cutive_Mono'] text-sm text-gray-700 cursor-pointer 
-                         transition-all hover:bg-[#d9d9d9] mt-1.5"
-              >
-                Yes, I'm coming!
-              </button>
-            </form>
+            </div>
+
+            {/* RSVP Section */}
+            <div className="w-full max-w-[500px] text-center text-gray-700">
+              <p className="text-sm mb-6">
+                RSVP 732.915.2768 or enter info below
+              </p>
+
+              <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="enter name here"
+                  required
+                  className="w-full p-3 bg-[#e6e6e6] border-none text-sm text-center 
+                           placeholder-gray-600 font-['Cutive_Mono']"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="enter email here"
+                  required
+                  className="w-full p-3 bg-[#e6e6e6] border-none text-sm text-center 
+                           placeholder-gray-600 font-['Cutive_Mono']"
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-2 mt-1 border border-gray-700 bg-[#e6e6e6] 
+                           text-sm text-gray-700 cursor-pointer transition-all 
+                           hover:bg-[#d9d9d9] font-['Cutive_Mono']"
+                >
+                  Yes, I'm coming!
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } catch (error) {
+    return <Error statusCode={500} />;
+  }
 } 
