@@ -19,7 +19,7 @@ const LandingPage = () => {
             the wardrobe that speaks to you
           </h1>
           <p className="max-w-sm sm:max-w-md md:max-w-lg text-xs sm:text-sm md:text-base">
-            Etto is the magic mirror camera that brings your wardrobe to life. 
+            Etto is the magic mirror that brings your wardrobe to life.
           </p>
         </div>
         <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6 px-1 sm:px-4">
