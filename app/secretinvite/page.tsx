@@ -64,17 +64,17 @@ export default function Page() {
   // Add error boundary
   try {
     return (
-      <div className="min-h-screen bg-white p-8">
+      <div className="min-h-screen bg-white p-4">
         <div className="max-w-[1200px] mx-auto">
           {/* ETTO Logo */}
-          <div className="text-[#494684] text-[32px] font-raptor mb-12">
+          <div className="text-[#494684] text-[28px] font-raptor mb-4">
             ETTO.
           </div>
           
           {/* Main Content */}
           <div className={`${cutiveMono.className} flex flex-col items-center`}>
             {/* Image Container */}
-            <div className="w-full max-w-[500px] mb-8">
+            <div className="w-full max-w-[425px] mb-8">
               <Image
                 src="/invitation.jpg"
                 alt="Fashion x Technology Event"
