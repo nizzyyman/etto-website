@@ -31,7 +31,10 @@ export default function Page() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            test: 'data',
+            name,
+            email,
+            response: 'Yes',
+            timestamp: new Date().toISOString(),
           }),
         }
       );
@@ -98,7 +101,7 @@ export default function Page() {
                 </div>
               ) : submitStatus === 'error' ? (
                 <div className="p-4 bg-red-50 text-red-800 mb-4 rounded">
-                  There was an error submitting your RSVP. Please try again or call the number above.
+                  There was an error submitting your RSVP. Please try again or text the number above.
                 </div>
               ) : null}
               
