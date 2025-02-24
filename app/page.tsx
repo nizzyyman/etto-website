@@ -20,7 +20,6 @@ const LandingPage = () => {
           </h1>
           <p className="max-w-sm sm:max-w-md md:max-w-lg text-xs sm:text-sm md:text-base">
             Etto is the magic mirror for your personal style - aligning and refining your wardrobe to bring you closer to yourself.
-            
           </p>
         </div>
         <div className="w-full overflow-hidden pb-4 sm:pb-6 md:pb-6 px-1 sm:px-4">

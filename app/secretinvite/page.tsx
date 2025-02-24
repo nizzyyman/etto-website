@@ -88,7 +88,7 @@ export default function Page() {
         </div>
       </div>
     );
-  } catch (error) {
+  } catch {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
