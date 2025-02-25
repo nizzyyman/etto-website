@@ -22,7 +22,13 @@ export default function Page() {
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
     
     try {
-      // Submit to Google Sheets via Google Apps Script Web App
+      console.log('Sending request with data:', {
+        name,
+        email,
+        response: 'Yes',
+        timestamp: new Date().toISOString(),
+      });
+
       const response = await fetch(
         'https://script.google.com/macros/s/AKfycby-sOe9XQSSq20fi96WCH1SJMbIr5cNAYI5Q5fxmKZr4P0aeFwzSYdjEmInKzABeyJT6A/exec',
         {
@@ -30,6 +36,7 @@ export default function Page() {
           headers: {
             'Content-Type': 'application/json',
           },
+          mode: 'cors',
           body: JSON.stringify({
             name,
             email,
@@ -38,26 +45,22 @@ export default function Page() {
           }),
         }
       );
-      
+
       const responseData = await response.json();
-      console.log('Response:', responseData);
+      console.log('Response from server:', responseData);
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      console.log('RSVP Submitted:', { name, email, response: 'Yes' });
+
       setSubmitStatus('success');
-      
-      // Reset form
       form.reset();
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error('Detailed submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
       
-      // Reset status after showing message
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 5000);
