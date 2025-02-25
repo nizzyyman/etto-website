@@ -1,6 +1,7 @@
 import localFont from 'next/font/local'
 import type { Metadata } from "next";
 import "./globals.css";
+import Head from 'next/head';
 
 const raptorV2 = localFont({
   src: './fonts/Raptor V2 Premium Semibold.ttf',
@@ -43,6 +44,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${raptorV2.variable} ${abcdiatype.variable}`}>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
