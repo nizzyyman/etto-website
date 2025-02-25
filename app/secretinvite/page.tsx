@@ -39,13 +39,13 @@ export default function Page() {
         }
       );
       
-      console.log('Submitting:', {
-        name,
-        email,
-        response: 'Yes',
-        timestamp: new Date().toISOString(),
-      });
+      const responseData = await response.json();
+      console.log('Response:', responseData);
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       console.log('RSVP Submitted:', { name, email, response: 'Yes' });
       setSubmitStatus('success');
       
