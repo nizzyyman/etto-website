@@ -22,39 +22,32 @@ export default function Page() {
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
     
     try {
-      console.log('Sending request with data:', {
+      const data = {
         name,
         email,
         response: 'Yes',
         timestamp: new Date().toISOString(),
-      });
+      };
+      
+      console.log('Sending request with data:', data);
 
+      // Try using no-cors mode first
       const response = await fetch(
-        'https://script.google.com/macros/s/AKfycbxTU9LKQ8mpzRd1ltM1M0SeJHaKKeqXGLbPyb9JsgsOiatuhQplxcYSbnT_aXIu1ZYGtA/exec',
+        'https://script.google.com/macros/s/AKfycbwQXAxuDEtmPAL1kr5WdnRufZvraUHTfTk7wwhXYFyQVRDBVyqxAKIQYjdPik9mTU6JVw/exec',
         {
           method: 'POST',
+          mode: 'no-cors', // Change this to no-cors
           headers: {
             'Content-Type': 'application/json',
           },
-          mode: 'cors',
-          body: JSON.stringify({
-            name,
-            email,
-            response: 'Yes',
-            timestamp: new Date().toISOString(),
-          }),
+          body: JSON.stringify(data),
         }
       );
 
-      const responseData = await response.json();
-      console.log('Response from server:', responseData);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
+      console.log('Response status:', response.status);
       setSubmitStatus('success');
       form.reset();
+      
     } catch (error) {
       console.error('Detailed submission error:', error);
       setSubmitStatus('error');
