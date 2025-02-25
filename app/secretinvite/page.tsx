@@ -4,11 +4,16 @@ import { FormEvent, useState } from 'react';
 import Image from 'next/image';
 import { Cutive_Mono } from 'next/font/google';
 import Head from 'next/head';
+import type { Metadata } from 'next'
 
 const cutiveMono = Cutive_Mono({
   weight: '400',
   subsets: ['latin'],
 });
+
+export const metadata: Metadata = {
+  title: "ETTO Secret Invite"
+}
 
 export default function SecretInvitePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
