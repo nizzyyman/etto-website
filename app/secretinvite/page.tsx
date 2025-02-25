@@ -30,7 +30,7 @@ export default function Page() {
       });
 
       const response = await fetch(
-        'https://script.google.com/macros/s/AKfycby-sOe9XQSSq20fi96WCH1SJMbIr5cNAYI5Q5fxmKZr4P0aeFwzSYdjEmInKzABeyJT6A/exec',
+        'https://script.google.com/macros/s/AKfycbxTU9LKQ8mpzRd1ltM1M0SeJHaKKeqXGLbPyb9JsgsOiatuhQplxcYSbnT_aXIu1ZYGtA/exec',
         {
           method: 'POST',
           headers: {
