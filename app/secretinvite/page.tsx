@@ -56,8 +56,9 @@ export default function SecretInvitePage() {
         const loopsFormData = new URLSearchParams();
         loopsFormData.append('email', email);
         loopsFormData.append('firstName', name);
+        loopsFormData.append('userGroup', 'Etto Event');
         
-        console.log('Sending to Loops with data:', { email, firstName: name });
+        console.log('Sending to Loops with data:', { email, firstName: name, userGroup: 'Etto Event' });
         
         const loopsResponse = await fetch('https://app.loops.so/api/newsletter-form/cm1toonmr00c2yqwb5530z2a0', {
           method: 'POST',
