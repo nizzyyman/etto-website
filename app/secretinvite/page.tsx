@@ -20,36 +20,72 @@ export default function SecretInvitePage() {
     const form = e.target as HTMLFormElement;
     const name = (form.elements.namedItem('name') as HTMLInputElement).value;
     const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+    const timestamp = new Date().toISOString();
     
     try {
-      const data = {
+      // Create the data objects for both submissions
+      const userData = {
         name,
         email,
         response: 'Yes',
-        timestamp: new Date().toISOString(),
+        timestamp
       };
       
-      console.log('Sending request with data:', data);
-
-      // Try using no-cors mode first
-      const response = await fetch(
-        'https://script.google.com/macros/s/AKfycbwQXAxuDEtmPAL1kr5WdnRufZvraUHTfTk7wwhXYFyQVRDBVyqxAKIQYjdPik9mTU6JVw/exec',
-        {
+      // Send to Google Apps Script first
+      try {
+        await fetch(
+          'https://script.google.com/macros/s/AKfycbwQXAxuDEtmPAL1kr5WdnRufZvraUHTfTk7wwhXYFyQVRDBVyqxAKIQYjdPik9mTU6JVw/exec',
+          {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+          }
+        );
+        console.log('Google Apps Script submission attempted');
+      } catch (error) {
+        console.log('Google Apps Script submission error (continuing):', error);
+        // Continue even if Google Script fails
+      }
+      
+      // Then try the Loops submission using their public form endpoint format
+      try {
+        // Follow exactly how browser forms submit to Loops
+        const loopsFormData = new URLSearchParams();
+        loopsFormData.append('email', email);
+        loopsFormData.append('firstName', name);
+        
+        console.log('Sending to Loops with data:', { email, firstName: name });
+        
+        const loopsResponse = await fetch('https://app.loops.so/api/newsletter-form/cm1toonmr00c2yqwb5530z2a0', {
           method: 'POST',
-          mode: 'no-cors', // Change this to no-cors
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: JSON.stringify(data),
+          body: loopsFormData.toString(),
+        });
+        
+        const loopsResult = await loopsResponse.json().catch(() => null);
+        console.log('Loops response status:', loopsResponse.status);
+        console.log('Loops response body:', loopsResult);
+        
+        if (!loopsResponse.ok) {
+          console.error('Loops API error:', loopsResult);
+          // Continue even if Loops submission has an error
         }
-      );
-
-      console.log('Response status:', response.status);
+      } catch (loopsError) {
+        console.error('Loops submission error (continuing):', loopsError);
+        // Continue even if Loops fails
+      }
+      
+      // Consider the submission successful regardless of API responses
+      // Since we're using no-cors mode for Google Script and Loops might fail but we still want to show success
       setSubmitStatus('success');
       form.reset();
-      
     } catch (error) {
-      console.error('Detailed submission error:', error);
+      console.error('Overall form submission error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
