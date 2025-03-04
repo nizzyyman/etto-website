@@ -166,7 +166,7 @@ export default function SecretInvitePage() {
                             disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Yes, I\'m coming!'}
+                    {isSubmitting ? 'Submitting...' : 'RSVP <3'}
                   </button>
                 </form>
               </div>
