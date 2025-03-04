@@ -7,7 +7,7 @@ const LandingPage = () => {
       <header className="flex justify-between p-4 sm:p-5">
         <div className="font-raptor text-2xl text-[#514F8C]">ETTO</div>
         <a 
-          href="https://signup.etto.ai/" 
+          href="https://tally.so/r/w8857x" 
           className="cursor-pointer hover:text-[#514F8C] hover:underline transition-all duration-300"
         >
           SIGN UP
