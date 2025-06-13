@@ -1,5 +1,5 @@
 import localFont from 'next/font/local'
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from 'next'
 import "./globals.css";
 import Head from 'next/head';
 
@@ -31,17 +31,22 @@ const abcdiatype = localFont({
   variable: '--font-abcdiatype',
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+}
+
 export const metadata: Metadata = {
-  title: "ETTO - The Wardrobe That Speaks To You",
-  description: "ETTO is an innovative wardrobe solution that understands your style.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
-};
+  title: 'Etto - The Wardrobe That Speaks To You',
+  description: 'Etto uses AI to surface patterns in how you dress and feel. Stylists bring the insight that helps you evolve.',
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en" className={`${raptorV2.variable} ${abcdiatype.variable}`}>
       <Head>
