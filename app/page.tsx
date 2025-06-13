@@ -55,7 +55,7 @@ const LandingPage = () => {
 
       {/* White Section Below */}
       <section className="bg-white text-black py-12 sm:py-16">
-        <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4 px-4 sm:px-6 md:px-8">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4 px-4 sm:px-6 md:px-8">
           
           {/* Left Side - Text Content */}
           <div className="flex-1 text-left">
