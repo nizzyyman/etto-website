@@ -50,13 +50,6 @@ const LandingPage = () => {
               </h1>
             </div>
           </main>
-
-          {/* Footer */}
-          <footer className="px-4 sm:px-6 md:px-8 pb-4">
-            <div className="flex justify-between items-center text-xs sm:text-sm">
-              <span>© 2025 Etto</span>
-            </div>
-          </footer>
         </div>
       </section>
 
@@ -82,9 +75,15 @@ const LandingPage = () => {
               JOIN WAITLIST
             </a>
           </div>
-          
         </div>
       </section>
+
+      {/* Footer */}
+      <footer className="bg-white text-black px-4 sm:px-6 md:px-8 pb-4">
+        <div className="flex justify-between items-center text-xs sm:text-sm">
+          <span>© 2025 Etto Systems Inc.</span>
+        </div>
+      </footer>
     </div>
   );
 };
