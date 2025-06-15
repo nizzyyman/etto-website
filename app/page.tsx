@@ -62,7 +62,7 @@ const LandingPage = () => {
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
               Etto uses AI to surface patterns in how you dress and feel.
               <br />
-              Stylists bring the insight that helps you evolve.
+              Stylists bring the insight that takes you further.
             </h2>
           </div>
           
