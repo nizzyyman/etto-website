@@ -60,9 +60,9 @@ const LandingPage = () => {
           {/* Left Side - Text Content */}
           <div className="flex-1 text-left">
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
-              Etto uses AI to surface patterns in how you dress and feel.
+              Etto is a gateway to the world's most influential stylists and tastemakers who define what we see and how we feel about it.
               <br />
-              Stylists bring the insight that takes you further.
+              Access the creative minds shaping culture, instantly.
             </h2>
           </div>
           
