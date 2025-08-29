@@ -31,11 +31,10 @@ const stylists: Record<string, Stylist> = {
     workDetails: "After getting her start assisting the editors of Vogue Paris, and later learning about the systemic labor rights and environmental issues in the fashion industry, Robyn went on to develop her sustainably-minded styling practice. Today she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious. Looks where the clothes compliment the wearer.",
     worldDescription: "You'll resonate with Robyn if you resonate with that which inspires her",
-    profilePhoto: '/robyn-profile.jpg', // Add actual image path
-    workPhotos: ['/robyn-work-1.jpg', '/robyn-work-2.jpg', '/robyn-work-3.jpg', '/robyn-work-4.jpg'], // Add actual image paths
-    inspirationPhotos: ['/robyn-inspo-1.jpg', '/robyn-inspo-2.jpg', '/robyn-inspo-3.jpg', '/robyn-inspo-4.jpg'] // Add actual image paths
+    profilePhoto: '/robyn-profile.jpg',
+    workPhotos: ['/robyn-work-1.jpg', '/robyn-work-2.jpg', '/robyn-work-3.jpg', '/robyn-work-4.jpg'],
+    inspirationPhotos: ['/robyn-inspo-1.jpg', '/robyn-inspo-2.jpg', '/robyn-inspo-3.jpg', '/robyn-inspo-4.jpg']
   },
-  // Add more stylists here as needed
   'sarah': {
     slug: 'sarah',
     name: 'SARAH CHEN',
@@ -67,16 +66,9 @@ const StylistPage = ({ params }: PageProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#2c2c2c] text-white p-5">
-      {/* Window Bar */}
-      <div className="bg-[#4a4a4a] px-4 py-2 text-sm text-[#ccc] mb-0 rounded-t-lg flex justify-between items-center">
-        <span>MacBook Air - 1</span>
-        <span className="text-[#00ff88] text-base">&lt;/&gt;</span>
-      </div>
-      
-      {/* Main Container */}
-      <div className="max-w-[1400px] mx-auto bg-white rounded-b-lg overflow-hidden min-h-[800px]">
-        <div className="grid grid-cols-[300px_1fr_400px] gap-10 p-10 text-[#333]">
+    <div className="min-h-screen bg-white">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_400px] gap-10 p-10 text-[#333]">
           
           {/* Column 1: Profile */}
           <div className="flex flex-col gap-5">
@@ -181,23 +173,8 @@ const StylistPage = ({ params }: PageProps) => {
               </div>
             </div>
           </div>
-
         </div>
       </div>
-
-      {/* Responsive Design for smaller screens */}
-      <style jsx>{`
-        @media (max-width: 1200px) {
-          .grid {
-            grid-template-columns: 1fr;
-            gap: 8;
-          }
-          
-          .photos-column {
-            grid-column: 1 / -1;
-          }
-        }
-      `}</style>
     </div>
   );
 };
