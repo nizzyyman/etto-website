@@ -71,43 +71,49 @@ const StylistPage = ({ params }: PageProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_400px] gap-10 p-10 text-[#333]">
           
           {/* Column 1: Profile */}
-          <div className="flex flex-col gap-5">
-            <div className="profile-header">
-              <h1 className="text-[28px] font-light text-[#4a90e2] mb-2.5 tracking-wider">
-                {stylist.name}
-              </h1>
-              <div className="flex flex-col gap-1.5 mb-5">
-                <div className="text-[13px] text-[#666] flex items-center">
-                  <span className="mr-2">📍</span>
-                  {stylist.location}
+          <div className="flex flex-col">
+            {/* Block 1: Header + Bio */}
+            <div className="mb-10">
+              <div className="profile-header">
+                <h1 className="text-[28px] font-light text-[#4a90e2] mb-2.5 tracking-wider">
+                  {stylist.name}
+                </h1>
+                <div className="flex flex-col gap-1.5 mb-5">
+                  <div className="text-[13px] text-[#666] flex items-center">
+                    <span className="mr-2">📍</span>
+                    {stylist.location}
+                  </div>
+                  <div className="text-[13px] text-[#666] flex items-center">
+                    <span className="mr-2">👥</span>
+                    styled {stylist.clientsStyled} clients
+                  </div>
                 </div>
-                <div className="text-[13px] text-[#666] flex items-center">
-                  <span className="mr-2">👥</span>
-                  styled {stylist.clientsStyled} clients
-                </div>
+              </div>
+              
+              <div className="text-[13px] text-[#333] leading-relaxed">
+                {stylist.bio}
               </div>
             </div>
             
-            <div className="text-[13px] text-[#333] leading-relaxed mb-8">
-              {stylist.bio}
-            </div>
-            
-            <div className="w-full h-[350px] bg-gradient-to-br from-[#ff0066] to-[#6600ff] rounded-lg mb-8 relative overflow-hidden">
-              {/* Profile photo - replace with actual image */}
-              <div className="w-full h-full flex items-center justify-center text-white">
-                <div className="text-center">
-                  <div className="text-6xl mb-2">📸</div>
-                  <p className="text-sm">{stylist.name.split(' ')[0]}'s Photo</p>
+            {/* Block 2: Photo + Button */}
+            <div className="flex flex-col gap-5">
+              <div className="w-full h-[350px] bg-gradient-to-br from-[#ff0066] to-[#6600ff] rounded-lg relative overflow-hidden">
+                {/* Profile photo - replace with actual image */}
+                <div className="w-full h-full flex items-center justify-center text-white">
+                  <div className="text-center">
+                    <div className="text-6xl mb-2">📸</div>
+                    <p className="text-sm">{stylist.name.split(' ')[0]}'s Photo</p>
+                  </div>
                 </div>
               </div>
+              
+              <a 
+                href="#booking" 
+                className="bg-[#e0e0e0] text-[#4a90e2] py-3 px-5 text-center rounded-md no-underline text-[13px] font-medium transition-colors duration-300 hover:bg-[#d0d0d0]"
+              >
+                BOOK {stylist.name.split(' ')[0].toUpperCase()}
+              </a>
             </div>
-            
-            <a 
-              href="#booking" 
-              className="bg-[#e0e0e0] text-[#4a90e2] py-3 px-5 text-center rounded-md no-underline text-[13px] font-medium transition-colors duration-300 hover:bg-[#d0d0d0]"
-            >
-              BOOK {stylist.name.split(' ')[0].toUpperCase()}
-            </a>
           </div>
 
           {/* Column 2: Content */}
@@ -134,8 +140,9 @@ const StylistPage = ({ params }: PageProps) => {
           </div>
 
           {/* Column 3: Photos */}
-          <div className="flex flex-col gap-8">
-            <div className="work-photos">
+          <div className="flex flex-col">
+            {/* Block 1: Work Photos */}
+            <div className="mb-10">
               <div className="grid grid-cols-4 gap-2.5">
                 {stylist.workPhotos.map((photo, index) => (
                   <div 
@@ -154,8 +161,9 @@ const StylistPage = ({ params }: PageProps) => {
               </div>
             </div>
 
-            <div className="inspiration-photos">
-              <div className="grid grid-cols-4 gap-2.5 mt-4">
+            {/* Block 2: Inspiration Photos */}
+            <div>
+              <div className="grid grid-cols-4 gap-2.5">
                 {stylist.inspirationPhotos.map((photo, index) => (
                   <div 
                     key={index} 
