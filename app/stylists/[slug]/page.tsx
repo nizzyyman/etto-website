@@ -138,7 +138,7 @@ const StylistPage = ({ params }: PageProps) => {
                     target.style.display = 'none';
                     const parent = target.parentElement;
                     if (parent) {
-                      parent.className = 'w-full aspect-[3/4] bg-gradient-to-br from-[#1AB1ED] to-[#0066ff] rounded-lg relative overflow-hidden flex items-center justify-center';
+                      parent.className = 'w-full aspect-[3/4] bg-gradient-to-br from-[#1AB1ED] to-[#0066ff] relative overflow-hidden flex items-center justify-center';
                       parent.innerHTML = `
                         <div class="text-center text-white">
                           <div class="text-6xl mb-2">📸</div>
@@ -212,7 +212,7 @@ const StylistPage = ({ params }: PageProps) => {
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     const placeholder = document.createElement('div');
-                    placeholder.className = 'w-full h-[300px] bg-gray-100 rounded-lg flex items-center justify-center mb-4';
+                    placeholder.className = 'w-full h-[300px] bg-gray-100 flex items-center justify-center mb-4';
                     placeholder.innerHTML = `
                       <div style="text-align: center; color: #999;">
                         <div style="font-size: 2rem; margin-bottom: 0.5rem;">${index < stylist.workPhotos.length ? '👗' : '✨'}</div>
