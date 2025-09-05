@@ -26,7 +26,7 @@ const stylists: Record<string, Stylist> = {
     name: 'ROBYN DAVIES',
     location: 'in Brooklyn, New York',
     clientsStyled: 130,
-    bio: "Featured in Vogue, Elle, & Harper's Bazaar. Clients include Tony-award winning actor, New York Times-featured artist, Vogue-featured communications agency co-founder, former editor-in-chief of Nylon Magazine, and more.",
+    bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
     workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light.",
     workDetails: "After getting her start assisting the editors of Vogue Paris, and later learning about the systemic labor rights and environmental issues in the fashion industry, Robyn went on to develop her sustainably-minded styling practice. Today she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious. Looks where the clothes compliment the wearer.",
@@ -73,7 +73,7 @@ const StylistPage = ({ params }: PageProps) => {
             <img 
               src="/etto-type-black.png" 
               alt="Etto" 
-              className="h-7"
+              className="h-4"
             />
           </a>
         </div>
@@ -96,11 +96,11 @@ const StylistPage = ({ params }: PageProps) => {
       {/* Main Content Container */}
       <div className="max-w-[1440px] mx-auto px-10 flex gap-12">
         
-        {/* LEFT SIDE: 40% width with full-width title and 2-column content */}
-        <div className="w-[40%] flex flex-col">
+        {/* LEFT SIDE: 50% width with full-width title and 2-column content */}
+        <div className="w-[50%] flex flex-col">
           
           {/* Full-width Title spanning entire left section */}
-          <h1 className="text-[60px] font-medium text-[#1AB1ED] leading-none mb-8">
+          <h1 className="text-[85px] font-medium text-[#1AB1ED] leading-none mb-8">
             {stylist.name}
           </h1>
           
@@ -128,7 +128,7 @@ const StylistPage = ({ params }: PageProps) => {
               </div>
 
               {/* Profile Photo */}
-              <div className="w-full aspect-[3/4] rounded-lg relative overflow-hidden mb-6">
+              <div className="w-full aspect-[3/4] relative overflow-hidden mb-6">
                 <img 
                   src={stylist.profilePhoto} 
                   alt={`${stylist.name} profile photo`}
@@ -191,13 +191,13 @@ const StylistPage = ({ params }: PageProps) => {
           </div>
         </div>
 
-        {/* RIGHT SIDE: Masonry Photo Grid - 60% width */}
-        <div className="flex-1">
+        {/* RIGHT SIDE: Masonry Photo Grid - 50% width */}
+        <div className="w-[50%]">
           <div 
             className="masonry-container"
             style={{ 
               columns: '2',
-              columnGap: '1rem'
+              columnGap: '0.5rem'
             }}
           >
             {allPhotos.map((photo, index) => (
@@ -208,7 +208,7 @@ const StylistPage = ({ params }: PageProps) => {
                 <img 
                   src={photo} 
                   alt={`${stylist.name} photo ${index + 1}`}
-                  className="w-full rounded-lg"
+                  className="w-full"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     const placeholder = document.createElement('div');
