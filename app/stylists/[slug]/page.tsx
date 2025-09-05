@@ -36,7 +36,7 @@ const stylists: Record<string, Stylist> = {
       '/Robyn Work/1_Susanna Moyer.jpg',
       '/Robyn Work/2_Rosalee Lewis.jpg',
       '/Robyn Work/3_Hilliary Bianca Salamanca.jpg',
-      '/Robyn Work/4_Colette Johnson.jpg'
+      '/Robyn Work/5_Alyssa Vingan.jpg'
     ],
     inspirationPhotos: [
       '/Robyn Inspiration/1_Elle-September 2019.jpg',
