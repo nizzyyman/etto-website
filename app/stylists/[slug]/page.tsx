@@ -129,7 +129,7 @@ const StylistPage = ({ params }: PageProps) => {
               {/* Book Button */}
               <a 
                 href="#booking" 
-                className="w-full h-[65px] bg-[#D9D9D9] text-[#1AB1ED] text-[23px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
+                className="w-full h-[65px] bg-[#D9D9D9] text-[#1AB1ED] text-[20px] font-bold flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
               >
                 BOOK {stylist.name.split(' ')[0].toUpperCase()}
               </a>
