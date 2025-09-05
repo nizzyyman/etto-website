@@ -195,33 +195,38 @@ const StylistPage = ({ params }: PageProps) => {
           <div 
             className="masonry-container"
             style={{ 
-              columns: '2',
+              columns: '300px',
               columnGap: '0.5rem'
             }}
           >
             {allPhotos.map((photo, index) => (
-              <div 
+              <img 
                 key={index}
-                className="break-inside-avoid mb-4"
-              >
-                <img 
-                  src={photo} 
-                  alt={`${stylist.name} photo ${index + 1}`}
-                  className="w-full"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    const placeholder = document.createElement('div');
-                    placeholder.className = 'w-full h-[300px] bg-gray-100 flex items-center justify-center mb-4';
-                    placeholder.innerHTML = `
-                      <div style="text-align: center; color: #999;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">${index < stylist.workPhotos.length ? '👗' : '✨'}</div>
-                        <p style="font-size: 0.75rem;">${index < stylist.workPhotos.length ? 'Work' : 'Inspiration'} ${index + 1}</p>
-                      </div>
-                    `;
-                    target.parentNode?.replaceChild(placeholder, target);
-                  }}
-                />
-              </div>
+                src={photo} 
+                alt={`${stylist.name} photo ${index + 1}`}
+                style={{
+                  width: '100%',
+                  marginBottom: '0.5rem'
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  const placeholder = document.createElement('div');
+                  placeholder.style.width = '100%';
+                  placeholder.style.height = '300px';
+                  placeholder.style.marginBottom = '0.5rem';
+                  placeholder.style.backgroundColor = '#f5f5f5';
+                  placeholder.style.display = 'flex';
+                  placeholder.style.alignItems = 'center';
+                  placeholder.style.justifyContent = 'center';
+                  placeholder.innerHTML = `
+                    <div style="text-align: center; color: #999;">
+                      <div style="font-size: 2rem; margin-bottom: 0.5rem;">${index < stylist.workPhotos.length ? '👗' : '✨'}</div>
+                      <p style="font-size: 0.75rem;">${index < stylist.workPhotos.length ? 'Work' : 'Inspiration'} ${index + 1}</p>
+                    </div>
+                  `;
+                  target.parentNode?.replaceChild(placeholder, target);
+                }}
+              />
             ))}
           </div>
         </div>
