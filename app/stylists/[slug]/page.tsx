@@ -126,8 +126,16 @@ const StylistPage = ({ params }: PageProps) => {
                 {stylist.bio}
               </div>
 
+              {/* Book Button */}
+              <a 
+                href="#booking" 
+                className="w-full h-[75px] bg-[#D9D9D9] text-[#1AB1ED] text-[23px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
+              >
+                BOOK {stylist.name.split(' ')[0].toUpperCase()}
+              </a>
+
               {/* Profile Photo */}
-              <div className="w-full aspect-[3/4] relative overflow-hidden mb-6">
+              <div className="w-full aspect-[3/4] relative overflow-hidden">
                 <img 
                   src={stylist.profilePhoto} 
                   alt={`${stylist.name} profile photo`}
@@ -148,18 +156,10 @@ const StylistPage = ({ params }: PageProps) => {
                   }}
                 />
               </div>
-
-              {/* Book Button */}
-              <a 
-                href="#booking" 
-                className="w-full h-[75px] bg-[#D9D9D9] text-[#1AB1ED] text-[23px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors"
-              >
-                BOOK {stylist.name.split(' ')[0].toUpperCase()}
-              </a>
             </div>
 
             {/* Right Column: Work & World Info */}
-            <div className="flex flex-col pt-12">
+            <div className="flex flex-col pt-2">
               
               {/* Work Section */}
               <div className="mb-8">
