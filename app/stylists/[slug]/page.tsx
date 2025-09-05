@@ -30,7 +30,7 @@ const stylists: Record<string, Stylist> = {
     workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light.",
     workDetails: "After getting her start assisting the editors of Vogue Paris, and later learning about the systemic labor rights and environmental issues in the fashion industry, Robyn went on to develop her sustainably-minded styling practice. Today she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious. Looks where the clothes compliment the wearer.",
-    worldDescription: "You'll resonate with Robyn if you resonate with that which inspires her",
+    worldDescription: "You’ll resonate with Robyn if you resonate with vintage Ralph Lauren, statement outerwear, and sustainability.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
     workPhotos: [
       '/Robyn Work/1_Susanna Moyer.jpg',
