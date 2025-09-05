@@ -100,7 +100,7 @@ const StylistPage = ({ params }: PageProps) => {
         <div className="w-[50%] flex flex-col">
           
           {/* Full-width Title spanning entire left section */}
-          <h1 className="text-[85px] font-medium text-[#1AB1ED] leading-none mb-8">
+          <h1 className="text-[85px] font-medium text-[#1AB1ED] leading-none mb-1">
             {stylist.name}
           </h1>
           
@@ -112,11 +112,11 @@ const StylistPage = ({ params }: PageProps) => {
               
               {/* Location & Stats */}
               <div className="mb-4">
-                <div className="flex items-start gap-2 body-text mb-2">
+                <div className="flex items-start gap-2 body-text">
                   <span className="mt-1">📍</span>
                   <span className="font-medium">{stylist.location}</span>
                 </div>
-                <div className="flex items-start gap-2 body-text mb-4">
+                <div className="flex items-start gap-2 body-text mb-2">
                   <span className="mt-1">👥</span>
                   <span className="font-medium">styled {stylist.clientsStyled} clients</span>
                 </div>
