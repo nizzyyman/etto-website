@@ -28,8 +28,8 @@ const stylists: Record<string, Stylist> = {
     clientsStyled: 130,
     bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
     workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light.",
-    workDetails: "After getting her start assisting the editors of Vogue Paris, and later learning about the systemic labor rights and environmental issues in the fashion industry, Robyn went on to develop her sustainably-minded styling practice. Today she styles individuals who value cultivating their personal taste over chasing trends.",
-    quote: "I gravitate towards textured, lived in looks. Considered, but not too precious. Looks where the clothes compliment the wearer.",
+    workDetails: "She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
+    quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
     worldDescription: "You’ll resonate with Robyn if you resonate with vintage Ralph Lauren, statement outerwear, and sustainability.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
     workPhotos: [
@@ -79,13 +79,8 @@ const StylistPage = ({ params }: PageProps) => {
         </div>
         <nav className="flex gap-16">
           <a 
-            href="/"
-            className="text-[#1E0E62] text-base font-medium hover:opacity-70 transition-opacity"
-          >
-          </a>
-          <a 
             href="#booking"
-            className="text-[#1E0E62] text-base font-medium hover:opacity-70 transition-opacity"
+            className="text-[#000000] text-base font-medium hover:opacity-70 transition-opacity"
           >
             BOOK ROBYN
           </a>
@@ -231,6 +226,9 @@ const StylistPage = ({ params }: PageProps) => {
           </div>
         </div>
       </div>
+
+      {/* Footer spacing */}
+      <div className="h-24"></div>
     </div>
   );
 };
