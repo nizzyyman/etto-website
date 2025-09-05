@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { notFound } from 'next/navigation';
+import Head from 'next/head';
 
 // Define the stylist data structure
 interface Stylist {
@@ -65,7 +66,27 @@ const StylistPage = ({ params }: PageProps) => {
   const allPhotos = [...stylist.workPhotos, ...stylist.inspirationPhotos];
 
   return (
-    <div className="min-h-screen bg-white">
+    <>
+      <Head>
+        <title>Book a Stylist - {stylist.name}</title>
+        <meta name="description" content={`Book a Stylist - ${stylist.name}`} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://etto.ai/stylists/${stylist.slug}`} />
+        <meta property="og:title" content={`Book a Stylist - ${stylist.name}`} />
+        <meta property="og:description" content={`Book a Stylist - ${stylist.name}`} />
+        <meta property="og:image" content={`https://etto.ai${stylist.profilePhoto}`} />
+        
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={`https://etto.ai/stylists/${stylist.slug}`} />
+        <meta property="twitter:title" content={`Book a Stylist - ${stylist.name}`} />
+        <meta property="twitter:description" content={`Book a Stylist - ${stylist.name}`} />
+        <meta property="twitter:image" content={`https://etto.ai${stylist.profilePhoto}`} />
+      </Head>
+      
+      <div className="min-h-screen bg-white">
       {/* Header Navigation - matching your design */}
       <header className="h-[100px] flex justify-between items-center px-12 bg-white">
         <div className="font-raptor">
@@ -229,7 +250,8 @@ const StylistPage = ({ params }: PageProps) => {
 
       {/* Footer spacing */}
       <div className="h-24"></div>
-    </div>
+      </div>
+    </>
   );
 };
 
