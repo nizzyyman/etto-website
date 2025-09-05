@@ -82,7 +82,6 @@ const StylistPage = ({ params }: PageProps) => {
             href="/"
             className="text-[#1E0E62] text-base font-medium hover:opacity-70 transition-opacity"
           >
-            HOME
           </a>
           <a 
             href="#booking"
