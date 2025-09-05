@@ -112,11 +112,11 @@ const StylistPage = ({ params }: PageProps) => {
               {/* Location & Stats */}
               <div className="mb-4">
                 <div className="flex items-start gap-2 body-text">
-                  <span className="mt-1">📍</span>
+                  <img src="/map-pin.svg" alt="Location" className="w-4 h-4 mt-0.5" />
                   <span className="font-medium">{stylist.location}</span>
                 </div>
                 <div className="flex items-start gap-2 body-text mb-2">
-                  <span className="mt-1">👥</span>
+                  <img src="/user-badge-check.svg" alt="Clients" className="w-4 h-4 mt-0.5" />
                   <span className="font-medium">styled {stylist.clientsStyled} clients</span>
                 </div>
               </div>
@@ -129,7 +129,7 @@ const StylistPage = ({ params }: PageProps) => {
               {/* Book Button */}
               <a 
                 href="#booking" 
-                className="w-full h-[65px] bg-[#D9D9D9] text-[#1AB1ED] text-[20px] font-bold flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
+                className="w-full h-[65px] bg-[#D9D9D9] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
               >
                 BOOK {stylist.name.split(' ')[0].toUpperCase()}
               </a>
