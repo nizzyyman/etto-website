@@ -103,44 +103,92 @@ const StylistPage = ({ params }: PageProps) => {
       </Head>
       
       <div className="min-h-screen bg-white">
-      {/* Header Navigation - matching your design */}
-      <header className="h-[100px] flex justify-between items-center px-12 bg-white">
+      {/* Header Navigation */}
+      <header className="h-[100px] flex justify-between items-center px-6 md:px-12 bg-white">
         <div className="font-raptor">
           <a href="/">
-            <img 
-              src="/etto-type-black.png" 
-              alt="Etto" 
+            <img
+              src="/etto-type-black.png"
+              alt="Etto"
               className="h-5"
             />
           </a>
         </div>
         <nav className="flex gap-16">
-          <a 
+          <a
             href="#booking"
             className="text-[#000000] text-base font-medium hover:opacity-70 transition-opacity"
           >
-            BOOK ROBYN
+            BOOK {stylist.name.split(' ')[0].toUpperCase()}
           </a>
         </nav>
       </header>
 
       {/* Main Content Container */}
-      <div className="max-w-[1440px] mx-auto px-10 flex gap-12">
-        
-        {/* LEFT SIDE: 50% width with full-width title and 2-column content */}
-        <div className="w-[50%] flex flex-col">
-          
-          {/* Full-width Title spanning entire left section */}
-          <h1 className="text-[85px] font-medium text-[#1AB1ED] leading-none mb-1">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-10 lg:flex lg:gap-12">
+
+        {/* LEFT SIDE: 50% width on desktop, full width on mobile */}
+        <div className="lg:w-[50%] flex flex-col">
+
+          {/* Stylist Name Header */}
+          <h1 className="text-[48px] md:text-[85px] font-medium text-[#1AB1ED] leading-none mb-4 md:mb-1">
             {stylist.name}
           </h1>
-          
-          {/* Two-column content grid below title */}
-          <div className="grid grid-cols-2 gap-8">
-            
-            {/* Left Column: Location, Bio, Profile Photo, Book Button */}
+
+          {/* Profile Photo - Mobile Only */}
+          <div className="w-full aspect-[3/4] relative overflow-hidden mb-6 lg:hidden">
+            <img
+              src={stylist.profilePhoto}
+              alt={`${stylist.name} profile photo`}
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const parent = target.parentElement;
+                if (parent) {
+                  parent.className = 'w-full aspect-[3/4] bg-gradient-to-br from-[#1AB1ED] to-[#0066ff] relative overflow-hidden flex items-center justify-center';
+                  parent.innerHTML = `
+                    <div class="text-center text-white">
+                      <div class="text-6xl mb-2">📸</div>
+                      <p class="text-sm">${stylist.name.split(' ')[0]}&apos;s Photo</p>
+                    </div>
+                  `;
+                }
+              }}
+            />
+          </div>
+
+          {/* Location & Stats - Mobile */}
+          <div className="mb-6 lg:hidden">
+            <div className="flex items-start gap-2 body-text mb-2">
+              <img src="/map-pin.svg" alt="Location" className="w-4 h-4 mt-0.5" />
+              <span className="font-medium">{stylist.location}</span>
+            </div>
+            <div className="flex items-start gap-2 body-text">
+              <img src="/user-badge-check.svg" alt="Clients" className="w-4 h-4 mt-0.5" />
+              <span className="font-medium">styled {stylist.clientsStyled} clients</span>
+            </div>
+          </div>
+
+          {/* Bio - Mobile */}
+          <div className="body-text mb-6 lg:hidden">
+            {stylist.bio}
+          </div>
+
+          {/* Book Button - Mobile */}
+          <a
+            href="#booking"
+            className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-8 lg:hidden"
+          >
+            BOOK {stylist.name.split(' ')[0].toUpperCase()}
+          </a>
+
+          {/* Desktop Two-column layout */}
+          <div className="hidden lg:grid lg:grid-cols-2 lg:gap-8">
+
+            {/* Left Column: Location, Bio, Profile Photo, Book Button - Desktop */}
             <div className="flex flex-col">
-              
+
               {/* Location & Stats */}
               <div className="mb-4">
                 <div className="flex items-start gap-2 body-text">
@@ -152,15 +200,15 @@ const StylistPage = ({ params }: PageProps) => {
                   <span className="font-medium">styled {stylist.clientsStyled} clients</span>
                 </div>
               </div>
-              
+
               {/* Bio */}
               <div className="body-text mb-4">
                 {stylist.bio}
               </div>
 
               {/* Book Button */}
-              <a 
-                href="#booking" 
+              <a
+                href="#booking"
                 className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
               >
                 BOOK {stylist.name.split(' ')[0].toUpperCase()}
@@ -168,8 +216,8 @@ const StylistPage = ({ params }: PageProps) => {
 
               {/* Profile Photo */}
               <div className="w-full aspect-[3/4] relative overflow-hidden">
-                <img 
-                  src={stylist.profilePhoto} 
+                <img
+                  src={stylist.profilePhoto}
                   alt={`${stylist.name} profile photo`}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -190,9 +238,9 @@ const StylistPage = ({ params }: PageProps) => {
               </div>
             </div>
 
-            {/* Right Column: Work & World Info */}
+            {/* Right Column: Work & World Info - Desktop */}
             <div className="flex flex-col pt-2">
-              
+
               {/* Work Section */}
               <div className="mb-8">
                 <h2 className="text-xl font-semibold text-[#333] mb-4">
@@ -223,10 +271,42 @@ const StylistPage = ({ params }: PageProps) => {
               </div>
             </div>
           </div>
+
+          {/* Work & World Sections - Mobile */}
+          <div className="lg:hidden">
+            {/* Work Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-[#333] mb-4">
+                {stylist.name.split(' ')[0].toUpperCase()}&apos;S WORK
+              </h2>
+              <div className="body-text mb-4">
+                {stylist.workDescription.split('\n').map((paragraph, index) => (
+                  <p key={index} className={index > 0 ? 'mt-4' : ''}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+              {stylist.quote && (
+                <p className="italic text-[#555] body-text">
+                  &ldquo;{stylist.quote}&rdquo;
+                </p>
+              )}
+            </div>
+
+            {/* World Section */}
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-[#333] mb-4">
+                {stylist.name.split(' ')[0].toUpperCase()}&apos;S WORLD
+              </h2>
+              <p className="body-text">
+                {stylist.worldDescription}
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* RIGHT SIDE: Masonry Photo Grid - 50% width */}
-        <div className="w-[50%]">
+        {/* RIGHT SIDE: Masonry Photo Grid */}
+        <div className="lg:w-[50%] mb-8 lg:mb-0">
           <div 
             className="masonry-container"
             style={{ 
@@ -265,6 +345,16 @@ const StylistPage = ({ params }: PageProps) => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Book Button - Mobile Bottom */}
+      <div className="px-6 md:px-10 lg:hidden mb-8">
+        <a
+          href="#booking"
+          className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors"
+        >
+          BOOK {stylist.name.split(' ')[0].toUpperCase()}
+        </a>
       </div>
 
       {/* Footer spacing */}
