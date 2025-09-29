@@ -12,7 +12,7 @@ interface Stylist {
   clientsStyled: number;
   bio: string;
   workDescription: string;
-  quote: string;
+  quote?: string;
   worldDescription: string;
   profilePhoto: string;
   workPhotos: string[];
@@ -51,7 +51,6 @@ const stylists: Record<string, Stylist> = {
     clientsStyled: 85,
     bio: "Featured in Vogue & W Magazine",
     workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
-    quote: "Style is about expressing who you are without saying a word.",
     worldDescription: "You'll resonate with Felicia if you're inspired by simplicity and sustainability.",
     profilePhoto: '/Felicia Profile Photo.jpg',
     workPhotos: [
@@ -206,9 +205,11 @@ const StylistPage = ({ params }: PageProps) => {
                     </p>
                   ))}
                 </div>
-                <p className="italic text-[#555] body-text">
-                  &ldquo;{stylist.quote}&rdquo;
-                </p>
+                {stylist.quote && (
+                  <p className="italic text-[#555] body-text">
+                    &ldquo;{stylist.quote}&rdquo;
+                  </p>
+                )}
               </div>
 
               {/* World Section */}
