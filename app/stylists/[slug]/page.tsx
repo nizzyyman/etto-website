@@ -48,10 +48,10 @@ const stylists: Record<string, Stylist> = {
   },
   'felicia': {
     slug: 'felicia',
-    name: 'FELICIA GARCIA',
-    location: 'in New York, New York',
+    name: 'FELICIA GARCIA-RIVERA',
+    location: 'in NYC & London',
     clientsStyled: 85,
-    bio: "Over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world.",
+    bio: "Featured in Vogue & W Magazine",
     workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.",
     workDetails: "After beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
     quote: "Style is about expressing who you are without saying a word.",
