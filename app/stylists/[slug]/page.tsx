@@ -50,7 +50,7 @@ const stylists: Record<string, Stylist> = {
     location: 'in NYC & London',
     clientsStyled: 85,
     bio: "Featured in Vogue & W Magazine",
-    workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you. After beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
+    workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
     quote: "Style is about expressing who you are without saying a word.",
     worldDescription: "You'll resonate with Felicia if you're inspired by simplicity and sustainability.",
     profilePhoto: '/Felicia Profile Photo.jpeg',
@@ -203,9 +203,13 @@ const StylistPage = ({ params }: PageProps) => {
                 <h2 className="text-xl font-semibold text-[#333] mb-4">
                   {stylist.name.split(' ')[0].toUpperCase()}&apos;S WORK
                 </h2>
-                <p className="body-text mb-4">
-                  {stylist.workDescription}
-                </p>
+                <div className="body-text mb-4">
+                  {stylist.workDescription.split('\n').map((paragraph, index) => (
+                    <p key={index} className={index > 0 ? 'mt-4' : ''}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
                 <p className="italic text-[#555] body-text">
                   &ldquo;{stylist.quote}&rdquo;
                 </p>
