@@ -12,7 +12,6 @@ interface Stylist {
   clientsStyled: number;
   bio: string;
   workDescription: string;
-  workDetails: string;
   quote: string;
   worldDescription: string;
   profilePhoto: string;
@@ -28,8 +27,7 @@ const stylists: Record<string, Stylist> = {
     location: 'in Brooklyn, New York',
     clientsStyled: 130,
     bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
-    workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light.",
-    workDetails: "She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
+    workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
     worldDescription: "You'll resonate with Robyn if you're inspired by vintage Ralph Lauren, statement outerwear, and sustainability.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
@@ -52,8 +50,7 @@ const stylists: Record<string, Stylist> = {
     location: 'in NYC & London',
     clientsStyled: 85,
     bio: "Featured in Vogue & W Magazine",
-    workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.",
-    workDetails: "After beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
+    workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you. After beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
     quote: "Style is about expressing who you are without saying a word.",
     worldDescription: "You'll resonate with Felicia if you're inspired by simplicity and sustainability.",
     profilePhoto: '/Felicia Profile Photo.jpeg',
@@ -208,9 +205,6 @@ const StylistPage = ({ params }: PageProps) => {
                 </h2>
                 <p className="body-text mb-4">
                   {stylist.workDescription}
-                </p>
-                <p className="body-text mb-4">
-                  {stylist.workDetails}
                 </p>
                 <p className="italic text-[#555] body-text">
                   &ldquo;{stylist.quote}&rdquo;
