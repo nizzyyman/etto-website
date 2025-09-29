@@ -80,47 +80,6 @@ const StylistPage = ({ params }: PageProps) => {
   // Combine work and inspiration photos for masonry layout
   const allPhotos = [...stylist.workPhotos, ...stylist.inspirationPhotos];
 
-  // Set document title and meta tags dynamically
-  React.useEffect(() => {
-    const title = `Book ${stylist.name.split(' ')[0]}`;
-    document.title = `${title} | Etto`;
-
-    // Update or create meta tags
-    const updateMetaTag = (property: string, content: string, isName = false) => {
-      const attribute = isName ? 'name' : 'property';
-      let meta = document.querySelector(`meta[${attribute}="${property}"]`) as HTMLMetaElement;
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute(attribute, property);
-        document.head.appendChild(meta);
-      }
-      meta.content = content;
-    };
-
-    const description = `${stylist.bio}`;
-    const imageUrl = `https://etto.ai${stylist.profilePhoto}`;
-    const pageUrl = `https://etto.ai/stylists/${stylist.slug}`;
-
-    // Standard meta tags
-    updateMetaTag('description', description, true);
-
-    // Open Graph
-    updateMetaTag('og:type', 'profile');
-    updateMetaTag('og:url', pageUrl);
-    updateMetaTag('og:title', title);
-    updateMetaTag('og:description', description);
-    updateMetaTag('og:image', imageUrl);
-    updateMetaTag('og:image:width', '1200');
-    updateMetaTag('og:image:height', '630');
-
-    // Twitter Card
-    updateMetaTag('twitter:card', 'summary_large_image');
-    updateMetaTag('twitter:url', pageUrl);
-    updateMetaTag('twitter:title', title);
-    updateMetaTag('twitter:description', description);
-    updateMetaTag('twitter:image', imageUrl);
-  }, [stylist]);
-
   return (
     <>
       <div className="min-h-screen bg-white">
