@@ -31,7 +31,7 @@ const stylists: Record<string, Stylist> = {
     workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light.",
     workDetails: "She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
-    worldDescription: "You’ll resonate with Robyn if you're inspired by vintage Ralph Lauren, statement outerwear, and sustainability.",
+    worldDescription: "You'll resonate with Robyn if you're inspired by vintage Ralph Lauren, statement outerwear, and sustainability.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
     workPhotos: [
       '/Robyn Work/1_Susanna Moyer.jpg',
@@ -41,9 +41,33 @@ const stylists: Record<string, Stylist> = {
     ],
     inspirationPhotos: [
       '/Robyn Inspiration/1_Elle-September 2019.jpg',
-      '/Robyn Inspiration/2_Vogue-January 2019.jpg', 
+      '/Robyn Inspiration/2_Vogue-January 2019.jpg',
       '/Robyn Inspiration/3_Elle-April 2019.jpg',
       '/Robyn Inspiration/4_Harper_s BAZAAR-September 2021.jpg'
+    ]
+  },
+  'felicia': {
+    slug: 'felicia',
+    name: 'FELICIA',
+    location: 'in Los Angeles, California',
+    clientsStyled: 85,
+    bio: "Stylist specializing in contemporary fashion.",
+    workDescription: "Felicia brings a fresh perspective to personal styling.",
+    workDetails: "With years of experience in the fashion industry, Felicia helps clients discover their unique style.",
+    quote: "Style is about expressing who you are without saying a word.",
+    worldDescription: "You'll connect with Felicia if you appreciate modern aesthetics and timeless pieces.",
+    profilePhoto: '/Felicia Profile Photo.jpeg',
+    workPhotos: [
+      '/Felicia Work/1.jpg',
+      '/Felicia Work/2.jpg',
+      '/Felicia Work/3.jpg',
+      '/Felicia Work/4.jpg'
+    ],
+    inspirationPhotos: [
+      '/Felicia Inspiration/1.jpg',
+      '/Felicia Inspiration/2.jpg',
+      '/Felicia Inspiration/3.jpg',
+      '/Felicia Inspiration/4.jpg'
     ]
   }
 };
