@@ -78,6 +78,13 @@ interface PageProps {
   };
 }
 
+// Generate static paths for all stylists
+export function generateStaticParams() {
+  return Object.keys(stylists).map((slug) => ({
+    slug,
+  }));
+}
+
 const StylistPage = ({ params }: PageProps) => {
   const stylist = stylists[params.slug];
 
