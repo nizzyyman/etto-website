@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Head from 'next/head';
@@ -74,13 +76,6 @@ interface PageProps {
   params: {
     slug: string;
   };
-}
-
-// Generate static paths for all stylists
-export function generateStaticParams() {
-  return Object.keys(stylists).map((slug) => ({
-    slug,
-  }));
 }
 
 const StylistPage = ({ params }: PageProps) => {
@@ -218,7 +213,7 @@ const StylistPage = ({ params }: PageProps) => {
                   {stylist.workDetails}
                 </p>
                 <p className="italic text-[#555] body-text">
-                  "{stylist.quote}"
+                  &ldquo;{stylist.quote}&rdquo;
                 </p>
               </div>
 
