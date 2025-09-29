@@ -26,9 +26,9 @@ const stylists: Record<string, Stylist> = {
     location: 'in Brooklyn, New York',
     clientsStyled: 130,
     bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
-    workDescription: "Robyn specializes in working within your existing closet and seeing it in a new light. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
+    workDescription: "Robyn specializes in working within your existing wardrobe and translating it into wearable looks. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
-    worldDescription: "You'll resonate with Robyn if you're inspired by vintage Ralph Lauren, statement outerwear, and sustainability.",
+    worldDescription: "You’ll resonate with Robyn if you’re inspired by the overlap between aspiration and functionality. As well as statment outerwear and vintage Ralph Lauren.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
     workPhotos: [
       '/Robyn Work/1_Susanna Moyer.jpg',
