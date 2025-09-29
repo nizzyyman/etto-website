@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { notFound } from 'next/navigation';
-import Head from 'next/head';
 
 // Define the stylist data structure
 interface Stylist {
@@ -81,27 +80,48 @@ const StylistPage = ({ params }: PageProps) => {
   // Combine work and inspiration photos for masonry layout
   const allPhotos = [...stylist.workPhotos, ...stylist.inspirationPhotos];
 
+  // Set document title and meta tags dynamically
+  React.useEffect(() => {
+    document.title = `${stylist.name} - Book a Stylist | Etto`;
+
+    // Update or create meta tags
+    const updateMetaTag = (property: string, content: string, isName = false) => {
+      const attribute = isName ? 'name' : 'property';
+      let meta = document.querySelector(`meta[${attribute}="${property}"]`) as HTMLMetaElement;
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute(attribute, property);
+        document.head.appendChild(meta);
+      }
+      meta.content = content;
+    };
+
+    const description = `${stylist.bio}`;
+    const imageUrl = `https://etto.ai${stylist.profilePhoto}`;
+    const pageUrl = `https://etto.ai/stylists/${stylist.slug}`;
+
+    // Standard meta tags
+    updateMetaTag('description', description, true);
+
+    // Open Graph
+    updateMetaTag('og:type', 'profile');
+    updateMetaTag('og:url', pageUrl);
+    updateMetaTag('og:title', stylist.name);
+    updateMetaTag('og:description', description);
+    updateMetaTag('og:image', imageUrl);
+    updateMetaTag('og:image:width', '1200');
+    updateMetaTag('og:image:height', '630');
+
+    // Twitter Card
+    updateMetaTag('twitter:card', 'summary_large_image');
+    updateMetaTag('twitter:url', pageUrl);
+    updateMetaTag('twitter:title', stylist.name);
+    updateMetaTag('twitter:description', description);
+    updateMetaTag('twitter:image', imageUrl);
+  }, [stylist]);
+
   return (
     <>
-      <Head>
-        <title>Book a Stylist - {stylist.name}</title>
-        <meta name="description" content={`Book a Stylist - ${stylist.name}`} />
-        
-        {/* Open Graph / Facebook */}
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://etto.ai/stylists/${stylist.slug}`} />
-        <meta property="og:title" content={`Book a Stylist - ${stylist.name}`} />
-        <meta property="og:description" content={`Book a Stylist - ${stylist.name}`} />
-        <meta property="og:image" content={`https://etto.ai${stylist.profilePhoto}`} />
-        
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content={`https://etto.ai/stylists/${stylist.slug}`} />
-        <meta property="twitter:title" content={`Book a Stylist - ${stylist.name}`} />
-        <meta property="twitter:description" content={`Book a Stylist - ${stylist.name}`} />
-        <meta property="twitter:image" content={`https://etto.ai${stylist.profilePhoto}`} />
-      </Head>
-      
       <div className="min-h-screen bg-white">
       {/* Header Navigation */}
       <header className="h-[100px] flex justify-between items-center px-6 md:px-12 bg-white">
