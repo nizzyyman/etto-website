@@ -82,7 +82,8 @@ const StylistPage = ({ params }: PageProps) => {
 
   // Set document title and meta tags dynamically
   React.useEffect(() => {
-    document.title = `${stylist.name} - Book a Stylist | Etto`;
+    const title = `Book ${stylist.name.split(' ')[0]}`;
+    document.title = `${title} | Etto`;
 
     // Update or create meta tags
     const updateMetaTag = (property: string, content: string, isName = false) => {
@@ -106,7 +107,7 @@ const StylistPage = ({ params }: PageProps) => {
     // Open Graph
     updateMetaTag('og:type', 'profile');
     updateMetaTag('og:url', pageUrl);
-    updateMetaTag('og:title', stylist.name);
+    updateMetaTag('og:title', title);
     updateMetaTag('og:description', description);
     updateMetaTag('og:image', imageUrl);
     updateMetaTag('og:image:width', '1200');
@@ -115,7 +116,7 @@ const StylistPage = ({ params }: PageProps) => {
     // Twitter Card
     updateMetaTag('twitter:card', 'summary_large_image');
     updateMetaTag('twitter:url', pageUrl);
-    updateMetaTag('twitter:title', stylist.name);
+    updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
     updateMetaTag('twitter:image', imageUrl);
   }, [stylist]);
