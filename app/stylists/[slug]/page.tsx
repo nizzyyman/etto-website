@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { notFound } from 'next/navigation';
 import Head from 'next/head';
@@ -196,7 +194,7 @@ const StylistPage = ({ params }: PageProps) => {
                       parent.innerHTML = `
                         <div class="text-center text-white">
                           <div class="text-6xl mb-2">📸</div>
-                          <p class="text-sm">${stylist.name.split(' ')[0]}'s Photo</p>
+                          <p class="text-sm">${stylist.name.split(' ')[0]}&apos;s Photo</p>
                         </div>
                       `;
                     }
@@ -211,7 +209,7 @@ const StylistPage = ({ params }: PageProps) => {
               {/* Work Section */}
               <div className="mb-8">
                 <h2 className="text-xl font-semibold text-[#333] mb-4">
-                  {stylist.name.split(' ')[0].toUpperCase()}'S WORK
+                  {stylist.name.split(' ')[0].toUpperCase()}&apos;S WORK
                 </h2>
                 <p className="body-text mb-4">
                   {stylist.workDescription}
@@ -227,7 +225,7 @@ const StylistPage = ({ params }: PageProps) => {
               {/* World Section */}
               <div>
                 <h2 className="text-xl font-semibold text-[#333] mb-4">
-                  {stylist.name.split(' ')[0].toUpperCase()}'S WORLD
+                  {stylist.name.split(' ')[0].toUpperCase()}&apos;S WORLD
                 </h2>
                 <p className="body-text">
                   {stylist.worldDescription}
