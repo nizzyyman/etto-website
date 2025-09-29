@@ -53,18 +53,14 @@ const stylists: Record<string, Stylist> = {
     workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
     quote: "Style is about expressing who you are without saying a word.",
     worldDescription: "You'll resonate with Felicia if you're inspired by simplicity and sustainability.",
-    profilePhoto: '/Felicia Profile Photo.jpeg',
+    profilePhoto: '/Felicia Profile Photo.jpg',
     workPhotos: [
-      '/Felicia Work/1.jpg',
-      '/Felicia Work/2.jpg',
-      '/Felicia Work/3.jpg',
-      '/Felicia Work/4.jpg'
+      "/Felicia's Work/1_Thomas Tait.jpeg"
     ],
     inspirationPhotos: [
-      '/Felicia Inspiration/1.jpg',
-      '/Felicia Inspiration/2.jpg',
-      '/Felicia Inspiration/3.jpg',
-      '/Felicia Inspiration/4.jpg'
+      "/Felicia's World/1_Vogue Horizon.jpg",
+      "/Felicia's World/2_Shalom Harlow 90s.jpg",
+      "/Felicia's World/3_ Craig Mcdean Yojhi.jpeg"
     ]
   }
 };
