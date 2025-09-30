@@ -18,6 +18,12 @@ interface Stylist {
   inspirationPhotos: string[];
 }
 
+// Booking links for each stylist
+const bookingLinks: Record<string, string> = {
+  'robyn': 'https://calendly.com/rdaviesstyling/styling-consultation',
+  'felicia': '#booking', // Placeholder for Felicia
+};
+
 // Mock data - you can move this to a database or CMS later
 const stylists: Record<string, Stylist> = {
   'robyn': {
@@ -28,7 +34,7 @@ const stylists: Record<string, Stylist> = {
     bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
     workDescription: "Robyn specializes in working within your existing wardrobe and translating it into wearable looks. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
-    worldDescription: "You’ll resonate with Robyn if you’re inspired by the overlap between aspiration and functionality. As well as statment outerwear and vintage Ralph Lauren.",
+    worldDescription: "You'll resonate with Robyn if you're inspired by the overlap between aspiration and functionality. As well as statment outerwear and vintage Ralph Lauren.",
     profilePhoto: '/Robyn Profile Photo.jpeg',
     workPhotos: [
       '/Robyn Work/1_Susanna Moyer.jpg',
@@ -77,6 +83,9 @@ const StylistPage = ({ params }: PageProps) => {
     notFound();
   }
 
+  // Get booking link for this stylist
+  const bookingLink = bookingLinks[params.slug] || '#booking';
+
   // Combine work and inspiration photos for masonry layout
   const allPhotos = [...stylist.workPhotos, ...stylist.inspirationPhotos];
 
@@ -96,8 +105,10 @@ const StylistPage = ({ params }: PageProps) => {
         </div>
         <nav className="flex gap-16">
           <a
-            href="#booking"
+            href={bookingLink}
             className="text-[#000000] text-base font-medium hover:opacity-70 transition-opacity"
+            target={bookingLink.startsWith('http') ? '_blank' : undefined}
+            rel={bookingLink.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
             BOOK {stylist.name.split(' ')[0].toUpperCase()}
           </a>
@@ -157,8 +168,10 @@ const StylistPage = ({ params }: PageProps) => {
 
           {/* Book Button - Mobile */}
           <a
-            href="#booking"
+            href={bookingLink}
             className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-8 lg:hidden"
+            target={bookingLink.startsWith('http') ? '_blank' : undefined}
+            rel={bookingLink.startsWith('http') ? 'noopener noreferrer' : undefined}
           >
             BOOK {stylist.name.split(' ')[0].toUpperCase()}
           </a>
@@ -188,8 +201,10 @@ const StylistPage = ({ params }: PageProps) => {
 
               {/* Book Button */}
               <a
-                href="#booking"
+                href={bookingLink}
                 className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors mb-6"
+                target={bookingLink.startsWith('http') ? '_blank' : undefined}
+                rel={bookingLink.startsWith('http') ? 'noopener noreferrer' : undefined}
               >
                 BOOK {stylist.name.split(' ')[0].toUpperCase()}
               </a>
@@ -330,8 +345,10 @@ const StylistPage = ({ params }: PageProps) => {
       {/* Book Button - Mobile Bottom */}
       <div className="px-6 md:px-10 lg:hidden mb-8">
         <a
-          href="#booking"
+          href={bookingLink}
           className="w-full h-[65px] bg-[#000000] text-[#1AB1ED] text-[20px] font-medium flex items-center justify-center hover:bg-[#c9c9c9] transition-colors"
+          target={bookingLink.startsWith('http') ? '_blank' : undefined}
+          rel={bookingLink.startsWith('http') ? 'noopener noreferrer' : undefined}
         >
           BOOK {stylist.name.split(' ')[0].toUpperCase()}
         </a>
