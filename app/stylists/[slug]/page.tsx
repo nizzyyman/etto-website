@@ -31,7 +31,7 @@ const stylists: Record<string, Stylist> = {
     name: 'ROBYN DAVIES',
     location: 'in Brooklyn, New York',
     clientsStyled: 86,
-    bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
+    bio: "Featured in Vogue",
     workDescription: "Robyn specializes in working within your existing wardrobe and translating it into wearable looks. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
     worldDescription: "You'll resonate with Robyn if you're inspired by the overlap between aspiration and functionality. As well as statment outerwear and vintage Ralph Lauren.",
@@ -55,8 +55,8 @@ const stylists: Record<string, Stylist> = {
     location: 'in NYC & London',
     clientsStyled: 134,
     bio: "Featured in Vogue & W Magazine",
-    workDescription: "Felicia specializes in building new identities that bring out the uniqueness in you.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
-    worldDescription: "You'll resonate with Felicia if you're inspired by simplicity and sustainability.",
+    workDescription: "Felicia is excited by helping clients discover and develop their unique, personal style rooted in individuality and conscious choices. Her approach emphasizes investing in distinctive, sustainable pieces that last longer and tell a story.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
+    worldDescription: "You'll resonate with Felicia if you're inspired by style that is distinctive and timeless.",
     profilePhoto: '/Felicia Profile Photo.jpg',
     workPhotos: [
       "/Felicia's Work/1_Thomas Tait.jpeg"
