@@ -21,7 +21,7 @@ interface Stylist {
 // Booking links for each stylist
 const bookingLinks: Record<string, string> = {
   'robyn': 'https://calendly.com/rdaviesstyling/styling-consultation',
-  'felicia': '#booking', // Placeholder for Felicia
+  'felicia': 'https://cal.com/feliciagr',
 };
 
 // Mock data - you can move this to a database or CMS later
