@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
   }
 
-  const title = `Book ${stylist.name}`;
+  const title = `Book ${stylist.name.split(' ')[0]}`;
   const description = stylist.bio;
   const imageUrl = `https://etto.ai${stylist.profilePhoto}`;
   const pageUrl = `https://etto.ai/stylists/${stylist.slug}`;
