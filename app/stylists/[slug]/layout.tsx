@@ -25,7 +25,7 @@ const stylists: Record<string, Stylist> = {
   'tommyrae': {
     slug: 'tommyrae',
     name: 'TOMMY RAE JONES',
-    bio: "Featured in GQ & Esquire",
+    bio: "Featured in Dirty Magazine & Valentino Beauty",
     profilePhoto: '/stylists/Tommy Profile Photo.jpeg',
   }
 };
