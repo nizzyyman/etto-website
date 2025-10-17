@@ -73,7 +73,7 @@ const stylists: Record<string, Stylist> = {
     name: 'TOMMY RAE JONES',
     location: 'in NYC & SF',
     clientsStyled: 55,
-    bio: "Featured in GQ & Esquire",
+    bio: "Featured in Dirty Magazine & Valentino Beauty,
     workDescription: "Tommy Jones is a Brooklyn-based stylist known for blending vintage inspiration with a forward-thinking approach to fashion. She got her start in San Francisco, working with small brands and vintage showrooms, where she developed a deep appreciation for sustainable design and unique, well-worn pieces. Today, she gravitates toward natural fabrics and timeless textures, styling clients in a way that makes them feel comfortable and confident in any room—without relying on trends.",
     worldDescription: "You'll resonate with Tommy if you appreciate unique brands and like to feel downtown cool.",
     profilePhoto: '/stylists/Tommy Profile Photo.jpeg',
