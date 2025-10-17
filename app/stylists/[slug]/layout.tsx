@@ -14,13 +14,19 @@ const stylists: Record<string, Stylist> = {
     slug: 'robyn',
     name: 'ROBYN DAVIES',
     bio: "Featured in Vogue, Elle, & Harper's Bazaar.",
-    profilePhoto: '/Robyn Profile Photo.jpeg',
+    profilePhoto: '/stylists/Robyn Profile Photo.jpeg',
   },
   'felicia': {
     slug: 'felicia',
     name: 'FELICIA GARCIA-RIVERA',
     bio: "Featured in Vogue & W Magazine",
-    profilePhoto: '/Felicia Profile Photo.jpg',
+    profilePhoto: '/stylists/Felicia Profile Photo.jpg',
+  },
+  'tommyrae': {
+    slug: 'tommyrae',
+    name: 'TOMMY RAE JONES',
+    bio: "Featured in GQ & Esquire",
+    profilePhoto: '/stylists/Tommy Profile Photo.jpeg',
   }
 };
 
@@ -33,7 +39,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
   }
 
-  const title = `Book ${stylist.name.split(' ')[0]}`;
+  const title = `Book ${stylist.name}`;
   const description = stylist.bio;
   const imageUrl = `https://etto.ai${stylist.profilePhoto}`;
   const pageUrl = `https://etto.ai/stylists/${stylist.slug}`;
