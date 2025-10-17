@@ -22,6 +22,7 @@ interface Stylist {
 const bookingLinks: Record<string, string> = {
   'robyn': 'https://calendly.com/rdaviesstyling/styling-consultation',
   'felicia': 'https://cal.com/feliciagr',
+  'tommyrae': '#booking', // Placeholder for Tommy
 };
 
 // Mock data - you can move this to a database or CMS later
@@ -35,37 +36,57 @@ const stylists: Record<string, Stylist> = {
     workDescription: "Robyn specializes in working within your existing wardrobe and translating it into wearable looks. She got her start assisting the editors of Vogue Paris, and later first-hand learned about the systemic labor rights and environmental issues in the industry. Today, she styles individuals who value cultivating their personal taste over chasing trends.",
     quote: "I gravitate towards textured, lived in looks. Considered, but not too precious.",
     worldDescription: "You'll resonate with Robyn if you're inspired by the overlap between aspiration and functionality. As well as statment outerwear and vintage Ralph Lauren.",
-    profilePhoto: '/Robyn Profile Photo.jpeg',
+    profilePhoto: '/stylists/Robyn Profile Photo.jpeg',
     workPhotos: [
-      '/Robyn Work/1_Susanna Moyer.jpg',
-      '/Robyn Work/2_Rosalee Lewis.jpg',
-      '/Robyn Work/3_Hilliary Bianca Salamanca.jpg',
-      '/Robyn Work/5_Alyssa Vingan.jpg'
+      "/stylists/Robyn Work/1_Susanna Moyer.jpg",
+      "/stylists/Robyn Work/2_Rosalee Lewis.jpg",
+      "/stylists/Robyn Work/3_Hilliary Bianca Salamanca.jpg",
+      "/stylists/Robyn Work/5_Alyssa Vingan.jpg"
     ],
     inspirationPhotos: [
-      '/Robyn Inspiration/1_Elle-September 2019.jpg',
-      '/Robyn Inspiration/2_Vogue-January 2019.jpg',
-      '/Robyn Inspiration/3_Elle-April 2019.jpg',
-      '/Robyn Inspiration/4_Harper_s BAZAAR-September 2021.jpg'
+      "/stylists/Robyn Inspiration/1_Elle-September 2019.jpg",
+      "/stylists/Robyn Inspiration/2_Vogue-January 2019.jpg",
+      "/stylists/Robyn Inspiration/3_Elle-April 2019.jpg",
+      "/stylists/Robyn Inspiration/4_Harper_s BAZAAR-September 2021.jpg"
     ]
   },
   'felicia': {
     slug: 'felicia',
     name: 'FELICIA GARCIA-RIVERA',
-    location: 'in NYC & Paris',
+    location: 'in NYC & London',
     clientsStyled: 134,
     bio: "Featured in Vogue & W Magazine",
     workDescription: "Felicia is excited by helping clients discover and develop their unique, personal style rooted in individuality and conscious choices. Her approach emphasizes investing in distinctive, sustainable pieces that last longer and tell a story.\n\nFelicia Garcia has over a decade of experience as a stylist, fashion editor and consultant in the luxury fashion world with an emphasis on sustainable brand practices.\n\nAfter beginning her career working with Edward Enninful (most recently Editor-in-Chief @ British Vogue) at US Vogue and W magazine, Felicia went on to launch a freelance career contributing to global publications like Vogue, W Magazine, Noon, Modern Weekly and SSAW and consulting with brands such as Dolce & Gabbana, Diane Von Furstenberg, Another Tomorrow and Nars Cosmetics. Felicia holds an MBA with a focus in sustainable business and strategy from NYU Stern.",
     worldDescription: "You'll resonate with Felicia if you’re inspired by style that is timeless, artisanal and embodies heritage.",
-    profilePhoto: '/Felicia Profile Photo.jpg',
+    profilePhoto: '/stylists/Felicia Profile Photo.jpg',
     workPhotos: [
-      "/Felicia's Work/1_Thomas Tait.jpeg"
+      "/stylists/Felicia's Work/1_Thomas Tait.jpeg"
     ],
     inspirationPhotos: [
-      "/Felicia's World/1_Vogue Horizon.jpg",
-      "/Felicia's World/2_Shalom Harlow 90s.jpg",
-      "/Felicia's World/3_ Craig Mcdean Yojhi.jpeg"
+      "/stylists/Felicia's World/1_Vogue Horizon.jpg",
+      "/stylists/Felicia's World/2_Shalom Harlow 90s.jpg",
+      "/stylists/Felicia's World/3_ Craig Mcdean Yojhi.jpeg"
     ]
+  },
+  'tommyrae': {
+    slug: 'tommyrae',
+    name: 'TOMMY RAE JONES',
+    location: 'in NYC & SF',
+    clientsStyled: 55,
+    bio: "Featured in GQ & Esquire",
+    workDescription: "Tommy Jones is a Brooklyn-based stylist known for blending vintage inspiration with a forward-thinking approach to fashion. She got her start in San Francisco, working with small brands and vintage showrooms, where she developed a deep appreciation for sustainable design and unique, well-worn pieces. Today, she gravitates toward natural fabrics and timeless textures, styling clients in a way that makes them feel comfortable and confident in any room—without relying on trends.",
+    worldDescription: "You'll resonate with Tommy if you appreciate unique brands and like to feel downtown cool.",
+    profilePhoto: '/stylists/Tommy Profile Photo.jpeg',
+    workPhotos: [
+      "/stylists/Tommy's Work/Tommy work 1.jpg",
+      "/stylists/Tommy's Work/Tommy work 2.jpeg",
+      "/stylists/Tommy's Work/Tommy work 3.jpeg",
+      "/stylists/Tommy's Work/Tommy work 4.jpeg",
+      "/stylists/Tommy's Work/Tommy work 5.jpeg",
+      "/stylists/Tommy's Work/Tommy work 6.jpeg",
+      "/stylists/Tommy's Work/Tommy work 7.jpeg"
+    ],
+    inspirationPhotos: []
   }
 };
 
