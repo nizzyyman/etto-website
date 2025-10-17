@@ -22,7 +22,7 @@ interface Stylist {
 const bookingLinks: Record<string, string> = {
   'robyn': 'https://calendly.com/rdaviesstyling/styling-consultation',
   'felicia': 'https://cal.com/feliciagr',
-  'tommyrae': '#booking', // Placeholder for Tommy
+  'tommyrae': 'https://cal.com/contact.tommyrae',
 };
 
 // Mock data - you can move this to a database or CMS later
