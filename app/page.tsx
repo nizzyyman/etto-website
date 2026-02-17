@@ -46,7 +46,7 @@ const LandingPage = () => {
           <main className="flex-grow flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8">
             <div className="w-full">
               <h1 className="font-raptor text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
-                the wardrobe that speaks to you
+                your taste, operationalized
               </h1>
             </div>
           </main>
@@ -60,10 +60,10 @@ const LandingPage = () => {
           {/* Left Side - Text Content */}
           <div className="flex-1 text-left">
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
-              Etto is a gateway to the world's most influential stylists and tastemakers<br />
-              who define what we see and how we feel about it.
+              Etto is the creative workspace for stylists. From references to client feedback to pulls - <br />
+              one place that remembers everything and acts upon it. 
               <br />
-              Access the creative minds shaping culture, instantly.
+              Spend more time creative directing, and less time searching.
             </h2>
           </div>
           
