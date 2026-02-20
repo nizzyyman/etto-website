@@ -26,7 +26,7 @@ const LandingPage = () => {
         <div className="relative z-20 h-full flex flex-col text-white">
           
           {/* Header */}
-          <header className="flex justify-between items-center p-4 sm:p-6 md:p-8">
+          <header className="flex justify-between items-center py-6 px-8 sm:py-8 sm:px-12 md:py-10 md:px-16">
             <div className="font-raptor">
               <img
                 src="/etto-type-white.png"
@@ -36,7 +36,7 @@ const LandingPage = () => {
             </div>
             <a
               href="https://tally.so/r/w8857x"
-              className="px-4 py-2 hover:text-gray-300 transition-all duration-300 text-sm sm:text-base"
+              className="py-2 hover:text-gray-300 transition-all duration-300 text-sm sm:text-base"
             >
               JOIN WAITLIST
             </a>
