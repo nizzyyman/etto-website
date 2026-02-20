@@ -1,15 +1,31 @@
-import React from 'react';
+'use client';
+import React, { useRef, useState } from 'react';
 
 const LandingPage = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [paused, setPaused] = useState(false);
+
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setPaused(false);
+      } else {
+        videoRef.current.pause();
+        setPaused(true);
+      }
+    }
+  };
   return (
     <div>
       {/* Video Hero Section */}
       <section className="h-screen relative overflow-hidden">
         {/* Background Video */}
-        <video 
-          autoPlay 
-          muted 
-          loop 
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
           playsInline
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
           poster="/hero-poster.png"
@@ -36,16 +52,29 @@ const LandingPage = () => {
             </div>
             <a
               href="https://tally.so/r/w8857x"
-              className="py-2 hover:text-gray-300 transition-all duration-300 text-sm sm:text-base"
+              className="py-2 hover:text-gray-300 transition-all duration-300 text-sm sm:text-base focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none focus-visible:rounded-sm"
             >
               JOIN WAITLIST
             </a>
           </header>
 
+          {/* Video pause/play toggle */}
+          <button
+            onClick={toggleVideo}
+            aria-label={paused ? 'Play video' : 'Pause video'}
+            className="absolute bottom-4 right-4 z-30 w-10 h-10 flex items-center justify-center text-white/50 hover:text-white transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded-full"
+          >
+            {paused ? (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M4 2l10 6-10 6V2z"/></svg>
+            ) : (
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="2" y="2" width="4" height="12"/><rect x="10" y="2" width="4" height="12"/></svg>
+            )}
+          </button>
+
           {/* Main Content */}
           <main className="flex-grow flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8">
             <div className="w-full">
-              <h1 className="font-abc-bold text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
+              <h1 className="font-bold text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
                 your taste, operationalized
               </h1>
             </div>
@@ -55,7 +84,7 @@ const LandingPage = () => {
 
       {/* White Section Below — Swiss grid layout */}
       <section className="bg-white text-black py-16 sm:py-20 md:py-24">
-        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 md:px-16 grid grid-cols-12 gap-x-5">
+        <div className="max-w-[1200px] mx-auto px-8 sm:px-12 md:px-16 grid grid-cols-12 gap-x-5">
 
           {/* Text Content — constrained to left 7 columns */}
           <div className="col-span-12 md:col-span-7 text-left">
@@ -78,7 +107,7 @@ const LandingPage = () => {
           <div className="col-span-12 md:col-span-5 flex items-center justify-center md:justify-end mt-10 md:mt-0">
             <a
               href="https://tally.so/r/w8857x"
-              className="paren-btn group relative w-[120px] h-[48px] sm:w-[150px] sm:h-[56px] flex items-center justify-center cursor-pointer"
+              className="paren-btn group relative w-[120px] h-[56px] sm:w-[150px] sm:h-[64px] flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-black/40 focus-visible:rounded-sm focus-visible:outline-none"
             >
               {/* Stamp parentheses SVG — raised by default */}
               <svg
@@ -101,7 +130,7 @@ const LandingPage = () => {
       <footer className="bg-white text-black px-6 sm:px-10 md:px-16 pb-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-5">
           <div className="col-span-12">
-            <span className="text-[11px] sm:text-xs text-black/40">© 2025 Etto Systems Inc.</span>
+            <span className="text-[11px] sm:text-xs text-black/40">© 2026 Etto Systems Inc.</span>
           </div>
         </div>
       </footer>
