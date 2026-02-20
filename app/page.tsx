@@ -74,7 +74,7 @@ const LandingPage = () => {
           {/* Main Content */}
           <main className="flex-grow flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8">
             <div className="w-full">
-              <h1 className="font-bold text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
+              <h1 className="font-medium text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
                 your taste, operationalized
               </h1>
             </div>
