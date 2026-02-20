@@ -60,10 +60,10 @@ const LandingPage = () => {
           {/* Left Side - Text Content */}
           <div className="flex-1 text-left">
             <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
-              Etto is the operational workspace for stylists. From references to client feedback to pulls - <br />
-              one place that remembers everything and acts upon it. 
+              Etto is the operational workspace for stylists. From references to client feedback to pulls. <br />
+              One place that remembers everything and acts upon it. 
               <br />
-              Spend more time creative directing, and less time searching.
+              Spend more time creative directing, and less time with admin and organization.
             </h2>
           </div>
           
