@@ -74,17 +74,22 @@ const LandingPage = () => {
             </p>
           </div>
 
-          {/* Right Side — Circular Join Button */}
+          {/* Right Side — Parenthesis Join Button */}
           <div className="col-span-12 md:col-span-5 flex items-center justify-center md:justify-end mt-10 md:mt-0">
             <a
               href="https://tally.so/r/w8857x"
-              className="group relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center text-[13px] sm:text-[14px] tracking-[0.08em] uppercase transition-all duration-300 cursor-pointer hover:scale-105"
-              style={{
-                background: 'linear-gradient(145deg, #ffffff, #e6e6e6)',
-                boxShadow: '8px 8px 20px #d1d1d1, -8px -8px 20px #ffffff',
-              }}
+              className="paren-btn group relative w-[120px] h-[48px] sm:w-[150px] sm:h-[56px] flex items-center justify-center cursor-pointer"
             >
-              <span className="relative z-10 text-black/70 group-hover:text-black transition-colors duration-300 font-bold">
+              {/* Stamp parentheses SVG — raised by default */}
+              <svg
+                viewBox="0 0 1238 457"
+                fill="none"
+                className="absolute inset-0 w-full h-full transition-all duration-200"
+              >
+                <path d="M14.4521 150.41C-13.5379 231.17 -1.06791 308.48 53.5821 374.84C95.9621 426.3 159.602 454.03 224.392 456.06V397.64C207.212 395.45 190.842 390.72 175.642 383.82C116.402 356.94 75.1821 297.31 75.1821 228.02C75.1821 184.54 91.4322 144.87 118.162 114.69C134.782 95.92 155.452 80.82 178.822 70.78C193.112 64.65 208.412 60.44 224.392 58.4V0C211.012 0.69 197.402 2.42 183.582 5.13C100.352 21.49 42.1421 70.52 14.4421 150.42L14.4521 150.41Z" className="fill-[#e4e4e4] group-hover:fill-[#d4d4d4] transition-all duration-200" />
+                <path d="M1222.95 150.42C1195.25 70.53 1137.04 21.49 1053.81 5.13C1040 2.41 1026.39 0.69 1013 0V57.94C1044.81 61.29 1074.01 73.35 1098.19 91.7C1124.82 110.86 1144.32 137.44 1155.13 168.09C1162.11 186.75 1165.96 206.94 1165.96 228.03C1165.96 261.44 1156.35 292.59 1139.78 318.93C1131.48 332.54 1121.37 344.49 1109.93 354.64C1109.88 354.68 1109.83 354.72 1109.79 354.77C1108.67 355.76 1107.55 356.74 1106.41 357.7C1080.76 379.78 1048.51 394.4 1013.01 398.13V456.07C1077.8 454.04 1141.44 426.31 1183.82 374.85C1238.47 308.49 1250.95 231.18 1222.95 150.42Z" className="fill-[#e4e4e4] group-hover:fill-[#d4d4d4] transition-all duration-200" />
+              </svg>
+              <span className="relative z-10 text-[13px] sm:text-[14px] tracking-[0.08em] uppercase font-bold text-black/60 group-hover:text-black transition-colors duration-200 select-none">
                 join
               </span>
             </a>
