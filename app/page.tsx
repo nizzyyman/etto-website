@@ -28,14 +28,14 @@ const LandingPage = () => {
           {/* Header */}
           <header className="flex justify-between items-center p-4 sm:p-6 md:p-8">
             <div className="font-raptor">
-              <img 
-                src="/etto-type-white.png" 
-                alt="Etto" 
+              <img
+                src="/etto-type-white.png"
+                alt="Etto"
                 className="h-5 sm:h-7"
               />
             </div>
-            <a 
-              href="https://tally.so/r/w8857x" 
+            <a
+              href="https://tally.so/r/w8857x"
               className="px-4 py-2 hover:text-gray-300 transition-all duration-300 text-sm sm:text-base"
             >
               JOIN WAITLIST
@@ -53,37 +53,51 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* White Section Below */}
-      <section className="bg-white text-black py-12 sm:py-16">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-4 px-4 sm:px-6 md:px-8">
-          
-          {/* Left Side - Text Content */}
-          <div className="flex-1 text-left">
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
+      {/* White Section Below — Swiss grid layout */}
+      <section className="bg-white text-black py-16 sm:py-20 md:py-24">
+        <div className="max-w-[1200px] mx-auto px-6 sm:px-10 md:px-16 grid grid-cols-12 gap-x-5">
+
+          {/* Text Content — constrained to left 7 columns */}
+          <div className="col-span-12 md:col-span-7 text-left">
+            <p className="text-base sm:text-xl md:text-[22px] leading-snug tracking-[-0.01em]">
               Etto is the operational workspace for stylists.
-              <br /><br />
+            </p>
+            <p className="mt-6 sm:mt-7 text-base sm:text-xl md:text-[22px] leading-snug tracking-[-0.01em]">
+              One place that remembers everything and acts upon it.
+              <br />
               From references to client feedback to pulls.
-              One place that remembers everything and acts upon it. 
-              Spend more time creative directing, and less time with admin and organization.
-            </h2>
+            </p>
+            <p className="mt-6 sm:mt-7 text-base sm:text-xl md:text-[22px] leading-snug tracking-[-0.01em]">
+              Spend more time creative directing,
+              <br />
+              and less time with admin and organization.
+            </p>
           </div>
-          
-          {/* Right Side - CTA Button */}
-          <div className="flex-shrink-0">
-            <a 
-              href="https://tally.so/r/w8857x" 
-              className="inline-block px-8 py-4 bg-gray-200 text-black hover:bg-gray-300 transition-all duration-300 text-base font-medium"
+
+          {/* Right Side — Circular Join Button */}
+          <div className="col-span-12 md:col-span-5 flex items-center justify-center md:justify-end mt-10 md:mt-0">
+            <a
+              href="https://tally.so/r/w8857x"
+              className="group relative w-[100px] h-[100px] sm:w-[120px] sm:h-[120px] rounded-full flex items-center justify-center text-[13px] sm:text-[14px] tracking-[0.08em] uppercase transition-all duration-300 cursor-pointer hover:scale-105"
+              style={{
+                background: 'linear-gradient(145deg, #ffffff, #e6e6e6)',
+                boxShadow: '8px 8px 20px #d1d1d1, -8px -8px 20px #ffffff',
+              }}
             >
-              JOIN WAITLIST
+              <span className="relative z-10 text-black/70 group-hover:text-black transition-colors duration-300 font-bold">
+                join
+              </span>
             </a>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white text-black px-4 sm:px-6 md:px-8 pb-4">
-        <div className="flex justify-between items-center text-xs sm:text-sm">
-          <span>© 2025 Etto Systems Inc.</span>
+      <footer className="bg-white text-black px-6 sm:px-10 md:px-16 pb-6">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-5">
+          <div className="col-span-12">
+            <span className="text-[11px] sm:text-xs text-black/40">© 2025 Etto Systems Inc.</span>
+          </div>
         </div>
       </footer>
     </div>
