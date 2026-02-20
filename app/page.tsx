@@ -45,7 +45,7 @@ const LandingPage = () => {
           {/* Main Content */}
           <main className="flex-grow flex flex-col justify-center items-center text-center px-4 sm:px-6 md:px-8">
             <div className="w-full">
-              <h1 className="font-raptor text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
+              <h1 className="font-abc-bold text-[6vw] sm:text-[6vw] md:text-[5vw] lg:text-[4vw] xl:text-[3vw] mb-6 sm:mb-8 leading-tight">
                 your taste, operationalized
               </h1>
             </div>
@@ -60,7 +60,7 @@ const LandingPage = () => {
           {/* Text Content — constrained to left 7 columns */}
           <div className="col-span-12 md:col-span-7 text-left">
             <p className="text-base sm:text-xl md:text-[22px] leading-snug tracking-[-0.01em]">
-              Etto is the operational workspace for stylists.
+              Etto is an AI-powered workspace for stylists.
             </p>
             <p className="mt-6 sm:mt-7 text-base sm:text-xl md:text-[22px] leading-snug tracking-[-0.01em]">
               One place that remembers everything and acts upon it.
