@@ -111,6 +111,7 @@ const LandingPage = () => {
             >
               {/* Stamp parentheses SVG — raised by default */}
               <svg
+                aria-hidden="true"
                 viewBox="0 0 1238 457"
                 fill="none"
                 className="absolute inset-0 w-full h-full transition-all duration-200"
