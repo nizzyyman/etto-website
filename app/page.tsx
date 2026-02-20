@@ -31,7 +31,7 @@ const LandingPage = () => {
               <img
                 src="/etto-type-white.png"
                 alt="Etto"
-                className="h-5 sm:h-7"
+                className="h-4 sm:h-4"
               />
             </div>
             <a
