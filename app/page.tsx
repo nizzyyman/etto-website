@@ -130,8 +130,9 @@ const LandingPage = () => {
       {/* Footer */}
       <footer className="bg-white text-black px-6 sm:px-10 md:px-16 pb-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-5">
-          <div className="col-span-12">
+          <div className="col-span-12 flex justify-between items-center">
             <span className="text-[11px] sm:text-xs text-black/40">© 2026 Etto Systems Inc.</span>
+            <a href="/privacy" className="text-[11px] sm:text-xs text-black/40 hover:text-black/70 transition-colors duration-200">Privacy</a>
           </div>
         </div>
       </footer>
