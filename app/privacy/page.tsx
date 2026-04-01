@@ -8,8 +8,12 @@ const PrivacyPage = () => {
       <header className="px-6 sm:px-10 md:px-16 pt-10 pb-6">
         <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-5">
           <div className="col-span-12">
-            <a href="/" className="text-[11px] sm:text-xs tracking-[0.08em] uppercase font-bold text-black/60 hover:text-black transition-colors duration-200">
-              Etto
+            <a href="/">
+              <img
+                src="/etto-type-black.png"
+                alt="Etto"
+                className="h-4 sm:h-4"
+              />
             </a>
           </div>
         </div>
@@ -18,7 +22,7 @@ const PrivacyPage = () => {
       {/* Content */}
       <main className="px-6 sm:px-10 md:px-16 pb-20">
         <div className="max-w-[1200px] mx-auto grid grid-cols-12 gap-x-5">
-          <div className="col-span-12 md:col-span-8 lg:col-span-6">
+          <div className="col-span-12 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4">
             <h1 className="font-[family-name:var(--font-raptor)] text-[28px] sm:text-[36px] leading-[1.1] mb-2">
               Privacy Policy
             </h1>
