@@ -58,13 +58,6 @@ const PrivacyPage = () => {
             </p>
 
             <h2 className="text-[11px] sm:text-xs tracking-[0.08em] uppercase font-bold text-black mb-4">
-              Third-Party Services
-            </h2>
-            <p className="text-[13px] sm:text-[14px] leading-[1.7] text-black/70 mb-10">
-              The Extension communicates with Supabase (authentication and database), Cloudflare (image storage), and Anthropic (optional AI tagging). Data shared with these services is limited to what is necessary to provide core functionality. Each service is governed by its own privacy policy.
-            </p>
-
-            <h2 className="text-[11px] sm:text-xs tracking-[0.08em] uppercase font-bold text-black mb-4">
               Data Security
             </h2>
             <p className="text-[13px] sm:text-[14px] leading-[1.7] text-black/70 mb-10">
