@@ -5,6 +5,7 @@ const isMobile = window.innerWidth <= 768
 const FONT = isMobile ? '700 12px "ABC Diatype Expanded"' : '700 22px "ABC Diatype Expanded"'
 const LINE_HEIGHT = isMobile ? 18 : 32
 const text = QUOTE.repeat(200)
+let preparedText = null
 
 const CARD_MARGIN = 10 // breathing room between card and text
 
@@ -191,23 +192,29 @@ function renderColumn(colIndex) {
   ctx.textBaseline = 'top'
 
   const obstacles = cards.filter(c => c.col === colIndex)
-  const chars = Array.from(text)
-  let i = 0
+  if (!preparedText) return
+
+  let cursor = { segmentIndex: 0, graphemeIndex: 0 }
   let y = 0
 
   while (y + LINE_HEIGHT < h) {
     const segments = getLineSegments(y, LINE_HEIGHT, w, obstacles)
     if (segments.length === 0) { y += LINE_HEIGHT; continue }
     for (const seg of segments) {
-      let line = ''
-      while (i < chars.length) {
-        const next = line + chars[i]
-        if (ctx.measureText(next).width > seg.width) break
-        line = next
-        i++
+      let line = layoutNextLine(preparedText, cursor, seg.width)
+      if (line === null) {
+        cursor = { segmentIndex: 0, graphemeIndex: 0 }
+        line = layoutNextLine(preparedText, cursor, seg.width)
       }
-      if (i >= chars.length) i = 0
-      ctx.fillText(line, seg.x, y + 4)
+      if (!line || !line.text.trim()) continue
+
+      const scaleX = line.width > 0 ? seg.width / line.width : 1
+      ctx.save()
+      ctx.translate(seg.x, y + 4)
+      ctx.scale(scaleX, 1)
+      ctx.fillText(line.text, 0, 0)
+      ctx.restore()
+      cursor = line.end
     }
     y += LINE_HEIGHT
   }
@@ -483,6 +490,7 @@ const imgPromises = cardEls.map(el => {
 })
 
 Promise.all([document.fonts.load(FONT), ...imgPromises]).then(() => {
+  preparedText = prepareWithSegments(text, FONT)
   // Resolve dynamic positions (e.g. 'bottom') now that card heights are known
   syncRects()
   const colHeight = columns[0].clientHeight
