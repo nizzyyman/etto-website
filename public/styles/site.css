@@ -151,6 +151,17 @@ footer a:hover {
   padding: 0 56px;
 }
 
+.waitlist-subtext {
+  font-family: 'ABC Diatype', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #52525b;
+  text-align: center;
+  margin: -4px auto 18px;
+  max-width: 320px;
+  letter-spacing: var(--diatype-regular-letter-spacing);
+}
+
 .newsletter-form {
   display: flex;
   flex-direction: column;
@@ -206,6 +217,10 @@ footer a:hover {
 }
 
 .waitlist-dialog.is-success .waitlist-title {
+  display: none;
+}
+
+.waitlist-dialog.is-success .waitlist-subtext {
   display: none;
 }
 
