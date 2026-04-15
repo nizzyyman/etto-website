@@ -50,6 +50,7 @@ function cardInnerHTML(card) {
 // Intro animation — final positions resolved after images load
 const INTRO_X = 8
 const INTRO_Y = 8
+const INTRO_LEAD_CARD_INDEX = 0
 let finalPositions = cards.map(c => ({ x: c.x, y: c.y, col: c.col }))
 
 // On load: all cards live in col 0, stacked. Right-col cards hidden.
@@ -77,21 +78,14 @@ function createCardEl(card, index) {
 
 const cardEls = cards.map((c, i) => createCardEl(c, i))
 
-// Intro stack order: keep the lead card on top on mobile so smaller cards don't peek through.
-if (isMobile) {
+function applyIntroStackOrder() {
+  // Keep the intended lead card on top during the intro stack.
   cardEls.forEach((el, i) => {
-    el.style.zIndex = i === 0 ? 30 : 10
-  })
-} else {
-  // Desktop keeps the tallest card on top so shorter ones don't peek through.
-  let tallestIdx = 0
-  cardEls.forEach((el, i) => {
-    if (el.offsetHeight > cardEls[tallestIdx].offsetHeight) tallestIdx = i
-  })
-  cardEls.forEach((el, i) => {
-    el.style.zIndex = (i === tallestIdx) ? 20 : 10
+    el.style.zIndex = i === INTRO_LEAD_CARD_INDEX ? 30 : 10
   })
 }
+
+applyIntroStackOrder()
 
 function syncRects() {
   cards.forEach((c, i) => {
