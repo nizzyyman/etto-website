@@ -300,7 +300,7 @@ function animateToSection2() {
 
     const animationStart = performance.now() + 20
     const totalDuration = 940
-    const cardDurations = [760, 700]
+    const cardDurations = [840, 780]
     const cardDelays = [0, 90]
     const finalScale = 0.26
 
@@ -323,8 +323,8 @@ function animateToSection2() {
         const t = Math.min(elapsed / duration, 1)
         const verticalT = easeOutCubic(t)
         const horizontalT = order === 0
-          ? easeInOutCubic(Math.max(0, (t - 0.72) / 0.28))
-          : easeInOutCubic(Math.max(0, (t - 0.58) / 0.42))
+          ? easeInOutCubic(Math.max(0, (t - 0.78) / 0.22))
+          : easeInOutCubic(Math.max(0, (t - 0.68) / 0.32))
         const scaleT = easeInOutCubic(Math.min(1, t * 1.05))
         const currentCenterX = startCenterX + (targetCenterX - startCenterX) * horizontalT
         const currentCenterY = startCenterY + (targetCenterY - startCenterY) * verticalT
@@ -333,7 +333,9 @@ function animateToSection2() {
         const translateY = currentCenterY - startCenterY
 
         clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`
-        clone.style.opacity = t > 0.8 ? String(1 - (t - 0.8) / 0.2) : '1'
+        const fadeStart = order === 0 ? 0.74 : 0.66
+        const fadeWindow = order === 0 ? 0.26 : 0.34
+        clone.style.opacity = t > fadeStart ? String(1 - Math.min(1, (t - fadeStart) / fadeWindow)) : '1'
 
         if (t < 1) anyActive = true
       })
@@ -345,17 +347,17 @@ function animateToSection2() {
 
     setTimeout(() => {
       setMobileBoardThumbVisibility([0, 1], true)
-    }, 700)
+    }, 760)
 
     setTimeout(() => {
       setMobileSection2CopyVisible(true)
-    }, 860)
+    }, 1140)
 
     setTimeout(() => {
       section1.style.pointerEvents = 'none'
       flyOverlay.innerHTML = ''
       animating = false
-    }, 1320)
+    }, 1660)
 
     return
   }
