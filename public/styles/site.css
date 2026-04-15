@@ -62,7 +62,7 @@ nav .nav-link {
   line-height: 1;
   font-family: 'ABC Diatype', sans-serif;
   letter-spacing: var(--diatype-regular-letter-spacing);
-  font-size: 16px;
+  font-size: 15px;
   background: transparent;
   border: 0;
   cursor: pointer;
