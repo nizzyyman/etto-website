@@ -245,6 +245,10 @@ body.waitlist-open {
     padding: 0 40px 0 22px;
   }
 
+  nav .nav-link {
+    font-size: 13px;
+  }
+
   .waitlist-modal {
     padding: 16px;
   }

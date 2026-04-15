@@ -77,14 +77,21 @@ function createCardEl(card, index) {
 
 const cardEls = cards.map((c, i) => createCardEl(c, i))
 
-// Stack order: tallest card on top so shorter ones don't peek through
-let tallestIdx = 0
-cardEls.forEach((el, i) => {
-  if (el.offsetHeight > cardEls[tallestIdx].offsetHeight) tallestIdx = i
-})
-cardEls.forEach((el, i) => {
-  el.style.zIndex = (i === tallestIdx) ? 20 : 10
-})
+// Intro stack order: keep the lead card on top on mobile so smaller cards don't peek through.
+if (isMobile) {
+  cardEls.forEach((el, i) => {
+    el.style.zIndex = i === 0 ? 30 : 10
+  })
+} else {
+  // Desktop keeps the tallest card on top so shorter ones don't peek through.
+  let tallestIdx = 0
+  cardEls.forEach((el, i) => {
+    if (el.offsetHeight > cardEls[tallestIdx].offsetHeight) tallestIdx = i
+  })
+  cardEls.forEach((el, i) => {
+    el.style.zIndex = (i === tallestIdx) ? 20 : 10
+  })
+}
 
 function syncRects() {
   cards.forEach((c, i) => {
