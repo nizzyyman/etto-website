@@ -323,7 +323,12 @@ function animateToSection1() {
 // Wheel & touch — first interaction triggers intro, subsequent ones navigate sections
 let introPlayed = false
 
+function isWaitlistOpen() {
+  return document.body.classList.contains('waitlist-open')
+}
+
 function handleScrollDown() {
+  if (isWaitlistOpen()) return
   if (!introPlayed) {
     introPlayed = true
     animateIntro()
@@ -334,12 +339,14 @@ function handleScrollDown() {
 
 document.addEventListener('click', (e) => {
   if (animating) return
+  if (isWaitlistOpen()) return
   // Ignore clicks on interactive elements (cards, scroll indicator, links)
-  if (e.target.closest('.card, .scroll-indicator, a, button')) return
+  if (e.target.closest('.card, .scroll-indicator, .waitlist-modal, a, button, input, textarea, select, label')) return
   handleScrollDown()
 })
 
 document.addEventListener('wheel', (e) => {
+  if (isWaitlistOpen()) return
   if (e.deltaY > 20) handleScrollDown()
   else if (e.deltaY < -20) animateToSection1()
 }, { passive: true })
@@ -347,10 +354,12 @@ document.addEventListener('wheel', (e) => {
 let touchStartY = 0
 let touchStartTime = 0
 document.addEventListener('touchstart', (e) => {
+  if (isWaitlistOpen()) return
   touchStartY = e.touches[0].clientY
   touchStartTime = Date.now()
 }, { passive: true })
 document.addEventListener('touchend', (e) => {
+  if (isWaitlistOpen()) return
   const dy = touchStartY - e.changedTouches[0].clientY
   const dt = Date.now() - touchStartTime
   const velocity = Math.abs(dy) / dt // px per ms
@@ -360,11 +369,13 @@ document.addEventListener('touchend', (e) => {
 }, { passive: true })
 
 scrollIndicator.addEventListener('click', () => {
+  if (isWaitlistOpen()) return
   if (!introPlayed) { introPlayed = true; animateIntro() }
   else if (onSection2) animateToSection1()
   else animateToSection2()
 })
 scrollIndicator.addEventListener('keydown', (e) => {
+  if (isWaitlistOpen()) return
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault()
     if (!introPlayed) { introPlayed = true; animateIntro() }
