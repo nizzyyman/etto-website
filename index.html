@@ -158,15 +158,15 @@
     }
     /* Mobile */
     @media (max-width: 768px) {
-      footer { padding: 0 40px 0 20px; display: none !important; flex-direction: column; align-items: flex-start; height: auto; gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+      footer { padding: 0 40px 0 20px; display: none !important; flex-direction: column; align-items: flex-start; height: auto; gap: 8px; padding-top: 12px; padding-bottom: 12px; position: fixed; left: 0; right: 0; bottom: 0; background: #fff; z-index: 60; }
       footer.visible { display: flex !important; }
       .footer-links { flex-direction: column-reverse; align-items: flex-start; gap: 6px; }
-      body.show-footer #page { height: calc(100% - 200px); }
       #page { height: calc(100% - 95px); }
       #section-1 { gap: 0; padding: 0 20px 0 20px; padding-right: 36px; flex-direction: column; }
       .scroll-indicator { right: 8px; }
       #section-1 .column:nth-child(2) { display: none; }
-      #section-2 { padding: 20px; }
+      #section-2 { padding: clamp(18px, 5vh, 44px) 20px 140px; align-items: flex-start; justify-content: flex-start; }
+      #section-2-inner { width: 100%; }
       .section-2-heading { font-size: 28px; margin-bottom: 20px; }
       .body1 { font-size: 16px; }
       #section-2-inner.mobile-entering .section-2-copy {

@@ -1,17 +1,19 @@
 import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext'
 
 const QUOTE = "SPEND MORE TIME CREATIVE DIRECTING. "
-const isMobile = window.innerWidth <= 768
-const FONT = isMobile ? '700 12px "ABC Diatype Expanded"' : '700 22px "ABC Diatype Expanded"'
-const LINE_HEIGHT = isMobile ? 18 : 32
+function isMobileViewport() {
+  return window.innerWidth <= 768
+}
+const FONT = isMobileViewport() ? '700 12px "ABC Diatype Expanded"' : '700 22px "ABC Diatype Expanded"'
+const LINE_HEIGHT = isMobileViewport() ? 18 : 32
 const text = QUOTE.repeat(200)
 let preparedText = null
 
 const CARD_MARGIN = 10 // breathing room between card and text
 
 const cards = [
-  { col: 0, x: isMobile ? 0 : 20, y: isMobile ? 0 : 10, img: '/images/blazer.jpg', title: 'Kartik Research Embroidered Wool Blazer', price: '$1,895', tags: [{ name: '100% wool', color: '#e0e7ff' }, { name: 'embroidered', color: '#fef3c7' }], note: 'statement blazer for your friends wedding' },
-  { col: 0, x: isMobile ? (window.innerWidth - 40 - 150 - 28) : 300, y: isMobile ? 'bottom' : 180, img: '/images/polo.jpg', title: 'A.PRESSE Washed Silk Polo', price: '$495', tags: [{ name: 'textured finish', color: '#dcfce7' }, { name: '100% silk', color: '#fce7f3' }], note: 'layered under your grey sport coat' },
+  { col: 0, x: isMobileViewport() ? 0 : 20, y: isMobileViewport() ? 0 : 10, img: '/images/blazer.jpg', title: 'Kartik Research Embroidered Wool Blazer', price: '$1,895', tags: [{ name: '100% wool', color: '#e0e7ff' }, { name: 'embroidered', color: '#fef3c7' }], note: 'statement blazer for your friends wedding' },
+  { col: 0, x: isMobileViewport() ? (window.innerWidth - 40 - 150 - 28) : 300, y: isMobileViewport() ? 0 : 180, img: '/images/polo.jpg', title: 'A.PRESSE Washed Silk Polo', price: '$495', tags: [{ name: 'textured finish', color: '#dcfce7' }, { name: '100% silk', color: '#fce7f3' }], note: 'layered under your grey sport coat' },
   { col: 1, x: 20, y: 10, img: '/images/tee.jpg', title: 'Merz b. Schwanen Cotton Tee', price: '$85', tags: [{ name: 'essentials', color: '#f4f4f5' }, { name: 'organic cotton', color: '#dcfce7' }], note: 'wider silhouette for you' },
   { col: 1, x: 380, y: 10, img: '/images/jeans.jpg', title: 'orSlow 105 Straight-Leg Jeans', price: '$375', tags: [{ name: '13.5oz denim', color: '#dbeafe' }, { name: 'washed black', color: '#e0e7ff' }], note: 'a good pair of vintage inspired 90s Levis 501-style jeans' },
   { col: 1, x: 280, y: 220, img: '/images/yeezy.png', title: 'YEEZY', price: '$40', tags: [{ name: 'nylon with sheen', color: '#f4f4f5' }, { name: 'gorpcore', color: '#fef3c7' }], note: 'easy, versatile, and cheap. The brown has a cool sheen to it.' },
@@ -38,13 +40,13 @@ cards.slice(0, 3).forEach(c => {
 const boardThumbEls = Array.from(boardThumbs.children)
 
 function setMobileSection2CopyVisible(visible) {
-  if (!isMobile) return
+  if (!isMobileViewport()) return
   section2Inner.classList.toggle('mobile-entering', !visible)
   section2Inner.classList.toggle('mobile-ready', visible)
 }
 
 function setMobileBoardThumbVisibility(indices, visible) {
-  if (!isMobile) return
+  if (!isMobileViewport()) return
   indices.forEach(index => {
     const thumb = boardThumbEls[index]
     if (!thumb) return
@@ -60,6 +62,14 @@ function easeInOutCubic(t) {
   return t < 0.5
     ? 4 * t * t * t
     : 1 - Math.pow(-2 * t + 2, 3) / 2
+}
+
+function easeInCubic(t) {
+  return t * t * t
+}
+
+function lerp(a, b, t) {
+  return a + (b - a) * t
 }
 
 // Card HTML template
@@ -220,7 +230,23 @@ function renderColumn(colIndex) {
   ctx.fillStyle = '#000'
   ctx.textBaseline = 'top'
 
-  const obstacles = cards.filter(c => c.col === colIndex)
+  const obstacles = cards
+    .map((c, i) => ({ c, el: cardEls[i] }))
+    .filter(({ c, el }) => c.col === colIndex && el.style.opacity !== '0' && el.style.visibility !== 'hidden')
+    .map(({ c }) => {
+      const left = Math.max(0, c.x)
+      const right = Math.min(w, c.x + c.w)
+      const top = Math.max(0, c.y)
+      const bottom = Math.min(h, c.y + c.h)
+      if (right <= left || bottom <= top) return null
+      return {
+        x: left,
+        y: top,
+        w: right - left,
+        h: bottom - top,
+      }
+    })
+    .filter(Boolean)
   if (!preparedText) return
 
   let cursor = { segmentIndex: 0, graphemeIndex: 0 }
@@ -264,12 +290,8 @@ function animateToSection2() {
   animating = true
   onSection2 = true
   scrollIndicator.classList.add('at-bottom')
-  if (isMobile) {
-    document.querySelector('footer').classList.add('visible')
-    document.body.classList.add('show-footer')
-  }
 
-  if (isMobile) {
+  if (isMobileViewport()) {
     setMobileSection2CopyVisible(false)
     setMobileBoardThumbVisibility([0, 1], false)
 
@@ -279,66 +301,151 @@ function animateToSection2() {
       .filter(({ i }) => cards[i].col === 0)
       .slice(0, 2)
 
-    const clones = visibleCards.map(({ el, i }, order) => {
-      const rect = el.getBoundingClientRect()
-      const thumbRect = thumbRects[order] || boardFolder.getBoundingClientRect()
-      const clone = document.createElement('div')
-      clone.className = 'fly-card mobile-merge'
-      clone.innerHTML = cardInnerHTML(cards[i])
-      clone.style.left = rect.left + 'px'
-      clone.style.top = rect.top + 'px'
-      clone.style.width = rect.width + 'px'
-      clone.style.zIndex = String(40 - order)
-      flyOverlay.appendChild(clone)
-      return { clone, rect, thumbRect }
-    })
-
-    visibleCards.forEach(({ el }) => { el.style.visibility = 'hidden' })
-
-    section1.style.transition = 'opacity 0.22s ease'
-    section1.style.opacity = '0'
-
+    const viewportHeight = window.innerHeight
+    const stage1Duration = 300
+    const stage2Duration = 920
+    const stage3HoldDuration = 160
+    const stage4Duration = 560
+    const totalDuration = stage1Duration + stage2Duration + stage3HoldDuration + stage4Duration
     const animationStart = performance.now() + 20
-    const totalDuration = 940
-    const cardDurations = [840, 780]
-    const cardDelays = [0, 90]
+    const leftColRect = columns[0].getBoundingClientRect()
+    const card0Meta = visibleCards[0]
+    const card1Meta = visibleCards[1]
+    const card0Index = card0Meta.i
+    const card1Index = card1Meta.i
+    const card0El = card0Meta.el
+    const card1El = card1Meta.el
+    const card0Start = { x: cards[card0Index].x, y: cards[card0Index].y }
+    const card1Start = { x: cards[card1Index].x, y: cards[card1Index].y }
+    const cardExitVisibleSliver = 42
+    const mobileRightShadowAllowance = 16
+    const rightLaneX = Math.max(
+      card1Start.x,
+      columns[0].clientWidth - card1El.offsetWidth - mobileRightShadowAllowance
+    )
+    const card0Down = {
+      x: card0Start.x,
+      y: columns[0].clientHeight - cardExitVisibleSliver,
+    }
+    const card1Peel = {
+      x: rightLaneX,
+      y: card0Start.y,
+    }
+    const card1Down = {
+      x: rightLaneX,
+      y: columns[0].clientHeight - cardExitVisibleSliver,
+    }
     const finalScale = 0.26
+    let stage3Clones = null
+
+    function setCardPosition(index, point) {
+      cards[index].x = point.x
+      cards[index].y = point.y
+      cardEls[index].style.left = point.x + 'px'
+      cardEls[index].style.top = point.y + 'px'
+    }
+
+    function createStage3Clones() {
+      if (stage3Clones) return stage3Clones
+
+      const cloneData = [
+        {
+          el: card0El,
+          index: card0Index,
+          thumbRect: thumbRects[0] || boardFolder.getBoundingClientRect(),
+          startPoint: { x: leftColRect.left + card0Start.x, y: leftColRect.top + card0Start.y },
+        },
+        {
+          el: card1El,
+          index: card1Index,
+          thumbRect: thumbRects[1] || boardFolder.getBoundingClientRect(),
+          startPoint: { x: leftColRect.left + card1Peel.x, y: leftColRect.top + card1Peel.y },
+        },
+      ].map(({ el, index, thumbRect, startPoint }, order) => {
+        const currentRect = el.getBoundingClientRect()
+        const rect = {
+          left: startPoint.x,
+          top: startPoint.y,
+          width: currentRect.width,
+          height: currentRect.height,
+        }
+        const clone = document.createElement('div')
+        clone.className = 'fly-card mobile-merge'
+        clone.innerHTML = cardInnerHTML(cards[index])
+        clone.style.left = rect.left + 'px'
+        clone.style.top = rect.top + 'px'
+        clone.style.width = rect.width + 'px'
+        clone.style.zIndex = String(40 - order)
+        clone.style.transformOrigin = 'top center'
+        flyOverlay.appendChild(clone)
+        el.style.visibility = 'hidden'
+        return {
+          clone,
+          start: { x: rect.left, y: rect.top, scale: 1, opacity: 1 },
+          target: {
+            x: thumbRect.left + (thumbRect.width - rect.width) / 2,
+            y: thumbRect.top + (thumbRect.height - rect.height) / 2,
+            scale: finalScale,
+            opacity: 0,
+          },
+        }
+      })
+
+      stage3Clones = cloneData
+      return stage3Clones
+    }
+
+    function applyCloneState(clone, base, state) {
+      clone.style.transform = `translate(${state.x - base.x}px, ${state.y - base.y}px) scale(${state.scale})`
+      clone.style.opacity = String(state.opacity)
+    }
+
+    function interpolateState(from, to, t) {
+      return {
+        x: lerp(from.x, to.x, t),
+        y: lerp(from.y, to.y, t),
+        scale: lerp(from.scale ?? 1, to.scale ?? 1, t),
+        opacity: lerp(from.opacity ?? 1, to.opacity ?? 1, t),
+      }
+    }
 
     function stepMobileMerge(now) {
-      let anyActive = false
+      const elapsed = Math.max(0, now - animationStart)
+      let anyActive = true
 
-      clones.forEach(({ clone, rect, thumbRect }, order) => {
-        const startCenterX = rect.left + rect.width / 2
-        const startCenterY = rect.top + rect.height / 2
-        const targetCenterX = thumbRect.left + thumbRect.width / 2
-        const targetCenterY = thumbRect.top + thumbRect.height / 2
-        const elapsed = now - animationStart - cardDelays[order]
-        const duration = cardDurations[order]
-
-        if (elapsed < 0) {
-          anyActive = true
-          return
-        }
-
-        const t = Math.min(elapsed / duration, 1)
-        const verticalT = easeOutCubic(t)
-        const horizontalT = order === 0
-          ? easeInOutCubic(Math.max(0, (t - 0.78) / 0.22))
-          : easeInOutCubic(Math.max(0, (t - 0.68) / 0.32))
-        const scaleT = easeInOutCubic(Math.min(1, t * 1.05))
-        const currentCenterX = startCenterX + (targetCenterX - startCenterX) * horizontalT
-        const currentCenterY = startCenterY + (targetCenterY - startCenterY) * verticalT
-        const currentScale = 1 + (finalScale - 1) * scaleT
-        const translateX = currentCenterX - startCenterX
-        const translateY = currentCenterY - startCenterY
-
-        clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`
-        const fadeStart = order === 0 ? 0.74 : 0.66
-        const fadeWindow = order === 0 ? 0.26 : 0.34
-        clone.style.opacity = t > fadeStart ? String(1 - Math.min(1, (t - fadeStart) / fadeWindow)) : '1'
-
-        if (t < 1) anyActive = true
-      })
+      if (elapsed <= stage1Duration) {
+        const t = easeInOutCubic(Math.min(1, elapsed / stage1Duration))
+        setCardPosition(card0Index, card0Start)
+        setCardPosition(card1Index, interpolateState(card1Start, card1Peel, t))
+        renderAll()
+      } else if (elapsed <= stage1Duration + stage2Duration) {
+        const t = easeInOutCubic(Math.min(1, (elapsed - stage1Duration) / stage2Duration))
+        setCardPosition(card0Index, interpolateState(card0Start, card0Down, t))
+        setCardPosition(card1Index, interpolateState(card1Peel, card1Down, t))
+        renderAll()
+      } else if (elapsed <= stage1Duration + stage2Duration + stage3HoldDuration) {
+        const t = Math.min(1, (elapsed - stage1Duration - stage2Duration) / stage3HoldDuration)
+        setCardPosition(card0Index, card0Down)
+        setCardPosition(card1Index, card1Down)
+        renderAll()
+        section1.style.opacity = String(Math.max(0, 1 - t * 5))
+      } else if (elapsed <= totalDuration) {
+        const t = Math.min(1, (elapsed - stage1Duration - stage2Duration - stage3HoldDuration) / stage4Duration)
+        const moveT = easeInOutCubic(t)
+        const fadeT = easeInCubic(Math.max(0, (t - 0.42) / 0.58))
+        const clones = createStage3Clones()
+        section1.style.opacity = '0'
+        clones.forEach(({ clone, start, target }) => {
+          applyCloneState(clone, start, interpolateState(start, { ...target, opacity: 1 - fadeT }, moveT))
+        })
+      } else {
+        anyActive = false
+        const clones = createStage3Clones()
+        section1.style.opacity = '0'
+        clones.forEach(({ clone, start, target }) => {
+          applyCloneState(clone, start, target)
+        })
+      }
 
       if (anyActive) requestAnimationFrame(stepMobileMerge)
     }
@@ -347,17 +454,22 @@ function animateToSection2() {
 
     setTimeout(() => {
       setMobileBoardThumbVisibility([0, 1], true)
-    }, 760)
+    }, stage1Duration + stage2Duration + stage3HoldDuration + Math.round(stage4Duration * 0.7))
 
     setTimeout(() => {
       setMobileSection2CopyVisible(true)
-    }, 1140)
+    }, totalDuration + 110)
+
+    setTimeout(() => {
+      document.querySelector('footer').classList.add('visible')
+      document.body.classList.add('show-footer')
+    }, totalDuration + 110)
 
     setTimeout(() => {
       section1.style.pointerEvents = 'none'
       flyOverlay.innerHTML = ''
       animating = false
-    }, 1660)
+    }, totalDuration + 520)
 
     return
   }
@@ -424,7 +536,7 @@ function animateToSection1() {
   animating = true
   onSection2 = false
   scrollIndicator.classList.remove('at-bottom')
-  if (isMobile) {
+  if (isMobileViewport()) {
     document.querySelector('footer').classList.remove('visible')
     document.body.classList.remove('show-footer')
     setMobileSection2CopyVisible(false)
@@ -432,11 +544,11 @@ function animateToSection1() {
   }
 
   // Restore section 1
-  const restoreCards = isMobile
+  const restoreCards = isMobileViewport()
     ? cardEls.filter((_, i) => cards[i].col === 0)
     : cardEls
   restoreCards.forEach(el => { el.style.visibility = '' })
-  const reverseDuration = isMobile ? 0.25 : 0.4
+  const reverseDuration = isMobileViewport() ? 0.25 : 0.4
   section1.style.transition = `opacity ${reverseDuration}s ease`
   section1.style.opacity = '1'
   section1.style.pointerEvents = ''
@@ -446,7 +558,7 @@ function animateToSection1() {
     section1.style.transition = 'none'
     animating = false
     renderAll()
-  }, isMobile ? 250 : 400)
+  }, isMobileViewport() ? 250 : 400)
 }
 
 // Wheel & touch — first interaction triggers intro, subsequent ones navigate sections
@@ -498,7 +610,7 @@ document.addEventListener('touchend', (e) => {
   const dy = touchStartY - e.changedTouches[0].clientY
   const dt = Date.now() - touchStartTime
   const velocity = Math.abs(dy) / dt // px per ms
-  const threshold = isMobile ? 100 : 50
+  const threshold = isMobileViewport() ? 100 : 50
   if (dy > threshold && velocity > 0.15) handleScrollDown()
   else if (dy < -threshold && velocity > 0.15) handleScrollUp()
 }, { passive: true })
@@ -529,7 +641,7 @@ function easeOutQuint(t) {
 function animateIntro() {
   animating = true
 
-  const visibleIndices = isMobile
+  const visibleIndices = isMobileViewport()
     ? cards.map((c, i) => i).filter(i => finalPositions[i].col === 0)
     : cards.map((_, i) => i)
 
@@ -610,7 +722,7 @@ function animateBackToIntro() {
   if (animating || !introExpanded || onSection2) return
   animating = true
 
-  const visibleIndices = isMobile
+  const visibleIndices = isMobileViewport()
     ? cards.map((c, i) => i).filter(i => finalPositions[i].col === 0)
     : cards.map((_, i) => i)
 
