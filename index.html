@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>etto</title>
+  <style>
+    @font-face {
+      font-family: 'ABC Diatype Expanded';
+      src: url('/fonts/ABCDiatypeExpanded-Regular.otf') format('opentype');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'ABC Diatype';
+      src: url('/fonts/ABCDiatype-Regular.otf') format('opentype');
+      font-weight: 400;
+      font-style: normal;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #fff; padding-top: 15px; }
+    nav, footer {
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav {
+      padding: 8px 44px;
+      margin-bottom: 32px;
+      font-family: 'ABC Diatype Expanded', sans-serif;
+      font-size: 14px;
+    }
+    nav .logo img { height: 16px; display: block; }
+    nav .nav-link { text-decoration: none; color: #1a1a1a; line-height: 1; font-family: 'ABC Diatype', sans-serif; }
+    footer { padding: 0 40px; font-family: 'ABC Diatype', sans-serif; font-size: 13px; color: #a1a1aa; }
+    footer a { text-decoration: none; color: #a1a1aa; }
+    .footer-links { display: flex; gap: 16px; align-items: center; }
+    a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+    .nav-link:hover { opacity: 0.6; }
+
+    /* Sections */
+    #page { width: 100%; height: calc(100% - 140px); position: relative; }
+    .section { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+    /* Section 2 sits behind, always visible */
+    #section-2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    /* Section 1 sits on top, fully covering section 2 */
+    #section-1 { display: flex; gap: 40px; padding: 0 40px; z-index: 2; background: #fff; }
+    .column { flex: 1; position: relative; overflow: hidden; }
+    .column canvas { display: block; width: 100%; height: 100%; }
+    #section-2-inner {
+      max-width: 600px;
+      font-family: 'ABC Diatype Expanded', sans-serif;
+    }
+
+    /* Board folder */
+    .board-folder {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      border: 1px solid #e4e4e7;
+      border-radius: 6px;
+      padding: 10px 14px;
+      background: #fff;
+      margin-bottom: 24px;
+    }
+    .board-folder-header { display: flex; align-items: center; gap: 6px; }
+    .board-folder-icon { width: 14px; height: 14px; color: #a1a1aa; }
+    .board-folder-name { font-size: 14px; font-weight: 500; color: #27272a; font-family: 'ABC Diatype', sans-serif; }
+    .board-folder-dot { width: 12px; height: 12px; margin-left: auto; }
+    .board-folder-count { font-size: 12px; color: #71717a; font-family: 'ABC Diatype', sans-serif; }
+    .board-folder-thumbs { display: flex; gap: 4px; margin-top: 4px; }
+    .board-folder-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
+
+    /* Copy */
+    .section-2-heading {
+      font-family: 'ABC Diatype Expanded', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #18181b;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .body1 {
+      font-family: 'ABC Diatype', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #18181b;
+      margin-bottom: 16px;
+    }
+    /* Cards (in columns) */
+    .card {
+      position: absolute;
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px;
+      width: 200px;
+      cursor: grab;
+      user-select: none;
+      z-index: 10;
+      font-family: 'ABC Diatype', sans-serif;
+      box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.1);
+    }
+    .card:active { cursor: grabbing; }
+    .card-img { width: 100%; aspect-ratio: 4/5; border-radius: 6px; margin-bottom: 10px; object-fit: cover; display: block; }
+    .card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+    .card-title { font-size: 13px; font-weight: 500; color: #18181b; }
+    .card-price { flex-shrink: 0; background: #f4f4f5; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; color: #18181b; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .card-tag { border-radius: 999px; padding: 2px 8px; font-size: 11px; color: #18181b; }
+    .card-note { margin-top: 8px; display: flex; align-items: start; gap: 6px; background: rgba(254,202,202,0.4); border-radius: 6px; padding: 6px 8px; }
+    .card-note p { font-size: 11px; color: #18181b; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
+    .card-note p strong { font-weight: 700; }
+
+    /* Flying card clones (in fixed overlay) */
+    #fly-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 100;
+    }
+    .fly-card {
+      position: absolute;
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px;
+      width: 200px;
+      font-family: 'ABC Diatype', sans-serif;
+      box-shadow: 4px 8px 16px rgba(0,0,0,0.18);
+      will-change: transform, opacity;
+    }
+    .fly-card .card-img { width: 100%; aspect-ratio: 4/5; border-radius: 6px; margin-bottom: 10px; object-fit: cover; display: block; }
+    .fly-card .card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+    .fly-card .card-title { font-size: 13px; font-weight: 500; color: #18181b; }
+    .fly-card .card-price { flex-shrink: 0; background: #f4f4f5; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; color: #18181b; }
+    .fly-card .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .fly-card .card-tag { border-radius: 999px; padding: 2px 8px; font-size: 11px; color: #18181b; }
+    .fly-card .card-note { margin-top: 8px; display: flex; align-items: start; gap: 6px; background: rgba(254,202,202,0.4); border-radius: 6px; padding: 6px 8px; }
+    .fly-card .card-note p { font-size: 11px; color: #18181b; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
+    .fly-card .card-note p strong { font-weight: 700; }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: fixed;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 240px;
+      background: rgba(0, 0, 0, 0.08);
+      border-radius: 100px;
+      z-index: 200;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+    }
+    .scroll-indicator-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 45%;
+      background: #000;
+      border-radius: 100px;
+      transition: top 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .scroll-indicator.at-bottom .scroll-indicator-thumb {
+      top: 55%;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 0 40px 0 22px; }
+      footer { padding: 0 40px 0 20px; display: none !important; flex-direction: column; align-items: flex-start; height: auto; gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+      footer.visible { display: flex !important; }
+      .footer-links { flex-direction: column-reverse; align-items: flex-start; gap: 6px; }
+      body.show-footer #page { height: calc(100% - 200px); }
+      #page { height: calc(100% - 95px); }
+      #section-1 { gap: 0; padding: 0 20px 0 20px; padding-right: 36px; flex-direction: column; }
+      .scroll-indicator { right: 8px; }
+      #section-1 .column:nth-child(2) { display: none; }
+      #section-2 { padding: 20px; }
+      .section-2-heading { font-size: 28px; margin-bottom: 20px; }
+      .body1 { font-size: 16px; }
+      .card { width: 150px; padding: 8px; }
+      .card-img { aspect-ratio: auto; max-height: 140px; object-fit: contain; }
+      .card-title { font-size: 10px; }
+      .card-price { font-size: 9px; padding: 1px 4px; }
+      .card-tags { gap: 3px; margin-top: 4px; }
+      .card-tag { font-size: 9px; padding: 1px 5px; }
+      .card-note { margin-top: 4px; padding: 4px 6px; }
+      .card-note p { font-size: 9px; }
+      .fly-card { width: 150px; padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo"><img src="/etto-type-black.png" alt="etto"></div>
+    <a class="nav-link" href="#">JOIN WAITLIST</a>
+  </nav>
+  <div id="page">
+    <div class="section" id="section-1">
+      <div class="column" id="col-left"><canvas></canvas></div>
+      <div class="column" id="col-right"><canvas></canvas></div>
+    </div>
+    <div class="section" id="section-2">
+      <div id="section-2-inner">
+        <h1 class="section-2-heading">Curate. Annotate. Communicate.</h1>
+        <div class="board-folder" id="board-folder">
+          <div class="board-folder-header">
+            <svg class="board-folder-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2z"/></svg>
+            <span class="board-folder-name">May Events</span>
+            <img class="board-folder-dot" src="/green-ellipse.svg" alt="live">
+          </div>
+          <span class="board-folder-count">5 items</span>
+          <div class="board-folder-thumbs" id="board-folder-thumbs"></div>
+        </div>
+        <p class="body1" style="margin-bottom: 32px">One workspace to manage all your clients.<br>Never lose track of what clients love.<br>Or what they don't.</p>
+        <p class="body1">Spend more time creative directing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator" id="scroll-indicator" role="button" tabindex="0" aria-label="Scroll to next section">
+    <div class="scroll-indicator-thumb"></div>
+  </div>
+  <div id="fly-overlay"></div>
+  <footer>
+    <span>&copy; 2026 Etto Systems Inc.</span>
+    <div class="footer-links"><a href="#">Instagram</a><a href="#">Youtube</a><a href="#">Privacy</a></div>
+  </footer>
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
