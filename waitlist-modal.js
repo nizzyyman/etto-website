@@ -23,6 +23,7 @@
   }
 
   function resetFeedback() {
+    dialog.classList.remove('is-success');
     success.style.display = 'none';
     errorContainer.style.display = 'none';
     errorMessage.innerText = 'Oops! Something went wrong, please try again.';
@@ -110,6 +111,7 @@
       });
 
       if (response.ok) {
+        dialog.classList.add('is-success');
         success.style.display = 'block';
         form.reset();
       } else {
