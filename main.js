@@ -541,6 +541,43 @@ function animateToSection1() {
     document.body.classList.remove('show-footer')
     setMobileSection2CopyVisible(false)
     setMobileBoardThumbVisibility([0, 1], false)
+    section1.style.transition = 'none'
+    section1.style.opacity = '0'
+    section1.style.pointerEvents = ''
+    const visibleIndices = cards.map((c, i) => i).filter(i => finalPositions[i].col === 0)
+    const card0Index = visibleIndices[0]
+    const card1Index = visibleIndices[1]
+    const mobileRightShadowAllowance = 16
+    const rightLaneX = Math.max(
+      finalPositions[card1Index].x,
+      columns[0].clientWidth - cardEls[card1Index].offsetWidth - mobileRightShadowAllowance
+    )
+    const topRowY = finalPositions[card0Index].y
+
+    visibleIndices.forEach(i => {
+      const targetX = i === card1Index ? rightLaneX : finalPositions[i].x
+      cards[i].x = targetX
+      cards[i].y = topRowY
+      cardEls[i].style.left = targetX + 'px'
+      cardEls[i].style.top = topRowY + 'px'
+      cardEls[i].style.visibility = ''
+      cardEls[i].style.opacity = '1'
+      cardEls[i].style.pointerEvents = ''
+    })
+
+    flyOverlay.innerHTML = ''
+    const reverseDuration = 0.2
+    section1.style.transition = `opacity ${reverseDuration}s ease`
+    requestAnimationFrame(() => {
+      section1.style.opacity = '1'
+    })
+
+    setTimeout(() => {
+      section1.style.transition = 'none'
+      animating = false
+      renderAll()
+    }, 200)
+    return
   }
 
   // Restore section 1
