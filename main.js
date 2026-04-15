@@ -24,6 +24,7 @@ const boardFolder = document.getElementById('board-folder')
 const boardThumbs = document.getElementById('board-folder-thumbs')
 const flyOverlay = document.getElementById('fly-overlay')
 const scrollIndicator = document.getElementById('scroll-indicator')
+const section2Inner = document.getElementById('section-2-inner')
 
 // Folder thumbnails
 cards.slice(0, 3).forEach(c => {
@@ -33,6 +34,33 @@ cards.slice(0, 3).forEach(c => {
   thumb.alt = c.title
   boardThumbs.appendChild(thumb)
 })
+
+const boardThumbEls = Array.from(boardThumbs.children)
+
+function setMobileSection2CopyVisible(visible) {
+  if (!isMobile) return
+  section2Inner.classList.toggle('mobile-entering', !visible)
+  section2Inner.classList.toggle('mobile-ready', visible)
+}
+
+function setMobileBoardThumbVisibility(indices, visible) {
+  if (!isMobile) return
+  indices.forEach(index => {
+    const thumb = boardThumbEls[index]
+    if (!thumb) return
+    thumb.classList.toggle('is-hidden', !visible)
+  })
+}
+
+function easeOutCubic(t) {
+  return 1 - Math.pow(1 - t, 3)
+}
+
+function easeInOutCubic(t) {
+  return t < 0.5
+    ? 4 * t * t * t
+    : 1 - Math.pow(-2 * t + 2, 3) / 2
+}
 
 // Card HTML template
 function cardInnerHTML(card) {
@@ -241,8 +269,99 @@ function animateToSection2() {
     document.body.classList.add('show-footer')
   }
 
+  if (isMobile) {
+    setMobileSection2CopyVisible(false)
+    setMobileBoardThumbVisibility([0, 1], false)
+
+    const thumbRects = boardThumbEls.slice(0, 2).map(thumb => thumb.getBoundingClientRect())
+    const visibleCards = cardEls
+      .map((el, i) => ({ el, i }))
+      .filter(({ i }) => cards[i].col === 0)
+      .slice(0, 2)
+
+    const clones = visibleCards.map(({ el, i }, order) => {
+      const rect = el.getBoundingClientRect()
+      const thumbRect = thumbRects[order] || boardFolder.getBoundingClientRect()
+      const clone = document.createElement('div')
+      clone.className = 'fly-card mobile-merge'
+      clone.innerHTML = cardInnerHTML(cards[i])
+      clone.style.left = rect.left + 'px'
+      clone.style.top = rect.top + 'px'
+      clone.style.width = rect.width + 'px'
+      clone.style.zIndex = String(40 - order)
+      flyOverlay.appendChild(clone)
+      return { clone, rect, thumbRect }
+    })
+
+    visibleCards.forEach(({ el }) => { el.style.visibility = 'hidden' })
+
+    section1.style.transition = 'opacity 0.22s ease'
+    section1.style.opacity = '0'
+
+    const animationStart = performance.now() + 20
+    const totalDuration = 940
+    const cardDurations = [760, 700]
+    const cardDelays = [0, 90]
+    const finalScale = 0.26
+
+    function stepMobileMerge(now) {
+      let anyActive = false
+
+      clones.forEach(({ clone, rect, thumbRect }, order) => {
+        const startCenterX = rect.left + rect.width / 2
+        const startCenterY = rect.top + rect.height / 2
+        const targetCenterX = thumbRect.left + thumbRect.width / 2
+        const targetCenterY = thumbRect.top + thumbRect.height / 2
+        const elapsed = now - animationStart - cardDelays[order]
+        const duration = cardDurations[order]
+
+        if (elapsed < 0) {
+          anyActive = true
+          return
+        }
+
+        const t = Math.min(elapsed / duration, 1)
+        const verticalT = easeOutCubic(t)
+        const horizontalT = order === 0
+          ? easeInOutCubic(Math.max(0, (t - 0.72) / 0.28))
+          : easeInOutCubic(Math.max(0, (t - 0.58) / 0.42))
+        const scaleT = easeInOutCubic(Math.min(1, t * 1.05))
+        const currentCenterX = startCenterX + (targetCenterX - startCenterX) * horizontalT
+        const currentCenterY = startCenterY + (targetCenterY - startCenterY) * verticalT
+        const currentScale = 1 + (finalScale - 1) * scaleT
+        const translateX = currentCenterX - startCenterX
+        const translateY = currentCenterY - startCenterY
+
+        clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`
+        clone.style.opacity = t > 0.8 ? String(1 - (t - 0.8) / 0.2) : '1'
+
+        if (t < 1) anyActive = true
+      })
+
+      if (anyActive) requestAnimationFrame(stepMobileMerge)
+    }
+
+    requestAnimationFrame(stepMobileMerge)
+
+    setTimeout(() => {
+      setMobileBoardThumbVisibility([0, 1], true)
+    }, 700)
+
+    setTimeout(() => {
+      setMobileSection2CopyVisible(true)
+    }, 860)
+
+    setTimeout(() => {
+      section1.style.pointerEvents = 'none'
+      flyOverlay.innerHTML = ''
+      animating = false
+    }, 1320)
+
+    return
+  }
+
   // 1. Fade out section 1 (reveals section 2 behind)
-  const fadeDuration = isMobile ? 0.35 : 0.5
+  const fadeDuration = 0.5
   section1.style.transition = `opacity ${fadeDuration}s ease`
   section1.style.opacity = '0'
 
@@ -251,10 +370,8 @@ function animateToSection2() {
   const targetX = folderRect.left + folderRect.width / 2
   const targetY = folderRect.top + folderRect.height / 2
 
-  // 3. Filter to visible cards on mobile, then clone into fixed overlay
-  const visibleCards = isMobile
-    ? cardEls.map((el, i) => ({ el, i })).filter(({ i }) => cards[i].col === 0)
-    : cardEls.map((el, i) => ({ el, i }))
+  // 3. Clone cards into fixed overlay
+  const visibleCards = cardEls.map((el, i) => ({ el, i }))
 
   const clones = visibleCards.map(({ el, i }) => {
     const rect = el.getBoundingClientRect()
@@ -272,10 +389,10 @@ function animateToSection2() {
   visibleCards.forEach(({ el }) => { el.style.visibility = 'hidden' })
 
   // 5. Animate clones to folder with stagger
-  const flightDuration = isMobile ? 0.7 : 1.1
-  const stagger = isMobile ? 60 : 80
-  const fadeStart = isMobile ? 400 : 700
-  const endScale = isMobile ? 0.15 : 0.08
+  const flightDuration = 1.1
+  const stagger = 80
+  const fadeStart = 700
+  const endScale = 0.08
 
   requestAnimationFrame(() => {
     clones.forEach(({ clone, startX, startY, w, h }, i) => {
@@ -293,12 +410,11 @@ function animateToSection2() {
   })
 
   // 6. Clean up after animation completes
-  const cleanupDelay = isMobile ? 900 : 1600
   setTimeout(() => {
     section1.style.pointerEvents = 'none'
     flyOverlay.innerHTML = ''
     animating = false
-  }, cleanupDelay)
+  }, 1600)
 }
 
 function animateToSection1() {
@@ -309,6 +425,8 @@ function animateToSection1() {
   if (isMobile) {
     document.querySelector('footer').classList.remove('visible')
     document.body.classList.remove('show-footer')
+    setMobileSection2CopyVisible(false)
+    setMobileBoardThumbVisibility([0, 1], false)
   }
 
   // Restore section 1
@@ -593,5 +711,7 @@ Promise.all([document.fonts.load(FONT), ...imgPromises]).then(() => {
     }
     return { ...fp, y }
   })
+  setMobileSection2CopyVisible(false)
+  setMobileBoardThumbVisibility([0, 1], false)
   renderAll()
 })
