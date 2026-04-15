@@ -228,6 +228,7 @@ function renderAll() {
 
 // --- Section transition animation ---
 let onSection2 = false
+let introExpanded = false
 
 function animateToSection2() {
   if (animating || onSection2) return
@@ -336,12 +337,18 @@ function isWaitlistOpen() {
 
 function handleScrollDown() {
   if (isWaitlistOpen()) return
-  if (!introPlayed) {
+  if (!introPlayed || !introExpanded) {
     introPlayed = true
     animateIntro()
   } else {
     animateToSection2()
   }
+}
+
+function handleScrollUp() {
+  if (isWaitlistOpen()) return
+  if (onSection2) animateToSection1()
+  else if (introExpanded) animateBackToIntro()
 }
 
 document.addEventListener('click', (e) => {
@@ -355,7 +362,7 @@ document.addEventListener('click', (e) => {
 document.addEventListener('wheel', (e) => {
   if (isWaitlistOpen()) return
   if (e.deltaY > 20) handleScrollDown()
-  else if (e.deltaY < -20) animateToSection1()
+  else if (e.deltaY < -20) handleScrollUp()
 }, { passive: true })
 
 let touchStartY = 0
@@ -372,13 +379,13 @@ document.addEventListener('touchend', (e) => {
   const velocity = Math.abs(dy) / dt // px per ms
   const threshold = isMobile ? 100 : 50
   if (dy > threshold && velocity > 0.15) handleScrollDown()
-  else if (dy < -threshold && velocity > 0.15) animateToSection1()
+  else if (dy < -threshold && velocity > 0.15) handleScrollUp()
 }, { passive: true })
 
 scrollIndicator.addEventListener('click', () => {
   if (isWaitlistOpen()) return
   if (!introPlayed) { introPlayed = true; animateIntro() }
-  else if (onSection2) animateToSection1()
+  else if (onSection2 || introExpanded) handleScrollUp()
   else animateToSection2()
 })
 scrollIndicator.addEventListener('keydown', (e) => {
@@ -386,7 +393,7 @@ scrollIndicator.addEventListener('keydown', (e) => {
   if (e.key === 'Enter' || e.key === ' ') {
     e.preventDefault()
     if (!introPlayed) { introPlayed = true; animateIntro() }
-    else if (onSection2) animateToSection1()
+    else if (onSection2 || introExpanded) handleScrollUp()
     else animateToSection2()
   }
 })
@@ -470,6 +477,90 @@ function animateIntro() {
       })
       columns.forEach(col => { col.style.overflow = '' })
       renderAll()
+      introExpanded = true
+      animating = false
+    }
+  }
+
+  requestAnimationFrame(step)
+}
+
+function animateBackToIntro() {
+  if (animating || !introExpanded || onSection2) return
+  animating = true
+
+  const visibleIndices = isMobile
+    ? cards.map((c, i) => i).filter(i => finalPositions[i].col === 0)
+    : cards.map((_, i) => i)
+
+  const col0Rect = columns[0].getBoundingClientRect()
+  const col1Rect = columns[1] ? columns[1].getBoundingClientRect() : col0Rect
+  const colOffset = col0Rect.left - col1Rect.left
+
+  visibleIndices.forEach(i => {
+    if (cards[i].col === 1) {
+      columns[1].removeChild(cardEls[i])
+      columns[0].appendChild(cardEls[i])
+      cards[i].x -= colOffset
+      cardEls[i].style.left = cards[i].x + 'px'
+      cardEls[i].style.top = cards[i].y + 'px'
+      cards[i].col = 0
+    }
+  })
+
+  columns.forEach(col => { col.style.overflow = 'visible' })
+
+  const startPositions = visibleIndices.map(i => ({ x: cards[i].x, y: cards[i].y }))
+  const stagger = 90
+  const duration = 700
+  const startTime = performance.now()
+  const cardStartTimes = visibleIndices.map((_, order) => startTime + order * stagger)
+
+  function step(now) {
+    let anyActive = false
+
+    visibleIndices.forEach((i, order) => {
+      const elapsed = now - cardStartTimes[order]
+      if (elapsed < 0) { anyActive = true; return }
+
+      const t = Math.min(elapsed / duration, 1)
+      const ease = easeOutQuint(t)
+
+      cards[i].x = startPositions[order].x + (INTRO_X - startPositions[order].x) * ease
+      cards[i].y = startPositions[order].y + (INTRO_Y - startPositions[order].y) * ease
+      cardEls[i].style.left = cards[i].x + 'px'
+      cardEls[i].style.top = cards[i].y + 'px'
+
+      if (t < 1) anyActive = true
+    })
+
+    renderAll()
+
+    if (anyActive) {
+      requestAnimationFrame(step)
+    } else {
+      cards.forEach((card, i) => {
+        card.x = INTRO_X
+        card.y = INTRO_Y
+        card.col = 0
+        cardEls[i].style.left = INTRO_X + 'px'
+        cardEls[i].style.top = INTRO_Y + 'px'
+        if (finalPositions[i].col === 1) {
+          cardEls[i].style.opacity = '0'
+          cardEls[i].style.pointerEvents = 'none'
+        } else {
+          cardEls[i].style.opacity = '1'
+          cardEls[i].style.pointerEvents = ''
+        }
+        if (cardEls[i].parentElement !== columns[0]) {
+          cardEls[i].parentElement.removeChild(cardEls[i])
+          columns[0].appendChild(cardEls[i])
+        }
+      })
+
+      columns.forEach(col => { col.style.overflow = '' })
+      renderAll()
+      introExpanded = false
       animating = false
     }
   }
