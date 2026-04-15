@@ -2,7 +2,7 @@ import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext'
 
 const QUOTE = "SPEND MORE TIME CREATIVE DIRECTING. "
 const isMobile = window.innerWidth <= 768
-const FONT = isMobile ? '12px "ABC Diatype Expanded"' : '22px "ABC Diatype Expanded"'
+const FONT = isMobile ? '700 12px "ABC Diatype Expanded"' : '700 22px "ABC Diatype Expanded"'
 const LINE_HEIGHT = isMobile ? 18 : 32
 const text = QUOTE.repeat(200)
 
