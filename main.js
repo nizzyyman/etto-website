@@ -637,13 +637,16 @@ document.addEventListener('wheel', (e) => {
 
 let touchStartY = 0
 let touchStartTime = 0
+
 document.addEventListener('touchstart', (e) => {
   if (isWaitlistOpen()) return
+  if (e.target.closest('a, button, input, textarea, select, label')) return
   touchStartY = e.touches[0].clientY
   touchStartTime = Date.now()
 }, { passive: true })
 document.addEventListener('touchend', (e) => {
   if (isWaitlistOpen()) return
+  if (e.target.closest('a, button, input, textarea, select, label')) return
   const dy = touchStartY - e.changedTouches[0].clientY
   const dt = Date.now() - touchStartTime
   const velocity = Math.abs(dy) / dt // px per ms
