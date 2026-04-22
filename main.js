@@ -1,6 +1,6 @@
 import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext'
 
-const QUOTE = "SPEND MORE TIME CREATIVE DIRECTING. "
+const QUOTE = "THE WORKSPACE FOR STYLISTS."
 function isMobileViewport() {
   return window.innerWidth <= 768
 }
