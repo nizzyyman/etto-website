@@ -8,6 +8,11 @@ const PHASE = { HERO: 'hero', GRID: 'grid', FOLDER: 'folder' }
 const GRID_GAP = 16
 const GRID_PADDING = 20
 const CARD_POOL_SIZE = 16 // enough elements for very wide displays
+const FAN_DURATION_MS = 950
+const FAN_COLLAPSE_DURATION_MS = 650
+const FAN_STAGGER_MS = 100
+const FAN_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)'
+const FAN_OPACITY_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)'
 
 // Card templates — cycled through to fill whatever count the layout needs.
 const CARD_TEMPLATES = [
@@ -161,13 +166,42 @@ function computeLayout() {
   return { cols, rows, count, leadIndex, gridPositions, heroPos, fitScale }
 }
 
-function applyTransform(el, pos, opacity) {
-  el.style.transform = `translate(${pos.x}px, ${pos.y}px) scale(${pos.scale})`
+function applyTransform(el, pos, opacity, rotate = 0) {
+  const originY = el.offsetHeight / 2
+  const y = pos.y - originY * (1 - pos.scale)
+  el.style.transform = `translate(${pos.x}px, ${y}px) scale(${pos.scale}) rotate(${rotate}deg)`
   el.style.opacity = String(opacity)
+}
+
+function clearCardTransition(el) {
+  el.style.transition = ''
+}
+
+function setCardTransition(el, duration, delay, opacityDuration = 550) {
+  el.style.transition = [
+    `transform ${duration}ms ${FAN_EASE} ${delay}ms`,
+    `opacity ${opacityDuration}ms ${FAN_OPACITY_EASE} ${delay}ms`,
+  ].join(', ')
+}
+
+function fanStackPose(heroPos, index) {
+  return {
+    x: heroPos.x + index * 3,
+    y: heroPos.y + index * 2,
+    scale: heroPos.scale * (index === 0 ? 1 : 0.94),
+    rotate: index * -1.5,
+  }
+}
+
+function setFanLayering(count) {
+  for (let i = 0; i < count; i++) {
+    cardEls[i].style.zIndex = String(count - i)
+  }
 }
 
 function hideExtraCards(count) {
   for (let i = count; i < cardEls.length; i++) {
+    clearCardTransition(cardEls[i])
     cardEls[i].style.opacity = '0'
     cardEls[i].style.transform = 'translate(-9999px, -9999px)'
   }
@@ -176,10 +210,13 @@ function hideExtraCards(count) {
 function applyPhase(next) {
   const { gridPositions, heroPos, count, leadIndex } = computeLayout()
   hideExtraCards(count)
+  cardEls.slice(0, count).forEach(clearCardTransition)
+  setFanLayering(count)
   if (next === PHASE.HERO) {
     cardEls.slice(0, count).forEach((el, i) => {
+      const pose = fanStackPose(heroPos, i)
       if (i === leadIndex) applyTransform(el, heroPos, 1)
-      else applyTransform(el, heroPos, 0) // stacked behind, invisible
+      else applyTransform(el, pose, 0, pose.rotate)
     })
     folderSection.classList.remove('is-visible')
     heroGridSection.style.opacity = '1'
@@ -239,45 +276,33 @@ function animateHeroToGrid() {
   const { gridPositions, heroPos, count, leadIndex } = computeLayout()
   hideExtraCards(count)
 
-  const startTime = performance.now()
-  const duration = 900
-  const stagger = 60
-  // Stagger by distance from the lead slot — closer cards reveal first.
-  const order = []
-  for (let i = 0; i < count; i++) if (i !== leadIndex) order.push(i)
-  order.sort((a, b) => {
-    const pa = gridPositions[a], pb = gridPositions[b]
-    const da = Math.hypot(pa.x - gridPositions[leadIndex].x, pa.y - gridPositions[leadIndex].y)
-    const db = Math.hypot(pb.x - gridPositions[leadIndex].x, pb.y - gridPositions[leadIndex].y)
-    return da - db
-  })
-  const startOffset = new Array(count).fill(0)
-  order.forEach((idx, k) => { startOffset[idx] = 80 + k * stagger })
+  setFanLayering(count)
+  for (let i = 0; i < count; i++) {
+    const el = cardEls[i]
+    clearCardTransition(el)
+    const pose = fanStackPose(heroPos, i)
+    if (i === leadIndex) applyTransform(el, heroPos, 1)
+    else applyTransform(el, pose, 0, pose.rotate)
+  }
 
+  rightPane.offsetHeight
 
-  function step(now) {
-    const elapsed = now - startTime
-    let active = false
+  updateScrollIndicator(PHASE.GRID)
+  requestAnimationFrame(() => {
     for (let i = 0; i < count; i++) {
       const el = cardEls[i]
-      const t = Math.max(0, Math.min(1, (elapsed - startOffset[i]) / duration))
-      const e = easeOutQuint(t)
-      const from = heroPos
-      const to = gridPositions[i]
-      const fromOp = i === leadIndex ? 1 : 0
-      const toOp = 1
-      applyTransform(el, {
-        x: lerp(from.x, to.x, e),
-        y: lerp(from.y, to.y, e),
-        scale: lerp(from.scale, to.scale, e),
-      }, lerp(fromOp, toOp, e))
-      if (t < 1) active = true
+      setCardTransition(el, FAN_DURATION_MS, i * FAN_STAGGER_MS)
+      applyTransform(el, gridPositions[i], 1)
     }
-    if (active) requestAnimationFrame(step)
-    else { animating = false; phase = PHASE.GRID; updateScrollIndicator(phase) }
-  }
-  updateScrollIndicator(PHASE.GRID)
-  requestAnimationFrame(step)
+  })
+
+  const totalMs = FAN_DURATION_MS + (count - 1) * FAN_STAGGER_MS + 80
+  setTimeout(() => {
+    for (let i = 0; i < count; i++) clearCardTransition(cardEls[i])
+    animating = false
+    phase = PHASE.GRID
+    updateScrollIndicator(phase)
+  }, totalMs)
 }
 
 // --- Grid → Hero: cards collapse back behind the lead ---
@@ -287,44 +312,36 @@ function animateGridToHero() {
   const { gridPositions, heroPos, count, leadIndex } = computeLayout()
   hideExtraCards(count)
 
-  const startTime = performance.now()
-  const duration = 600
-  const stagger = 35
-  const order = []
-  for (let i = 0; i < count; i++) if (i !== leadIndex) order.push(i)
-  order.sort((a, b) => {
-    const pa = gridPositions[a], pb = gridPositions[b]
-    const da = Math.hypot(pa.x - gridPositions[leadIndex].x, pa.y - gridPositions[leadIndex].y)
-    const db = Math.hypot(pb.x - gridPositions[leadIndex].x, pb.y - gridPositions[leadIndex].y)
-    return db - da // farthest leave first
-  })
-  const startOffset = new Array(count).fill(0)
-  order.forEach((idx, k) => { startOffset[idx] = k * stagger })
+  setFanLayering(count)
+  for (let i = 0; i < count; i++) {
+    const el = cardEls[i]
+    clearCardTransition(el)
+    applyTransform(el, gridPositions[i], 1)
+  }
 
+  rightPane.offsetHeight
 
-  function step(now) {
-    const elapsed = now - startTime
-    let active = false
+  updateScrollIndicator(PHASE.HERO)
+  requestAnimationFrame(() => {
     for (let i = 0; i < count; i++) {
       const el = cardEls[i]
-      const t = Math.max(0, Math.min(1, (elapsed - startOffset[i]) / duration))
-      const e = easeOutQuint(t)
-      const from = gridPositions[i]
-      const to = heroPos
-      const fromOp = 1
-      const toOp = i === leadIndex ? 1 : 0
-      applyTransform(el, {
-        x: lerp(from.x, to.x, e),
-        y: lerp(from.y, to.y, e),
-        scale: lerp(from.scale, to.scale, e),
-      }, lerp(fromOp, toOp, e))
-      if (t < 1) active = true
+      const delay = i === leadIndex ? 0 : (count - 1 - i) * 55
+      setCardTransition(el, FAN_COLLAPSE_DURATION_MS, delay, 420)
+      if (i === leadIndex) applyTransform(el, heroPos, 1)
+      else {
+        const pose = fanStackPose(heroPos, i)
+        applyTransform(el, pose, 0, pose.rotate)
+      }
     }
-    if (active) requestAnimationFrame(step)
-    else { animating = false; phase = PHASE.HERO; updateScrollIndicator(phase) }
-  }
-  updateScrollIndicator(PHASE.HERO)
-  requestAnimationFrame(step)
+  })
+
+  const totalMs = FAN_COLLAPSE_DURATION_MS + (count - 2) * 55 + 80
+  setTimeout(() => {
+    for (let i = 0; i < count; i++) clearCardTransition(cardEls[i])
+    animating = false
+    phase = PHASE.HERO
+    updateScrollIndicator(phase)
+  }, totalMs)
 }
 
 // --- Grid → Folder: all visible cards fly into the macOS folder ---
