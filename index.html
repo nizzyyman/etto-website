@@ -28,31 +28,33 @@
 
     /* Sections */
     #page { width: 100%; height: calc(100% - 140px); position: relative; }
-    .section { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .section {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      padding: 0 40px;
+    }
 
-    /* Section 2 sits behind, always visible */
-    #section-2 {
+    /* Folder section sits behind, revealed when hero-grid fades out */
+    #folder-section {
+      z-index: 1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 40px;
-      z-index: 1;
       overflow-y: auto;
     }
-
-    /* Section 1 sits on top, fully covering section 2 */
-    #section-1 { display: flex; gap: 40px; padding: 0 40px; z-index: 2; background: #fff; }
-    .column { flex: 1; position: relative; overflow: hidden; }
-    .column canvas { display: block; width: 100%; height: 100%; }
+    #folder-section.is-visible { opacity: 1; pointer-events: auto; }
     #section-2-inner {
       max-width: 600px;
       font-family: 'ABC Diatype Expanded', sans-serif;
     }
-    .section-2-copy {
-      transition: opacity 0.4s ease;
-    }
 
-    /* Board folder */
+    /* Board folder (main-branch styling) */
     .board-folder {
       display: inline-flex;
       flex-direction: column;
@@ -70,17 +72,36 @@
     .board-folder-count { font-size: 12px; color: #71717a; font-family: 'ABC Diatype', sans-serif; letter-spacing: var(--diatype-regular-letter-spacing); }
     .board-folder-thumbs { display: flex; gap: 4px; margin-top: 4px; }
     .board-folder-thumb { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; }
-    .board-folder-thumb.is-hidden { opacity: 0; }
 
-    /* Copy */
-    .section-2-heading {
+    /* Hero-grid section sits on top */
+    #hero-grid-section { z-index: 2; background: #fff; }
+
+    /* Left text pane — heading sits near the top of the pane, aligned with nav margin (44px) */
+    .text-pane {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      padding: 60px 40px 40px 4px;
+    }
+    .text-block {
+      max-width: 800px;
+      width: 100%;
       font-family: 'ABC Diatype Expanded', sans-serif;
-      font-size: 30px;
+    }
+
+    /* Universal heading */
+    h1 {
+      font-family: 'ABC Diatype Expanded', sans-serif;
+      font-size: clamp(16px, 2.6vw, 50px);
       font-weight: 700;
       color: #18181b;
-      margin-bottom: 24px;
-      line-height: 1.2;
+      line-height: 1.15;
+      letter-spacing: 0em;
+      margin-bottom: 32px;
     }
+    .hero-heading { margin-bottom: 40px; }
+    .folder-heading { font-size: clamp(18px, 2.4vw, 30px); line-height: 1.2; margin-bottom: 24px; white-space: nowrap; }
+
     .body1 {
       font-family: 'ABC Diatype', sans-serif;
       font-size: 18px;
@@ -88,28 +109,48 @@
       color: #18181b;
       margin-bottom: 16px;
     }
-    /* Cards (in columns) */
+
+    /* Right pane — hosts the cards grid. JS positions cards with GRID_PADDING inset so the grid never touches nav/footer. */
+    .right-pane { flex: 1; position: relative; overflow: visible; }
+
+    /* Cards — fixed width + height so every card in the grid renders identical dimensions. */
     .card {
       position: absolute;
+      top: 0; left: 0;
       background: #fff;
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px;
       width: 200px;
+      height: 360px;
+      display: flex;
+      flex-direction: column;
       cursor: grab;
       user-select: none;
+      overflow: hidden;
       z-index: 10;
       font-family: 'ABC Diatype', sans-serif;
       letter-spacing: var(--diatype-regular-letter-spacing);
       box-shadow: 4px 8px 12px rgba(0, 0, 0, 0.1);
+      transform-origin: 0 0;
+      will-change: transform, opacity;
     }
     .card:active { cursor: grabbing; }
-    .card-img { width: 100%; aspect-ratio: 4/5; border-radius: 6px; margin-bottom: 10px; object-fit: cover; display: block; }
-    .card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
-    .card-title { font-size: 13px; font-weight: 500; color: #18181b; }
+    .card-img { width: 100%; aspect-ratio: 4/5; border-radius: 6px; margin-bottom: 10px; object-fit: cover; display: block; flex: 0 0 auto; }
+    .card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; flex: 0 0 auto; }
+    .card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #18181b;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-height: 1.25;
+    }
     .card-price { flex-shrink: 0; background: #f4f4f5; border-radius: 4px; padding: 2px 6px; font-size: 11px; font-weight: 700; color: #18181b; }
-    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; max-height: 44px; overflow: hidden; flex: 0 0 auto; }
     .card-tag { border-radius: 999px; padding: 2px 8px; font-size: 11px; color: #18181b; }
-    .card-note { margin-top: 8px; display: flex; align-items: start; gap: 6px; background: rgba(254,202,202,0.4); border-radius: 6px; padding: 6px 8px; }
+    .card-note { margin-top: auto; display: flex; align-items: start; gap: 6px; background: rgba(254,202,202,0.4); border-radius: 6px; padding: 6px 8px; flex: 0 0 auto; }
     .card-note p { font-size: 11px; color: #18181b; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
     .card-note p strong { font-weight: 700; }
 
@@ -125,17 +166,20 @@
       position: absolute;
       background: #fff;
       border-radius: 10px;
-      padding: 12px;
-      width: 200px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
       font-family: 'ABC Diatype', sans-serif;
       letter-spacing: var(--diatype-regular-letter-spacing);
       box-shadow: 4px 8px 16px rgba(0,0,0,0.18);
       will-change: transform, opacity;
+      transform-origin: top left;
     }
-    .fly-card.mobile-merge {
-      box-shadow: 0 14px 32px rgba(0,0,0,0.12);
-      transform-origin: center center;
-    }
+    .fly-card .card-img { flex: 0 0 auto; }
+    .fly-card .card-title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.25; }
+    .fly-card .card-tags { max-height: 44px; overflow: hidden; flex: 0 0 auto; }
+    .fly-card .card-note { margin-top: auto; flex: 0 0 auto; }
     .fly-card .card-img { width: 100%; aspect-ratio: 4/5; border-radius: 6px; margin-bottom: 10px; object-fit: cover; display: block; }
     .fly-card .card-header { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
     .fly-card .card-title { font-size: 13px; font-weight: 500; color: #18181b; }
@@ -146,7 +190,7 @@
     .fly-card .card-note p { font-size: 11px; color: #18181b; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 0; }
     .fly-card .card-note p strong { font-weight: 700; }
 
-    /* Scroll indicator */
+    /* Scroll indicator — 3 states */
     .scroll-indicator {
       position: fixed;
       right: 12px;
@@ -162,47 +206,33 @@
     }
     .scroll-indicator-thumb {
       position: absolute;
-      top: 0;
+      top: 2%;
       left: 0;
       width: 100%;
-      height: 45%;
+      height: 32%;
       background: #000;
       border-radius: 100px;
-      transition: top 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .scroll-indicator.at-bottom .scroll-indicator-thumb {
-      top: 55%;
-    }
+    .scroll-indicator.phase-grid .scroll-indicator-thumb { top: 34%; }
+    .scroll-indicator.phase-folder .scroll-indicator-thumb { top: 66%; }
+
     /* Mobile */
     @media (max-width: 768px) {
       footer { padding: 0 40px 0 20px; display: none !important; flex-direction: column; align-items: flex-start; height: auto; gap: 8px; padding-top: 12px; padding-bottom: 12px; position: fixed; left: 0; right: 0; bottom: 0; background: #fff; z-index: 260; }
       footer.visible { display: flex !important; }
       .footer-links { flex-direction: column-reverse; align-items: flex-start; gap: 6px; }
       #page { height: calc(100% - 95px); }
-      #section-1 { gap: 0; padding: 0 20px 0 20px; padding-right: 36px; flex-direction: column; }
-      .scroll-indicator { right: 8px; }
-      #section-1 .column:nth-child(2) { display: none; }
-      #section-2 { padding: clamp(18px, 5vh, 44px) 20px 140px; align-items: flex-start; justify-content: flex-start; }
-      #section-2-inner { width: 100%; }
-      .section-2-heading { font-size: 28px; margin-bottom: 20px; }
+      .section { padding: 0 20px; flex-direction: column; }
+      .text-pane { padding: clamp(18px, 4vh, 36px) 0; flex: 0 0 auto; justify-content: flex-start; }
+      .text-block { max-width: 100%; }
+      .right-pane { flex: 1; }
+      h1 { font-size: clamp(28px, 8vw, 36px); margin-bottom: 24px; }
+      .folder-heading { margin-bottom: 20px; }
       .body1 { font-size: 16px; }
-      #section-2-inner.mobile-entering .section-2-copy {
-        opacity: 0;
-        pointer-events: none;
-      }
-      #section-2-inner.mobile-ready .section-2-copy {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .card { width: 150px; padding: 8px; }
-      .card-img { aspect-ratio: auto; max-height: 140px; object-fit: contain; }
-      .card-title { font-size: 10px; }
-      .card-price { font-size: 9px; padding: 1px 4px; }
-      .card-tags { gap: 3px; margin-top: 4px; }
-      .card-tag { font-size: 9px; padding: 1px 5px; }
-      .card-note { margin-top: 4px; padding: 4px 6px; }
-      .card-note p { font-size: 9px; }
-      .fly-card { width: 150px; padding: 8px; }
+      .macos-folder { width: 160px; }
+      .folder-wrap { left: 50%; top: 50%; }
+      .scroll-indicator { right: 8px; }
     }
   </style>
 </head>
@@ -212,13 +242,9 @@
     <button class="nav-link" type="button" data-open-waitlist>JOIN WAITLIST</button>
   </nav>
   <div id="page">
-    <div class="section" id="section-1">
-      <div class="column" id="col-left"><canvas></canvas></div>
-      <div class="column" id="col-right"><canvas></canvas></div>
-    </div>
-    <div class="section" id="section-2">
+    <section class="section" id="folder-section">
       <div id="section-2-inner">
-        <h1 class="section-2-heading section-2-copy">Curate. Annotate. Communicate.</h1>
+        <h1 class="folder-heading">Curate. Annotate. Communicate.</h1>
         <div class="board-folder" id="board-folder">
           <div class="board-folder-header">
             <svg class="board-folder-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2z"/></svg>
@@ -228,11 +254,19 @@
           <span class="board-folder-count">5 items</span>
           <div class="board-folder-thumbs" id="board-folder-thumbs"></div>
         </div>
-        <p class="body1 section-2-copy">Etto brings references, client context, notes, and decisions into one place.</p>
-        <p class="body1 section-2-copy">Never lose track of what clients love<br>or what they don't.</p>
-        <p class="body1 section-2-copy">Spend more time styling and creative directing.</p>
+        <p class="body1">Etto brings references, client context, notes, and decisions into one place.</p>
+        <p class="body1">Never lose track of what clients love<br>or what they don't.</p>
+        <p class="body1">Spend more time styling and creative directing.</p>
       </div>
-    </div>
+    </section>
+    <section class="section" id="hero-grid-section">
+      <div class="text-pane">
+        <div class="text-block">
+          <h1 class="hero-heading">THE WORKSPACE<br>FOR STYLISTS<br>AND SHOPPERS</h1>
+        </div>
+      </div>
+      <div class="right-pane" id="right-pane"></div>
+    </section>
   </div>
   <div class="scroll-indicator" id="scroll-indicator" role="button" tabindex="0" aria-label="Scroll to next section">
     <div class="scroll-indicator-thumb"></div>
