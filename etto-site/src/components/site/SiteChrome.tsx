@@ -1,5 +1,6 @@
 import React from 'react';
 import ettoStamp from '../../assets/etto-stamp.svg';
+import ettoStampWhite from '../../assets/etto-stamp-white.svg';
 import {
   COMPANY_NAME,
   COPYRIGHT_LABEL,
@@ -9,7 +10,7 @@ import {
   secondaryLinks
 } from './siteConfig';
 
-function ExternalArrow() {
+function ExternalArrow({ color = '#1a1a1a' }: { color?: string }) {
   return (
     <svg
       width="11"
@@ -22,7 +23,7 @@ function ExternalArrow() {
     >
       <path
         d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5"
-        stroke="#1a1a1a"
+        stroke={color}
         strokeWidth="1.3"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -231,17 +232,17 @@ export function SiteChrome({
         </>
       ) : null}
       <header className="relative z-10 w-full px-6 pt-5 pb-4">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6">
+        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6" style={{ color: heroVideoSrc ? '#ffffff' : '#1a1a1a' }}>
           <a
             href={HOME_PATH}
             className="inline-flex items-center transition-opacity hover:opacity-60"
             aria-label="Etto home"
           >
-            <img src={ettoStamp} alt="Etto" className="h-4 w-auto" />
+            <img src={heroVideoSrc ? ettoStampWhite : ettoStamp} alt="Etto" className="h-4 w-auto" />
           </a>
 
           <div className="flex flex-col gap-1 md:justify-self-center">
-            <span className="text-[14px] leading-snug text-[#1a1a1a] whitespace-nowrap">{COMPANY_NAME}</span>
+            <span className="text-[14px] leading-snug whitespace-nowrap">{COMPANY_NAME}</span>
           </div>
 
           <div className="flex flex-col gap-1 md:justify-self-end md:pr-10">
@@ -251,7 +252,7 @@ export function SiteChrome({
                 href={link.href}
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noreferrer' : undefined}
-                className="text-[13px] leading-snug text-[#1a1a1a] transition-opacity hover:opacity-60"
+                className="text-[13px] leading-snug transition-opacity hover:opacity-60"
               >
                 {link.label}
               </a>
@@ -261,10 +262,10 @@ export function SiteChrome({
           <button
             type="button"
             onClick={openWaitlist}
-            className="flex items-center gap-1 whitespace-nowrap text-[13px] text-[#1a1a1a] transition-opacity hover:opacity-60 md:justify-self-end"
+            className="flex items-center gap-1 whitespace-nowrap text-[13px] transition-opacity hover:opacity-60 md:justify-self-end"
           >
             <span>APPLY</span>
-            <ExternalArrow />
+            <ExternalArrow color={heroVideoSrc ? '#ffffff' : '#1a1a1a'} />
           </button>
         </div>
       </header>
