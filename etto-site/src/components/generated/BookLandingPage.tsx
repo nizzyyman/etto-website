@@ -468,7 +468,7 @@ export const BookLandingPage = () => {
             delay: 1.95,
             duration: 0.65,
             ease: [0.22, 1, 0.36, 1]
-          }} className="flex max-w-[520px] flex-1 flex-col gap-8 pt-1 text-left">
+          }} className="flex max-w-[520px] flex-1 flex-col gap-5 pt-1 text-left">
               <h2 className="text-[#1a1a1a]" style={{
               fontFamily: 'ABC Diatype Medium',
               fontWeight: 500,
