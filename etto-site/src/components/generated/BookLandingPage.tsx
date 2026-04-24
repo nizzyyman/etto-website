@@ -357,7 +357,7 @@ export const BookLandingPage = () => {
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
           letterSpacing: '-0.01em',
-          textShadow: '0 2px 14px rgba(0, 0, 0, 0.28)'
+          textShadow: '0 10px 28px rgba(0, 0, 0, 0.34), 0 2px 6px rgba(0, 0, 0, 0.22)'
         }}>
               {line}
             </motion.div>
