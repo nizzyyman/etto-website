@@ -315,7 +315,7 @@ export const BookLandingPage = () => {
           </div>)}
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
-      <section ref={sectionRef} className="mt-4 w-full px-5 pb-20 pt-10 md:mt-14 md:px-10 md:pt-28">
+      <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-16 md:mt-14 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[980px]">
           <div className="mb-10 md:mb-14">
             <p className="mb-4 text-[11px] uppercase tracking-[0.14em] text-[#999]">
