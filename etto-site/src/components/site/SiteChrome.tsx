@@ -39,6 +39,15 @@ export function SiteChrome({
   children: React.ReactNode;
   heroVideoSrc?: string;
 }) {
+  const heroHeaderTextStyle = heroVideoSrc
+    ? {
+        color: '#ffffff',
+        textShadow: '0 1px 10px rgba(0, 0, 0, 0.35)'
+      }
+    : {
+        color: '#1a1a1a'
+      };
+
   const firstInputRef = React.useRef<HTMLInputElement>(null);
   const lastFocusedElementRef = React.useRef<HTMLElement | null>(null);
   const heroVideoRef = React.useRef<HTMLVideoElement>(null);
@@ -232,7 +241,10 @@ export function SiteChrome({
         </>
       ) : null}
       <header className="relative z-10 w-full px-6 pt-5 pb-4">
-        <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6" style={{ color: heroVideoSrc ? '#ffffff' : '#1a1a1a' }}>
+        <div
+          className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6"
+          style={heroHeaderTextStyle}
+        >
           <a
             href={HOME_PATH}
             className="inline-flex items-center transition-opacity hover:opacity-60"

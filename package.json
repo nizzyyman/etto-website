@@ -1,10 +1,12 @@
 {
-  "name": "test-site",
+  "name": "etto-website-root",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build"
+    "dev": "npm --prefix etto-site run dev",
+    "build": "npm --prefix etto-site run build",
+    "legacy:dev": "vite",
+    "legacy:build": "vite build"
   },
   "keywords": [],
   "author": "",

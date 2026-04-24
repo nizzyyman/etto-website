@@ -2,6 +2,13 @@
 
 Production currently serves the Vite app in `etto-site/`.
 
+Repo-root scripts now delegate to that app:
+
+- `npm run dev` runs `etto-site`
+- `npm run build` runs `etto-site`
+- `npm run legacy:dev` runs the old root static site
+- `npm run legacy:build` builds the old root static site
+
 For the writing page:
 
 - Route: `/writing/`
