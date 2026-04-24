@@ -1,4 +1,5 @@
 import React from 'react';
+import ettoStamp from '../../assets/etto-stamp.svg';
 import {
   COMPANY_NAME,
   COPYRIGHT_LABEL,
@@ -175,19 +176,14 @@ export function SiteChrome({
         <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6">
           <a
             href={HOME_PATH}
-            className="text-[13px] leading-tight tracking-tight text-[#1a1a1a] transition-opacity hover:opacity-60"
+            className="inline-flex items-center transition-opacity hover:opacity-60"
+            aria-label="Etto home"
           >
-            ETTO
+            <img src={ettoStamp} alt="Etto" className="h-4 w-auto" />
           </a>
 
           <div className="flex flex-col gap-1 md:justify-self-center">
             <span className="text-[14px] leading-snug text-[#1a1a1a] whitespace-nowrap">{COMPANY_NAME}</span>
-            <a
-              href={PRIVACY_PATH}
-              className="text-[13px] leading-snug text-[#999] whitespace-nowrap transition-opacity hover:opacity-60"
-            >
-              Privacy Policy
-            </a>
           </div>
 
           <div className="flex flex-col gap-1 md:justify-self-end md:pr-10">
