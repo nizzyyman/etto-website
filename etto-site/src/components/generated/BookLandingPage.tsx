@@ -1,20 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-const navFade = {
-  hidden: {
-    opacity: 0,
-    y: -8
-  },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.08,
-      duration: 0.5,
-      ease: 'easeOut'
-    }
-  })
-};
 const titleVariants = {
   hidden: {
     opacity: 0,
@@ -35,8 +20,6 @@ const CARD_FADE_DURATION_MS = 550;
 const CARD_STAGGER_MS = 100;
 const CARD_FAN_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
 const CARD_FADE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
-const WAITLIST_ENDPOINT = 'https://app.loops.so/api/newsletter-form/cm1toonmr00c2yqwb5530z2a0';
-const SITE_URL = 'https://etto.ai';
 interface ProductCard {
   id: string;
   name: string;
@@ -62,84 +45,84 @@ const allCards: ProductCard[] = [{
   id: 'c1',
   name: 'A.PRESSE Washed Silk Polo',
   price: '$495',
-  image: 'https://www.etto.ai/images/polo.jpg',
+  image: '/images/polo.jpg',
   tags: ['textured finish', '100% silk'],
   note: 'layered under your grey sport coat'
 }, {
   id: 'c2',
   name: 'Merz b. Schwanen Cotton Tee',
   price: '$85',
-  image: 'https://www.etto.ai/images/tee.jpg',
+  image: '/images/tee.jpg',
   tags: ['essentials', 'organic cotton'],
   note: 'wider silhouette for you'
 }, {
   id: 'c3',
   name: 'orSlow 105 Straight-Leg Jeans',
   price: '$375',
-  image: 'https://www.etto.ai/images/jeans.jpg',
+  image: '/images/jeans.jpg',
   tags: ['13.5oz denim', 'washed black'],
   note: 'a good pair of vintage inspired 90s Levis 501-style jeans'
 }, {
   id: 'c4',
   name: 'Comme des Garçons Blazer',
   price: '$1,200',
-  image: 'https://www.etto.ai/images/blazer.jpg',
+  image: '/images/blazer.jpg',
   tags: ['oversized', 'structured'],
   note: 'throw over everything'
 }, {
   id: 'c5',
   name: 'Lemaire Relaxed Trouser',
   price: '$420',
-  image: 'https://www.etto.ai/images/jeans.jpg',
+  image: '/images/jeans.jpg',
   tags: ['wool blend', 'tapered'],
   note: 'pair with your white sneakers'
 }, {
   id: 'c6',
   name: 'Auralee Cotton Sweater',
   price: '$395',
-  image: 'https://www.etto.ai/images/tee.jpg',
+  image: '/images/tee.jpg',
   tags: ['cashmere', 'ribbed'],
   note: 'weekend wear'
 }, {
   id: 'c7',
   name: 'Jil Sander Linen Shirt',
   price: '$560',
-  image: 'https://www.etto.ai/images/polo.jpg',
+  image: '/images/polo.jpg',
   tags: ['loose fit', '100% linen'],
   note: 'unbuttoned, untucked — always'
 }, {
   id: 'c8',
   name: 'Our Legacy Suede Jacket',
   price: '$890',
-  image: 'https://www.etto.ai/images/blazer.jpg',
+  image: '/images/blazer.jpg',
   tags: ['suede', 'vintage wash'],
   note: 'best piece you\'ll reach for constantly'
 }, {
   id: 'c9',
   name: 'Acne Studios Wide Trousers',
   price: '$480',
-  image: 'https://www.etto.ai/images/jeans.jpg',
+  image: '/images/jeans.jpg',
   tags: ['wide leg', 'wool'],
   note: 'wear high-waisted'
 }, {
   id: 'c10',
   name: 'Maison Margiela Tabi Derby',
   price: '$1,100',
-  image: 'https://www.etto.ai/images/tee.jpg',
+  image: '/images/tee.jpg',
   tags: ['leather', 'split toe'],
   note: 'the shoe that anchors any look'
 }, {
   id: 'c11',
   name: 'Dries Van Noten Scarf',
   price: '$195',
-  image: 'https://www.etto.ai/images/polo.jpg',
+  image: '/images/polo.jpg',
   tags: ['printed silk', 'oversized'],
   note: 'loop casually over the shoulder'
 }, {
   id: 'c12',
   name: 'Margaret Howell Knit',
   price: '$345',
-  image: 'https://www.etto.ai/images/tee.jpg',
+  image: '/images/tee.jpg',
   tags: ['merino', 'boxy'],
   note: 'effortless layering piece'
 }];
@@ -183,29 +166,17 @@ const defaultMotionData: CardMotionData = {
   offsetY: 0,
   order: 0
 };
-const secondaryLinks = [{
-  label: 'Writing',
-  href: `${SITE_URL}/writing/`
-}, {
-  label: 'Instagram',
-  href: 'https://www.instagram.com/etto_inc/',
-  external: true
-}, {
-  label: 'YouTube',
-  href: 'https://www.youtube.com/@etto_inc/videos',
-  external: true
-}];
 const boardPreviewItems = [{
-  src: 'https://www.etto.ai/images/blazer.jpg',
+  src: '/images/blazer.jpg',
   label: 'Blazer'
 }, {
-  src: 'https://www.etto.ai/images/polo.jpg',
+  src: '/images/polo.jpg',
   label: 'Polo'
 }, {
-  src: 'https://www.etto.ai/images/tee.jpg',
+  src: '/images/tee.jpg',
   label: 'Tee'
 }, {
-  src: 'https://www.etto.ai/images/jeans.jpg',
+  src: '/images/jeans.jpg',
   label: 'Jeans'
 }];
 
@@ -270,22 +241,12 @@ export const BookLandingPage = () => {
   const thirdRef = React.useRef<HTMLElement>(null);
   const heroTriggerRef = React.useRef<HTMLDivElement>(null);
   const cardRefs = React.useRef<Record<string, HTMLDivElement | null>>({});
-  const firstInputRef = React.useRef<HTMLInputElement>(null);
-  const lastFocusedElementRef = React.useRef<HTMLElement | null>(null);
   const [motionDataByKey, setMotionDataByKey] = React.useState<Record<string, CardMotionData>>({});
   const [cardsReady, setCardsReady] = React.useState(false);
   const [cardsAnimated, setCardsAnimated] = React.useState(false);
   const [hasPassedHero, setHasPassedHero] = React.useState(false);
   const [thirdInView, setThirdInView] = React.useState(false);
-  const [isWaitlistOpen, setIsWaitlistOpen] = React.useState(false);
-  const [waitlistState, setWaitlistState] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [waitlistError, setWaitlistError] = React.useState('Oops! Something went wrong, please try again.');
-  const [formValues, setFormValues] = React.useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    role: ''
-  });
+
   const measureCards = React.useCallback(() => {
     const sequence = window.innerWidth >= 768 ? desktopClockwiseOrder : sectionCardItems.map(item => item.key);
     const orderByKey = new Map(sequence.map((key, index) => [key, index]));
@@ -347,26 +308,6 @@ export const BookLandingPage = () => {
     };
   }, [hasPassedHero, cardsReady]);
   React.useEffect(() => {
-    if (!isWaitlistOpen) {
-      document.body.style.overflow = '';
-      return;
-    }
-    document.body.style.overflow = 'hidden';
-    window.setTimeout(() => {
-      firstInputRef.current?.focus();
-    }, 0);
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        setIsWaitlistOpen(false);
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isWaitlistOpen]);
-  React.useEffect(() => {
     const section = thirdRef.current;
     if (!section) return;
     const observer = new IntersectionObserver(([entry]) => {
@@ -383,125 +324,8 @@ export const BookLandingPage = () => {
       observer.disconnect();
     };
   }, []);
-  const openWaitlist = React.useCallback(() => {
-    lastFocusedElementRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    setWaitlistState('idle');
-    setWaitlistError('Oops! Something went wrong, please try again.');
-    setIsWaitlistOpen(true);
-  }, []);
-  const closeWaitlist = React.useCallback(() => {
-    setIsWaitlistOpen(false);
-    lastFocusedElementRef.current?.focus();
-  }, []);
-  const handleWaitlistInputChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      name,
-      value
-    } = event.target;
-    setFormValues(current => ({
-      ...current,
-      [name]: value
-    }));
-  }, []);
-  const handleWaitlistBack = React.useCallback(() => {
-    setWaitlistState('idle');
-    setWaitlistError('Oops! Something went wrong, please try again.');
-    setFormValues({
-      firstName: '',
-      lastName: '',
-      email: '',
-      role: ''
-    });
-    firstInputRef.current?.focus();
-  }, []);
-  const handleWaitlistSubmit = React.useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const timestamp = Date.now();
-    const previousTimestamp = localStorage.getItem('loops-form-timestamp');
-    if (previousTimestamp && Number(previousTimestamp) + 60000 > timestamp) {
-      setWaitlistState('error');
-      setWaitlistError('Too many signups, please try again in a little while');
-      return;
-    }
-    localStorage.setItem('loops-form-timestamp', String(timestamp));
-    setWaitlistState('loading');
-    setWaitlistError('Oops! Something went wrong, please try again.');
-    const formBody = new URLSearchParams({
-      userGroup: '',
-      mailingLists: '',
-      email: formValues.email,
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      role: formValues.role
-    }).toString();
-    try {
-      const response = await fetch(WAITLIST_ENDPOINT, {
-        method: 'POST',
-        body: formBody,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      });
-      if (response.ok) {
-        setWaitlistState('success');
-        setFormValues({
-          firstName: '',
-          lastName: '',
-          email: '',
-          role: ''
-        });
-        return;
-      }
-      const data = await response.json().catch(() => ({}));
-      setWaitlistState('error');
-      setWaitlistError(data.message || response.statusText || 'Oops! Something went wrong, please try again.');
-    } catch (error) {
-      if (error instanceof Error && error.message === 'Failed to fetch') {
-        setWaitlistState('error');
-        setWaitlistError('Too many signups, please try again in a little while');
-        return;
-      }
-      localStorage.setItem('loops-form-timestamp', '');
-      setWaitlistState('error');
-      setWaitlistError(error instanceof Error ? error.message : 'Oops! Something went wrong, please try again.');
-    }
-  }, [formValues]);
-  return <div style={{
-    fontFamily: 'ABC Diatype Semi-Mono'
-  }} className="min-h-screen w-full bg-white text-[#1a1a1a] overflow-x-hidden">
-      {/* Navigation / Header */}
-      <header className="w-full px-6 pt-5 pb-4 flex items-start justify-between">
-        <motion.a custom={0} initial="hidden" animate="visible" variants={navFade} href={`${SITE_URL}/`} className="text-[13px] font-normal tracking-tight text-[#1a1a1a] leading-tight">ETTO</motion.a>
-
-        <motion.div custom={1} initial="hidden" animate="visible" variants={navFade} className="flex flex-col gap-1" style={{
-        position: 'absolute',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        top: '20px'
-      }}>
-          <span className="text-[14px] font-normal text-[#1a1a1a] leading-snug whitespace-nowrap">Etto Systems Inc.</span>
-          <a href={`${SITE_URL}/privacy/`} className="text-[13px] text-[#999] leading-snug whitespace-nowrap hover:opacity-60 transition-opacity">Privacy Policy</a>
-          <span className="text-[14px] font-normal text-[#1a1a1a] leading-snug whitespace-nowrap" style={{
-          display: "none"
-        }}>Volume II &nbsp; Number 2</span>
-        </motion.div>
-
-        <motion.div custom={2} initial="hidden" animate="visible" variants={navFade} className="flex flex-col gap-1 ml-auto mr-24">
-          {secondaryLinks.map((link, index) => <a key={link.label} href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noreferrer' : undefined} className={`text-[13px] text-[#1a1a1a] leading-snug hover:opacity-60 transition-opacity${index > 0 ? ' mt-1' : ''}`}>
-              {link.label}
-            </a>)}
-        </motion.div>
-
-        <motion.button custom={3} initial="hidden" animate="visible" variants={navFade} type="button" onClick={openWaitlist} className="flex items-center gap-1 text-[13px] text-[#1a1a1a] whitespace-nowrap cursor-pointer hover:opacity-60 transition-opacity">
-          <span>APPLY</span>
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-0.5 mt-[-1px]">
-            <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="#1a1a1a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.button>
-      </header>
-
-      {/* Giant Title */}
-      <main className="w-full px-5 mt-8 select-none">
+  return <>
+      <main className="mt-8 w-full px-5 select-none">
         {['The', 'workspace', 'for stylists', 'and CDs'].map((line, i) => <div key={line} className="overflow-hidden">
             <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} style={{
           fontSize: 'clamp(80px, 13.5vw, 220px)',
@@ -516,8 +340,6 @@ export const BookLandingPage = () => {
           </div>)}
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
-
-      {/* Grid Section */}
       <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-24 md:mt-14 md:px-10 md:pt-28">
         <div className="max-w-[1280px] mx-auto">
 
@@ -671,73 +493,5 @@ export const BookLandingPage = () => {
           </div>
         </div>
       </section>
-      <footer className="w-full px-6 pt-5 pb-6 flex items-start justify-between" style={{
-      position: 'relative'
-    }}>
-        <div className="text-[13px] font-normal tracking-tight text-[#1a1a1a] leading-tight" style={{
-        display: 'none'
-      }}>ETTO</div>
-        <div className="flex flex-col gap-1" style={{
-        position: 'absolute',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        top: '20px',
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start',
-        translate: '-615.96px 0px'
-      }}>
-          <span className="text-[14px] font-normal text-[#999999] leading-snug whitespace-nowrap">&copy; 2026 Etto Systems Inc.</span>
-          <a href={`${SITE_URL}/privacy/`} className="text-[13px] text-[#1a1a1a] leading-snug whitespace-nowrap hover:opacity-60 transition-opacity">
-            Privacy Policy
-          </a>
-        </div>
-        <div className="flex flex-col gap-1 ml-auto mr-24">
-          {secondaryLinks.map((link, index) => <a key={link.label} href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noreferrer' : undefined} className={`text-[13px] text-[#1a1a1a] leading-snug hover:opacity-60 transition-opacity${index > 0 ? ' mt-1' : ''}`}>
-              {link.label}
-            </a>)}
-        </div>
-        <button type="button" onClick={openWaitlist} className="flex items-center gap-1 text-[13px] text-[#1a1a1a] whitespace-nowrap cursor-pointer hover:opacity-60 transition-opacity">
-          <span>APPLY</span>
-          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-0.5 mt-[-1px]">
-            <path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="#1a1a1a" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </footer>
-      {isWaitlistOpen ? <div className="fixed inset-0 z-[400] flex items-center justify-center p-6">
-          <button type="button" aria-label="Close waitlist form" onClick={closeWaitlist} className="absolute inset-0 bg-black/25 backdrop-blur-[6px]" />
-          <div role="dialog" aria-modal="true" aria-labelledby="waitlist-title" className="relative w-full max-w-[420px] rounded-[10px] bg-white px-[34px] pb-[34px] pt-[34px] shadow-[0_20px_60px_rgba(0,0,0,0.14)]">
-            <button type="button" aria-label="Close waitlist form" onClick={closeWaitlist} className="absolute right-[14px] top-[14px] text-[18px] leading-none text-[#18181b] hover:opacity-60 transition-opacity">
-              &times;
-            </button>
-            {waitlistState !== 'success' ? <>
-                <h2 id="waitlist-title" className="mb-4 px-14 text-center text-[22px] leading-[1.15] text-[#18181b]" style={{
-                fontFamily: 'ABC Diatype Medium',
-                fontWeight: 500
-              }}>
-                  Join Waitlist
-                </h2>
-                <p className="mx-auto mb-[18px] mt-[-4px] max-w-[320px] text-center text-[14px] leading-[1.5] text-[#52525b]">
-                  we're currently piloting with stylists, interior designers, and creative directors.
-                </p>
-              </> : null}
-            {waitlistState === 'success' ? <div className="pt-4 text-center text-[14px] leading-[1.55] text-[#18181b]">
-                Thank you for your interest in Etto. We'll be in touch.
-              </div> : <form onSubmit={handleWaitlistSubmit} className="flex flex-col gap-[10px]">
-                <input ref={firstInputRef} className="w-full rounded-full border border-[#d4d4d8] px-[14px] py-[11px] text-[14px] text-[#18181b] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none placeholder:text-[#a1a1aa]" placeholder="First name" required type="text" name="firstName" value={formValues.firstName} onChange={handleWaitlistInputChange} />
-                <input className="w-full rounded-full border border-[#d4d4d8] px-[14px] py-[11px] text-[14px] text-[#18181b] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none placeholder:text-[#a1a1aa]" placeholder="Last name (optional)" type="text" name="lastName" value={formValues.lastName} onChange={handleWaitlistInputChange} />
-                <input className="w-full rounded-full border border-[#d4d4d8] px-[14px] py-[11px] text-[14px] text-[#18181b] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none placeholder:text-[#a1a1aa]" placeholder="you@example.com" required type="email" name="email" value={formValues.email} onChange={handleWaitlistInputChange} />
-                <input className="w-full rounded-full border border-[#d4d4d8] px-[14px] py-[11px] text-[14px] text-[#18181b] shadow-[0_1px_2px_rgba(0,0,0,0.03)] outline-none placeholder:text-[#a1a1aa]" placeholder="What role best describes you?" type="text" name="role" value={formValues.role} onChange={handleWaitlistInputChange} />
-                {waitlistState === 'error' ? <p className="mt-1 text-[14px] leading-[1.55] text-[#b91c1c]">
-                    {waitlistError}
-                  </p> : null}
-                <button type="submit" disabled={waitlistState === 'loading'} className="mt-1 flex min-h-[42px] w-full items-center justify-center rounded-full bg-[#18181b] px-[18px] py-[10px] text-[14px] text-white disabled:cursor-default disabled:opacity-80">
-                  {waitlistState === 'loading' ? 'Please wait...' : 'Join waitlist'}
-                </button>
-              </form>}
-            {(waitlistState === 'success' || waitlistState === 'error') ? <button type="button" onClick={handleWaitlistBack} className="mt-[10px] text-[14px] text-[#71717a] hover:opacity-60 transition-opacity">
-                &larr; Back
-              </button> : null}
-          </div>
-        </div> : null}
-    </div>;
+    </>;
 };
