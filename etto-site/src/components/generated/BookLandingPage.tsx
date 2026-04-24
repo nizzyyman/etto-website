@@ -344,11 +344,16 @@ export const BookLandingPage = () => {
       observer.disconnect();
     };
   }, []);
+
+  const openWaitlist = React.useCallback(() => {
+    window.dispatchEvent(new Event('etto:open-waitlist'));
+  }, []);
+
   return <>
-      <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-24 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-0 md:pt-8">
+      <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-16 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-16 md:pt-6">
         {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
             <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none" style={{
-          fontSize: 'clamp(68px, 13.5vw, 220px)',
+          fontSize: 'clamp(62px, 12.5vw, 200px)',
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
           letterSpacing: '-0.01em',
@@ -357,6 +362,29 @@ export const BookLandingPage = () => {
               {line}
             </motion.div>
           </div>)}
+        <div className="mt-5 overflow-hidden md:mt-7">
+          <motion.button
+            type="button"
+            onClick={openWaitlist}
+            initial="hidden"
+            animate="visible"
+            variants={titleVariants}
+            custom={3}
+            className="inline-flex items-center gap-2 text-white transition-opacity hover:opacity-65"
+            style={{
+              fontFamily: 'ABC Diatype Medium',
+              fontWeight: 500,
+              fontSize: 'clamp(24px, 2vw, 30px)',
+              letterSpacing: '-0.02em',
+              textShadow: '0 2px 14px rgba(0, 0, 0, 0.28)'
+            }}
+          >
+            <span>JOIN WAITLIST</span>
+            <svg width="24" height="24" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+              <path d="M4 18L18 4M18 4H8M18 4V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.button>
+        </div>
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
       <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-16 md:mt-14 md:px-10 md:pb-40 md:pt-28">
@@ -494,6 +522,22 @@ export const BookLandingPage = () => {
               <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
                 Spend more time creative directing.
               </p>
+              <button
+                type="button"
+                onClick={openWaitlist}
+                className="mt-2 inline-flex items-center gap-2 text-[#1a1a1a] transition-opacity hover:opacity-65"
+                style={{
+                  fontFamily: 'ABC Diatype Medium',
+                  fontWeight: 500,
+                  fontSize: 'clamp(22px, 2vw, 28px)',
+                  letterSpacing: '-0.02em'
+                }}
+              >
+                <span>JOIN WAITLIST</span>
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                  <path d="M4 18L18 4M18 4H8M18 4V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </motion.div>
           </div>
         </div>

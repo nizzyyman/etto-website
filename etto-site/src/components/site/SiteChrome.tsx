@@ -115,6 +115,21 @@ export function SiteChrome({
     setIsWaitlistOpen(true);
   }, []);
 
+  React.useEffect(() => {
+    const handleOpenWaitlist = () => {
+      lastFocusedElementRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      setWaitlistState('idle');
+      setWaitlistError('Oops! Something went wrong, please try again.');
+      setIsWaitlistOpen(true);
+    };
+
+    window.addEventListener('etto:open-waitlist', handleOpenWaitlist);
+
+    return () => {
+      window.removeEventListener('etto:open-waitlist', handleOpenWaitlist);
+    };
+  }, []);
+
   const closeWaitlist = React.useCallback(() => {
     setIsWaitlistOpen(false);
     lastFocusedElementRef.current?.focus();
