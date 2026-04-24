@@ -148,7 +148,6 @@ function ProductCardTile({
   return <div ref={registerCell} data-card-key={tileKey} className="relative h-full">
       <article className="flex h-full w-full flex-row bg-white will-change-transform" style={{
       boxShadow: '0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)',
-      border: '1px solid rgba(0,0,0,0.08)',
       fontFamily: "'ABC Diatype', 'Helvetica Neue', Helvetica, Arial, sans-serif",
       transformOrigin: 'left center',
       zIndex: sectionCardItems.length - motionData.order,
@@ -302,22 +301,21 @@ export const BookLandingPage = () => {
     };
   }, []);
   return <>
-      <main className="mt-8 w-full px-5 select-none">
+      <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-24 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-0 md:pt-8">
         {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
-            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} style={{
-          fontSize: 'clamp(80px, 13.5vw, 220px)',
+            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="text-white md:text-[#1a1a1a]" style={{
+          fontSize: 'clamp(68px, 13.5vw, 220px)',
           lineHeight: 1.0,
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
-          letterSpacing: '-0.01em',
-          color: '#1a1a1a'
+          letterSpacing: '-0.01em'
         }}>
               {line}
             </motion.div>
           </div>)}
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
-      <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-24 md:mt-14 md:px-10 md:pt-28">
+      <section ref={sectionRef} className="mt-4 w-full px-5 pb-20 pt-10 md:mt-14 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[980px]">
           <div className="mb-10 md:mb-14">
             <p className="mb-4 text-[11px] uppercase tracking-[0.14em] text-[#999]">
