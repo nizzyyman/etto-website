@@ -347,11 +347,12 @@ export const BookLandingPage = () => {
   return <>
       <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-24 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-0 md:pt-8">
         {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
-            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none md:text-[#1a1a1a]" style={{
+            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none" style={{
           fontSize: 'clamp(68px, 13.5vw, 220px)',
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
-          letterSpacing: '-0.01em'
+          letterSpacing: '-0.01em',
+          textShadow: '0 2px 14px rgba(0, 0, 0, 0.28)'
         }}>
               {line}
             </motion.div>
