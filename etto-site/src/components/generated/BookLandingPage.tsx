@@ -243,6 +243,7 @@ export const BookLandingPage = () => {
   const [dropStarted, setDropStarted] = React.useState(false);
   const [purchasedVisible, setPurchasedVisible] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
+  const [heroTitleSettled, setHeroTitleSettled] = React.useState(false);
 
   React.useEffect(() => {
     if (!thirdInView) return;
@@ -344,6 +345,14 @@ export const BookLandingPage = () => {
       observer.disconnect();
     };
   }, []);
+  React.useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setHeroTitleSettled(true);
+    }, 1450);
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
 
   const openWaitlist = React.useCallback(() => {
     window.dispatchEvent(new Event('etto:open-waitlist'));
@@ -351,13 +360,13 @@ export const BookLandingPage = () => {
 
   return <>
       <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-16 select-none md:min-h-[calc(100vh-80px)] md:justify-end md:pb-16 md:pt-6">
-        {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
+        {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className={heroTitleSettled ? 'overflow-visible' : 'overflow-hidden'}>
             <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none" style={{
           fontSize: 'clamp(62px, 12.5vw, 200px)',
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
           letterSpacing: '-0.01em',
-          textShadow: '0 10px 28px rgba(0, 0, 0, 0.34), 0 2px 6px rgba(0, 0, 0, 0.22)'
+          textShadow: '0 7px 14px rgba(0, 0, 0, 0.26), 0 2px 4px rgba(0, 0, 0, 0.14)'
         }}>
               {line}
             </motion.div>
