@@ -240,7 +240,19 @@ export const BookLandingPage = () => {
   const [cardsAnimated, setCardsAnimated] = React.useState(false);
   const [hasPassedHero, setHasPassedHero] = React.useState(false);
   const [thirdInView, setThirdInView] = React.useState(false);
+  const [dropStarted, setDropStarted] = React.useState(false);
+  const [purchasedVisible, setPurchasedVisible] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!thirdInView) return;
+    const dropT = window.setTimeout(() => setDropStarted(true), 400);
+    const purchT = window.setTimeout(() => setPurchasedVisible(true), 2700);
+    return () => {
+      window.clearTimeout(dropT);
+      window.clearTimeout(purchT);
+    };
+  }, [thirdInView]);
 
   React.useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -346,7 +358,7 @@ export const BookLandingPage = () => {
           </div>)}
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
-      <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-16 md:mt-14 md:px-10 md:pt-28">
+      <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-16 md:mt-14 md:px-10 md:pb-40 md:pt-28">
         <div className="mx-auto max-w-[980px]">
           <div className="mb-10 md:mb-14">
             <p className="mb-4 text-[11px] uppercase tracking-[0.14em] text-[#999]">
@@ -370,7 +382,7 @@ export const BookLandingPage = () => {
           </div>
         </div>
       </section>
-      <section ref={thirdRef} className="w-full px-5 pb-40 pt-20 md:px-10">
+      <section ref={thirdRef} className="w-full px-5 pb-40 pt-20 md:px-10 md:pt-40">
         <div className="mx-auto max-w-[980px]">
           <div className="flex flex-col items-start gap-12 md:flex-row md:items-start md:gap-24">
             <motion.div initial={{
@@ -401,17 +413,33 @@ export const BookLandingPage = () => {
                 </div>
                 <p className="mb-5 text-[10px] tracking-[0.01em] text-[#aaa]">Last updated 2h ago</p>
                 <div className="flex gap-2">
-                  {boardPreviewItems.map(item => <div key={item.src} className="flex flex-1 flex-col gap-1.5">
+                  {boardPreviewItems.map((item, i) => <div key={item.src} className="flex flex-1 flex-col gap-1.5">
                       <div className="aspect-[3/4] overflow-hidden bg-[#f4f4f4]">
-                        <img src={item.src} alt={item.alt} className="h-full w-full object-cover object-top" />
+                        <motion.img
+                          src={item.src}
+                          alt={item.alt}
+                          className="h-full w-full object-cover object-top"
+                          initial={{ y: -600, opacity: 0 }}
+                          animate={dropStarted ? { y: 0, opacity: 1 } : { y: -600, opacity: 0 }}
+                          transition={{
+                            duration: 1.3,
+                            delay: i * 0.22,
+                            ease: [0.22, 1, 0.36, 1]
+                          }}
+                        />
                       </div>
                       {item.purchased ? (
-                        <span className="inline-flex items-center gap-[3px] text-[8px] uppercase tracking-[0.12em] text-[#3a7a1a]">
+                        <motion.span
+                          className="inline-flex items-center gap-[3px] text-[8px] uppercase tracking-[0.12em] text-[#3a7a1a]"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: purchasedVisible ? 1 : 0 }}
+                          transition={{ duration: 0.5, delay: i * 0.12 }}
+                        >
                           <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                             <path d="M2.5 6.5L5 9L9.5 3.5" stroke="#3a7a1a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
                           Purchased
-                        </span>
+                        </motion.span>
                       ) : (
                         <span className="h-[10px]" aria-hidden="true" />
                       )}
@@ -437,7 +465,7 @@ export const BookLandingPage = () => {
             opacity: 0,
             y: 24
           }} transition={{
-            delay: 0.22,
+            delay: 2.45,
             duration: 0.65,
             ease: [0.22, 1, 0.36, 1]
           }} className="flex max-w-[520px] flex-1 flex-col gap-8 pt-1 text-left">
