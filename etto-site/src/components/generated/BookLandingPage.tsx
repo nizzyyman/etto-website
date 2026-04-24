@@ -193,11 +193,11 @@ function ProductCardTile({
         </div>
         <div className="flex w-[52%] flex-col px-3 py-3">
           <div className="flex justify-end">
-            <span className="text-[7px] uppercase tracking-[0.18em]" style={{ color: 'rgba(0,0,0,0.38)' }}>
+            <span className="text-[7px] uppercase tracking-[0.18em] text-[#9e9e9e]">
               Spring Edit 2026
             </span>
           </div>
-          <h3 className="mt-2.5 leading-tight text-[#111]" style={{
+          <h3 className="mt-2.5 leading-tight text-[#1a1a1a]" style={{
             fontFamily: 'ABC Diatype Medium',
             fontWeight: 500,
             fontSize: '12px',
@@ -206,10 +206,10 @@ function ProductCardTile({
             {card.name}
           </h3>
           <div className="my-2 h-px" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
-          <p className="text-[#111]" style={{
+          <p className="text-[#1a1a1a]" style={{
             fontFamily: 'ABC Diatype Medium',
             fontWeight: 500,
-            fontSize: '12px'
+            fontSize: '10px'
           }}>
             {card.price}
           </p>
@@ -217,11 +217,11 @@ function ProductCardTile({
             {card.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full px-1.5 py-0.5 text-[7px] uppercase leading-none"
+                className="rounded-full px-2.5 py-1 text-[7px] lowercase leading-none text-[#6b6b6b]"
                 style={{
-                  color: 'rgba(0,0,0,0.65)',
-                  border: '1px solid rgba(0,0,0,0.2)',
-                  letterSpacing: '0.1em'
+                  background: 'linear-gradient(180deg, #fafafa 0%, #e4e4e4 100%)',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.9), 0 1px 2px rgba(0,0,0,0.06)',
+                  letterSpacing: '0.02em'
                 }}
               >
                 {tag}
@@ -229,11 +229,11 @@ function ProductCardTile({
             ))}
           </div>
           <div className="mt-auto pt-3">
-            <p className="mb-1.5 text-[7px] uppercase tracking-[0.18em]" style={{ color: 'rgba(0,0,0,0.38)' }}>
+            <p className="mb-1.5 text-[7px] uppercase tracking-[0.18em] text-[#9e9e9e]">
               Stylist Notes
             </p>
             <div className="mb-1.5 h-px" style={{ backgroundColor: 'rgba(0,0,0,0.08)' }} />
-            <p className="text-[9px] leading-[1.55]" style={{ color: 'rgba(0,0,0,0.62)' }}>
+            <p className="text-[9px] leading-[1.55] text-[#1a1a1a]">
               {card.note}
             </p>
           </div>
