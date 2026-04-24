@@ -16,9 +16,9 @@ const titleVariants = {
     }
   })
 };
-const CARD_FAN_DURATION_MS = 600;
-const CARD_FADE_DURATION_MS = 200;
-const CARD_STAGGER_MS = 340;
+const CARD_FAN_DURATION_MS = 380;
+const CARD_FADE_DURATION_MS = 140;
+const CARD_STAGGER_MS = 90;
 const CARD_FAN_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const CARD_FADE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
 interface ProductCard {
@@ -247,8 +247,8 @@ export const BookLandingPage = () => {
 
   React.useEffect(() => {
     if (!thirdInView) return;
-    const dropT = window.setTimeout(() => setDropStarted(true), 400);
-    const purchT = window.setTimeout(() => setPurchasedVisible(true), 2700);
+    const dropT = window.setTimeout(() => setDropStarted(true), 150);
+    const purchT = window.setTimeout(() => setPurchasedVisible(true), 950);
     return () => {
       window.clearTimeout(dropT);
       window.clearTimeout(purchT);
@@ -460,8 +460,8 @@ export const BookLandingPage = () => {
                           initial={{ y: -600, opacity: 0 }}
                           animate={dropStarted ? { y: 0, opacity: 1 } : { y: -600, opacity: 0 }}
                           transition={{
-                            duration: 1.3,
-                            delay: i * 0.22,
+                            duration: 0.6,
+                            delay: i * 0.08,
                             ease: [0.22, 1, 0.36, 1]
                           }}
                         />
@@ -471,7 +471,7 @@ export const BookLandingPage = () => {
                           className="inline-flex items-center gap-[3px] text-[8px] uppercase tracking-[0.12em] text-[#3a7a1a]"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: purchasedVisible ? 1 : 0 }}
-                          transition={{ duration: 0.5, delay: i * 0.12 }}
+                          transition={{ duration: 0.3, delay: i * 0.06 }}
                         >
                           <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
                             <path d="M2.5 6.5L5 9L9.5 3.5" stroke="#3a7a1a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -503,8 +503,8 @@ export const BookLandingPage = () => {
             opacity: 0,
             y: 24
           }} transition={{
-            delay: 1.95,
-            duration: 0.65,
+            delay: 0.75,
+            duration: 0.4,
             ease: [0.22, 1, 0.36, 1]
           }} className="flex max-w-[520px] flex-1 flex-col gap-5 pt-1 text-left">
               <h2 className="text-[#1a1a1a]" style={{
