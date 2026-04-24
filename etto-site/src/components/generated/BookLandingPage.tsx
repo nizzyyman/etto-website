@@ -414,9 +414,6 @@ export const BookLandingPage = () => {
                 Communicate.
               </h2>
               <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
-                Etto brings references, client context, notes, and decisions into one place.
-              </p>
-              <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
                 Never lose track of what clients love
                 <br />
                 or what they don't.
