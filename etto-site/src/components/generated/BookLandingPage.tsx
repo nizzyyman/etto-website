@@ -350,7 +350,7 @@ export const BookLandingPage = () => {
   }, []);
 
   return <>
-      <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-16 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-16 md:pt-6">
+      <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-16 select-none md:min-h-[calc(100vh-80px)] md:justify-end md:pb-16 md:pt-6">
         {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
             <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none" style={{
           fontSize: 'clamp(62px, 12.5vw, 200px)',
@@ -362,7 +362,7 @@ export const BookLandingPage = () => {
               {line}
             </motion.div>
           </div>)}
-        <div className="mt-5 overflow-hidden md:mt-7">
+        <div className="mt-5 overflow-hidden md:mt-7 md:-translate-y-6">
           <motion.button
             type="button"
             onClick={openWaitlist}
