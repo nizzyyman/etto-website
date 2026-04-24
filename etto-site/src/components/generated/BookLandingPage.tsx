@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import greenEllipse from '../../assets/green-ellipse.svg';
 const titleVariants = {
   hidden: {
     opacity: 0,
@@ -104,17 +105,21 @@ const defaultMotionData: CardMotionData = {
   order: 0
 };
 const boardPreviewItems = [{
-  src: '/images/blazer.jpg',
-  label: 'Blazer'
+  src: '/images/products/armani-long-sleeve.jpg',
+  alt: 'Giorgio Armani Long Sleeve Shirt',
+  purchased: true
 }, {
-  src: '/images/polo.jpg',
-  label: 'Polo'
+  src: '/images/products/kartik-research.webp',
+  alt: 'Kartik Research Silk Plaid Shirt',
+  purchased: false
 }, {
-  src: '/images/tee.jpg',
-  label: 'Tee'
+  src: '/images/products/dolce-gabbana-linen.jpg',
+  alt: 'Dolce & Gabbana Linen Dress Shirt',
+  purchased: true
 }, {
-  src: '/images/jeans.jpg',
-  label: 'Jeans'
+  src: '/images/products/orslow-105.jpg',
+  alt: 'OrSlow 105 Straight-Leg Jeans',
+  purchased: false
 }];
 
 function ProductCardTile({
@@ -352,36 +357,43 @@ export const BookLandingPage = () => {
             delay: 0.15,
             duration: 0.6,
             ease: [0.22, 1, 0.36, 1]
-          }} className="w-full shrink-0 md:max-w-[360px]">
+          }} className="w-full shrink-0 md:max-w-[480px]">
               <div className="w-full text-[#1a1a1a]" style={{
-              fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif"
+              fontFamily: "'ABC Diatype', 'Helvetica Neue', Helvetica, Arial, sans-serif"
             }}>
                 <div className="mb-5 flex items-center justify-between">
                   <span className="text-[9px] uppercase tracking-[0.18em] text-[#aaa]">BOARD 003</span>
-                  <span className="text-[9px] uppercase tracking-[0.18em] text-[#aaa]">CORY E.</span>
+                  <span className="text-[9px] uppercase tracking-[0.18em] text-[#aaa]">CORY</span>
                 </div>
                 <div className="mb-5 h-px bg-[#1a1a1a]" />
                 <div className="mb-1 flex items-baseline justify-between gap-3">
-                  <span className="text-[13px] font-bold tracking-[-0.01em] text-[#1a1a1a]">Spring Edit</span>
+                  <span className="text-[13px] tracking-[-0.01em] text-[#1a1a1a]" style={{ fontFamily: 'ABC Diatype Medium', fontWeight: 500 }}>Spring Edit</span>
                   <span className="text-[9px] uppercase tracking-[0.12em] text-[#aaa]">18 ITEMS</span>
                 </div>
                 <p className="mb-5 text-[10px] tracking-[0.01em] text-[#aaa]">Last updated 2h ago</p>
                 <div className="flex gap-2">
-                  {boardPreviewItems.map(item => <div key={item.label} className="flex flex-1 flex-col gap-1.5">
+                  {boardPreviewItems.map(item => <div key={item.src} className="flex flex-1 flex-col gap-1.5">
                       <div className="aspect-[3/4] overflow-hidden bg-[#f4f4f4]">
-                        <img src={item.src} alt={item.label} className="h-full w-full object-cover" />
+                        <img src={item.src} alt={item.alt} className="h-full w-full object-cover object-top" />
                       </div>
-                      <span className="text-[8px] uppercase tracking-[0.12em] text-[#bbb]">
-                        {item.label}
-                      </span>
+                      {item.purchased ? (
+                        <span className="inline-flex items-center gap-[3px] text-[8px] uppercase tracking-[0.12em] text-[#3a7a1a]">
+                          <svg width="8" height="8" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                            <path d="M2.5 6.5L5 9L9.5 3.5" stroke="#3a7a1a" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                          Purchased
+                        </span>
+                      ) : (
+                        <span className="h-[10px]" aria-hidden="true" />
+                      )}
                     </div>)}
                 </div>
                 <div className="mb-3 mt-5 h-px bg-[#e8e8e8]" />
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] uppercase tracking-[0.14em] text-[#aaa]">9 COMMENTS</span>
                   <span className="inline-flex items-center gap-[5px] text-[9px] uppercase tracking-[0.12em] text-[#1a1a1a]">
-                    <span className="inline-block h-[5px] w-[5px] rounded-full bg-[#5ec940]" />
-                    Active
+                    <img src={greenEllipse} alt="" aria-hidden="true" className="h-[10px] w-[10px]" />
+                    Live
                   </span>
                 </div>
               </div>
