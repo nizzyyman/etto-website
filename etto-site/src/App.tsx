@@ -32,7 +32,8 @@ function App() {
   }
 
   const currentPath = typeof window === 'undefined' ? HOME_PATH : normalizePath(window.location.pathname);
-  const routedPage = <SiteChrome>{renderRoute(currentPath)}</SiteChrome>;
+  const heroVideoSrc = currentPath === HOME_PATH ? '/videos/open-closet.mp4' : undefined;
+  const routedPage = <SiteChrome heroVideoSrc={heroVideoSrc}>{renderRoute(currentPath)}</SiteChrome>;
 
   if (container === 'centered') {
     return <div className="h-full w-full">{routedPage}</div>;

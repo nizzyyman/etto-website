@@ -3,7 +3,7 @@ export function PrivacyPage() {
     <main className="w-full px-5 pb-20 pt-4 md:px-10 md:pb-24">
       <div className="mx-auto w-full max-w-[760px]">
         <h1
-          className="mb-3 text-[#18181b]"
+          className="mb-3 text-[#1a1a1a]"
           style={{
             fontFamily: 'ABC Diatype Medium',
             fontWeight: 500,
@@ -24,7 +24,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -50,7 +50,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -70,7 +70,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -90,7 +90,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -110,7 +110,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -129,7 +129,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
@@ -148,7 +148,7 @@ export function PrivacyPage() {
 
           <section className="pt-4">
             <h2
-              className="mb-3 text-[#18181b]"
+              className="mb-3 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,

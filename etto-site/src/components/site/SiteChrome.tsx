@@ -32,12 +32,16 @@ function ExternalArrow() {
 }
 
 export function SiteChrome({
-  children
+  children,
+  heroVideoSrc
 }: {
   children: React.ReactNode;
+  heroVideoSrc?: string;
 }) {
   const firstInputRef = React.useRef<HTMLInputElement>(null);
   const lastFocusedElementRef = React.useRef<HTMLElement | null>(null);
+  const heroVideoRef = React.useRef<HTMLVideoElement>(null);
+  const [isHeroVideoPlaying, setIsHeroVideoPlaying] = React.useState(true);
   const [isWaitlistOpen, setIsWaitlistOpen] = React.useState(false);
   const [waitlistState, setWaitlistState] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [waitlistError, setWaitlistError] = React.useState('Oops! Something went wrong, please try again.');
@@ -47,6 +51,27 @@ export function SiteChrome({
     email: '',
     role: ''
   });
+
+  React.useEffect(() => {
+    if (!heroVideoSrc) return;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches && heroVideoRef.current) {
+      heroVideoRef.current.pause();
+      setIsHeroVideoPlaying(false);
+    }
+  }, [heroVideoSrc]);
+
+  const toggleHeroVideo = React.useCallback(() => {
+    const v = heroVideoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setIsHeroVideoPlaying(true);
+    } else {
+      v.pause();
+      setIsHeroVideoPlaying(false);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (!isWaitlistOpen) {
@@ -169,10 +194,43 @@ export function SiteChrome({
 
   return (
     <div
-      className="flex min-h-screen w-full flex-col overflow-x-hidden bg-white text-[#1a1a1a]"
+      className="relative flex min-h-screen w-full flex-col overflow-x-hidden bg-white text-[#1a1a1a]"
       style={{ fontFamily: 'ABC Diatype Semi-Mono' }}
     >
-      <header className="w-full px-6 pt-5 pb-4">
+      {heroVideoSrc ? (
+        <>
+          <video
+            ref={heroVideoRef}
+            src={heroVideoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+            className="pointer-events-none absolute left-0 right-0 top-0 z-0 h-screen w-full object-cover"
+          />
+          <button
+            type="button"
+            onClick={toggleHeroVideo}
+            aria-label={isHeroVideoPlaying ? 'Pause background video' : 'Play background video'}
+            aria-pressed={!isHeroVideoPlaying}
+            className="absolute right-4 top-[calc(100vh-3.5rem)] z-20 flex h-11 w-11 items-center justify-center text-white opacity-40 transition-opacity hover:opacity-90 focus-visible:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.5))' }}
+          >
+            {isHeroVideoPlaying ? (
+              <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
+                <rect x="0" y="0" width="4" height="14" />
+                <rect x="8" y="0" width="4" height="14" />
+              </svg>
+            ) : (
+              <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor" aria-hidden="true">
+                <path d="M0 0 L12 7 L0 14 Z" />
+              </svg>
+            )}
+          </button>
+        </>
+      ) : null}
+      <header className="relative z-10 w-full px-6 pt-5 pb-4">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_auto_1fr_auto] md:items-start md:gap-6">
           <a
             href={HOME_PATH}
@@ -211,9 +269,9 @@ export function SiteChrome({
         </div>
       </header>
 
-      <div className="flex-1">{children}</div>
+      <div className="relative z-10 flex-1">{children}</div>
 
-      <footer className="w-full px-6 pt-5 pb-6">
+      <footer className="relative z-10 w-full bg-white px-6 pt-5 pb-6">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-6 md:grid md:grid-cols-[1fr_1fr_auto] md:items-start md:gap-6">
           <div className="flex flex-col gap-1">
             <span className="text-[14px] leading-snug text-[#999999] whitespace-nowrap">{COPYRIGHT_LABEL}</span>
@@ -277,7 +335,7 @@ export function SiteChrome({
               <>
                 <h2
                   id="waitlist-title"
-                  className="mb-4 px-14 text-center text-[22px] leading-[1.15] text-[#18181b]"
+                  className="mb-4 px-14 text-center text-[22px] leading-[1.15] text-[#1a1a1a]"
                   style={{
                     fontFamily: 'ABC Diatype Medium',
                     fontWeight: 500

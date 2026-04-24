@@ -131,36 +131,8 @@ const topRowCards: SectionCardItem[] = allCards.slice(0, 6).map((card, index) =>
   key: `top-${index + 1}`,
   card
 }));
-const middleLeftCard: SectionCardItem = {
-  key: 'middle-left',
-  card: allCards[6]
-};
-const middleRightCard: SectionCardItem = {
-  key: 'middle-right',
-  card: allCards[7]
-};
-const bottomRowCards: SectionCardItem[] = allCards.slice(8, 12).concat(allCards.slice(0, 2)).map((card, index) => ({
-  key: `bottom-${index + 1}`,
-  card
-}));
-const sectionCardItems: SectionCardItem[] = [...topRowCards, middleLeftCard, middleRightCard, ...bottomRowCards];
-const leadCardKey = topRowCards[0].key;
-const desktopClockwiseOrder = [
-  topRowCards[0].key,
-  topRowCards[1].key,
-  topRowCards[2].key,
-  topRowCards[3].key,
-  topRowCards[4].key,
-  topRowCards[5].key,
-  middleRightCard.key,
-  bottomRowCards[5].key,
-  bottomRowCards[4].key,
-  bottomRowCards[3].key,
-  bottomRowCards[2].key,
-  bottomRowCards[1].key,
-  bottomRowCards[0].key,
-  middleLeftCard.key
-];
+const sectionCardItems: SectionCardItem[] = [...topRowCards];
+const desktopClockwiseOrder = topRowCards.map((item) => item.key);
 const defaultMotionData: CardMotionData = {
   offsetX: 0,
   offsetY: 0,
@@ -203,33 +175,68 @@ function ProductCardTile({
   const transform = !ready ? 'translate(0px, 0px) scale(1) rotate(0deg)' : animated ? 'translate(0px, 0px) scale(1) rotate(0deg)' : `translate(${hiddenTranslateX}px, ${hiddenTranslateY}px) scale(${hiddenScale}) rotate(${hiddenRotate}deg)`;
   const opacity = !ready ? isLead ? 1 : 0 : animated || isLead ? 1 : 0;
   const delay = isLead ? 0 : (motionData.order - 1) * CARD_STAGGER_MS;
-  return <div ref={registerCell} data-card-key={tileKey} className="relative">
-      <article className="bg-white border border-[#e8e8e8] rounded-[6px] overflow-hidden will-change-transform" style={{
-      boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
-      fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+  return <div ref={registerCell} data-card-key={tileKey} className="relative h-full">
+      <article className="flex h-full w-full flex-row bg-white will-change-transform" style={{
+      boxShadow: '0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)',
+      border: '1px solid rgba(0,0,0,0.08)',
+      fontFamily: "'ABC Diatype', 'Helvetica Neue', Helvetica, Arial, sans-serif",
       transformOrigin: 'left center',
       zIndex: sectionCardItems.length - motionData.order,
       transform,
       opacity,
       transition: ready ? [`transform ${CARD_FAN_DURATION_MS}ms ${CARD_FAN_EASE} ${delay}ms`, `opacity ${CARD_FADE_DURATION_MS}ms ${CARD_FADE_EASE} ${delay}ms`].join(', ') : 'none'
     }}>
-        <div className="w-full aspect-[4/5] overflow-hidden bg-[#f4f4f4]">
-          <img src={card.image} alt={card.name} className="w-full h-full object-cover" />
+        <div className="w-[48%] flex-shrink-0 p-2">
+          <div className="h-full w-full overflow-hidden bg-[#ece9e2]">
+            <img src={card.image} alt={card.name} className="block h-full w-full object-cover object-top" />
+          </div>
         </div>
-        <div className="px-2 pt-2 pb-2">
-          <div className="flex items-start justify-between gap-1 mb-1">
-            <span className="text-[10px] font-bold text-[#1a1a1a] leading-snug">{card.name}</span>
-            <span className="text-[10px] font-medium text-[#1a1a1a] whitespace-nowrap shrink-0 ml-1">{card.price}</span>
+        <div className="flex w-[52%] flex-col px-3 py-3">
+          <div className="flex justify-end">
+            <span className="text-[7px] uppercase tracking-[0.18em]" style={{ color: 'rgba(0,0,0,0.38)' }}>
+              Spring Edit 2026
+            </span>
           </div>
-          <div className="flex flex-wrap gap-1 mb-1.5">
-            {card.tags.map(tag => <span key={tag} className="inline-block text-[9px] leading-none px-1.5 py-0.5 rounded-full bg-[#eaf6e0] text-[#3a6b1a] font-medium">
-                {tag}
-              </span>)}
-          </div>
-          <p className="text-[9px] text-[#8c8c8c] leading-relaxed">
-            <strong className="font-bold text-[#555]">stylist note:</strong>
-            <span> {card.note}</span>
+          <h3 className="mt-2.5 leading-tight text-[#111]" style={{
+            fontFamily: 'ABC Diatype Medium',
+            fontWeight: 500,
+            fontSize: '12px',
+            letterSpacing: '-0.01em'
+          }}>
+            {card.name}
+          </h3>
+          <div className="my-2 h-px" style={{ backgroundColor: 'rgba(0,0,0,0.1)' }} />
+          <p className="text-[#111]" style={{
+            fontFamily: 'ABC Diatype Medium',
+            fontWeight: 500,
+            fontSize: '12px'
+          }}>
+            {card.price}
           </p>
+          <div className="mt-2 flex flex-wrap gap-1">
+            {card.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full px-1.5 py-0.5 text-[7px] uppercase leading-none"
+                style={{
+                  color: 'rgba(0,0,0,0.65)',
+                  border: '1px solid rgba(0,0,0,0.2)',
+                  letterSpacing: '0.1em'
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className="mt-auto pt-3">
+            <p className="mb-1.5 text-[7px] uppercase tracking-[0.18em]" style={{ color: 'rgba(0,0,0,0.38)' }}>
+              Stylist Notes
+            </p>
+            <div className="mb-1.5 h-px" style={{ backgroundColor: 'rgba(0,0,0,0.08)' }} />
+            <p className="text-[9px] leading-[1.55]" style={{ color: 'rgba(0,0,0,0.62)' }}>
+              {card.note}
+            </p>
+          </div>
         </div>
       </article>
     </div>;
@@ -326,7 +333,7 @@ export const BookLandingPage = () => {
   }, []);
   return <>
       <main className="mt-8 w-full px-5 select-none">
-        {['The', 'workspace', 'for stylists', 'and CDs'].map((line, i) => <div key={line} className="overflow-hidden">
+        {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
             <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} style={{
           fontSize: 'clamp(80px, 13.5vw, 220px)',
           lineHeight: 1.0,
@@ -341,24 +348,7 @@ export const BookLandingPage = () => {
       </main>
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
       <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-24 md:mt-14 md:px-10 md:pt-28">
-        <div className="max-w-[1280px] mx-auto">
-
-        {/* ── TOP ROW: 6 cards ── */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-2">
-          {topRowCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
-          cardRefs.current[item.key] = node;
-        }} />)}
-        </div>
-
-        {/* ── MIDDLE ROW: 1 card | 4-col H1 | 1 card ── */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mb-2 items-center">
-
-          {/* Left card */}
-          <ProductCardTile tileKey={middleLeftCard.key} card={middleLeftCard.card} motionData={motionDataByKey[middleLeftCard.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
-          cardRefs.current[middleLeftCard.key] = node;
-        }} />
-
-          {/* Center text — spans 4 columns */}
+        <div className="mx-auto max-w-[980px]">
           <motion.div initial={{
             opacity: 0,
             y: 16
@@ -369,36 +359,29 @@ export const BookLandingPage = () => {
             opacity: 0,
             y: 16
           }} transition={{
-            delay: 0.2,
+            delay: 0.1,
             duration: 0.6,
             ease: [0.22, 1, 0.36, 1]
-          }} className="col-span-1 md:col-span-4 flex items-center justify-center py-10 md:px-8 md:py-0 lg:px-10">
-            <h2 className="w-full max-w-[700px] text-[#1a1a1a] text-center" style={{
-              letterSpacing: '-0.025em',
-              fontSize: 'clamp(22px, 2.6vw, 38px)',
+          }} className="mb-10 md:mb-14">
+            <p className="mb-4 text-[11px] uppercase tracking-[0.14em] text-[#999]">
+              Save anything with a single click
+            </p>
+            <h2 className="text-[#1a1a1a]" style={{
               fontFamily: 'ABC Diatype Medium',
               fontWeight: 500,
-              lineHeight: '1.14',
-              margin: '0 auto'
+              fontSize: 'clamp(32px, 2.6vw, 42px)',
+              letterSpacing: '-0.025em',
+              lineHeight: 1.05
             }}>
-              <span>Etto brings references, shopping lists, client context, notes, and decisions into one place.</span>
+              Bring references, notes,<br />and client decisions into one place.
             </h2>
           </motion.div>
 
-          {/* Right card */}
-          <ProductCardTile tileKey={middleRightCard.key} card={middleRightCard.card} motionData={motionDataByKey[middleRightCard.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
-          cardRefs.current[middleRightCard.key] = node;
-        }} />
-
-        </div>
-
-        {/* ── BOTTOM ROW: 6 cards ── */}
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
-          {bottomRowCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
-          cardRefs.current[item.key] = node;
-        }} />)}
-        </div>
-
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            {topRowCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
+            cardRefs.current[item.key] = node;
+          }} />)}
+          </div>
         </div>
       </section>
       <section ref={thirdRef} className="w-full px-5 pb-40 pt-20 md:px-10">
@@ -468,9 +451,9 @@ export const BookLandingPage = () => {
               <h2 className="text-[#1a1a1a]" style={{
               fontFamily: 'ABC Diatype Medium',
               fontWeight: 500,
-              fontSize: 'clamp(22px, 2.6vw, 38px)',
+              fontSize: 'clamp(32px, 2.6vw, 42px)',
               letterSpacing: '-0.025em',
-              lineHeight: 1.05
+              lineHeight: 1.1
             }}>
                 Curate.
                 <br />

@@ -5,7 +5,7 @@ export function WritingPage() {
         <article>
           <header className="mb-11">
             <h1
-              className="mb-4 text-[#18181b]"
+              className="mb-4 text-[#1a1a1a]"
               style={{
                 fontFamily: 'ABC Diatype Medium',
                 fontWeight: 500,
