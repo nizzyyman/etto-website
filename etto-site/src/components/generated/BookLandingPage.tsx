@@ -371,7 +371,7 @@ export const BookLandingPage = () => {
               letterSpacing: '-0.025em',
               lineHeight: 1.05
             }}>
-              Bring references, notes,<br />and client decisions into one place.
+              Bring references, products, and notes<br />into one place.
             </h2>
           </div>
 
@@ -483,12 +483,15 @@ export const BookLandingPage = () => {
                 Communicate.
               </h2>
               <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
+                Hold client taste and styling decisions in one place.
+              </p>
+              <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
                 Never lose track of what clients love
                 <br />
                 or what they don't.
               </p>
               <p className="text-[15px] leading-relaxed text-[#1a1a1a]">
-                Spend more time styling and creative directing.
+                Spend more time creative directing.
               </p>
             </motion.div>
           </div>
