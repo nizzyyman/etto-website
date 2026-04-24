@@ -349,20 +349,7 @@ export const BookLandingPage = () => {
       <div ref={heroTriggerRef} aria-hidden="true" className="h-px w-full" />
       <section ref={sectionRef} className="mt-10 w-full px-5 pb-20 pt-24 md:mt-14 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[980px]">
-          <motion.div initial={{
-            opacity: 0,
-            y: 16
-          }} animate={hasPassedHero ? {
-            opacity: 1,
-            y: 0
-          } : {
-            opacity: 0,
-            y: 16
-          }} transition={{
-            delay: 0.1,
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1]
-          }} className="mb-10 md:mb-14">
+          <div className="mb-10 md:mb-14">
             <p className="mb-4 text-[11px] uppercase tracking-[0.14em] text-[#999]">
               Save anything with a single click
             </p>
@@ -375,7 +362,7 @@ export const BookLandingPage = () => {
             }}>
               Bring references, notes,<br />and client decisions into one place.
             </h2>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {topRowCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
