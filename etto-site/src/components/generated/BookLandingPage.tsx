@@ -23,6 +23,7 @@ const CARD_FADE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
 interface ProductCard {
   id: string;
   name: string;
+  brand: string;
   price: string;
   image: string;
   tags: string[];
@@ -43,88 +44,52 @@ const STACK_SCALE = 0.94;
 const STACK_ROTATE = -1.5;
 const allCards: ProductCard[] = [{
   id: 'c1',
-  name: 'A.PRESSE Washed Silk Polo',
-  price: '$495',
-  image: '/images/polo.jpg',
-  tags: ['textured finish', '100% silk'],
-  note: 'layered under your grey sport coat'
+  name: 'Giorgio Armani Long Sleeve Shirt',
+  brand: 'Giorgio Armani',
+  price: '$40.00',
+  image: '/images/products/armani-long-sleeve.jpg',
+  tags: ['navy', 'point collar', 'relaxed fit'],
+  note: 'looks like silk but feels like cotton. great with grey or black pants.'
 }, {
   id: 'c2',
-  name: 'Merz b. Schwanen Cotton Tee',
-  price: '$85',
-  image: '/images/tee.jpg',
-  tags: ['essentials', 'organic cotton'],
-  note: 'wider silhouette for you'
+  name: 'Japanese Denim Ford Standard Jean',
+  brand: 'Buck Mason',
+  price: '$198',
+  image: '/images/products/buck-mason-ford.jpg',
+  tags: ['dark indigo', 'button fly', 'straight-leg'],
+  note: 'buy these in black and indigo. inseam 30.'
 }, {
   id: 'c3',
-  name: 'orSlow 105 Straight-Leg Jeans',
-  price: '$375',
-  image: '/images/jeans.jpg',
-  tags: ['13.5oz denim', 'washed black'],
-  note: 'a good pair of vintage inspired 90s Levis 501-style jeans'
+  name: 'Kartik Research Silk Plaid Print Dress Shirt',
+  brand: 'Kartik Research',
+  price: '$295.00',
+  image: '/images/products/kartik-research.webp',
+  tags: ['silk', 'sheer', 'blue/brown plaid'],
+  note: "sheer silk for humid summer. loose 52' chest would make it roomy/oversized."
 }, {
   id: 'c4',
-  name: 'Comme des Garçons Blazer',
-  price: '$1,200',
-  image: '/images/blazer.jpg',
-  tags: ['oversized', 'structured'],
-  note: 'throw over everything'
+  name: 'Dolce & Gabbana Linen Dress Shirt',
+  brand: 'Dolce & Gabbana',
+  price: '$108.00',
+  image: '/images/products/dolce-gabbana-linen.jpg',
+  tags: ['black linen', 'semi-sheer', 'long sleeve'],
+  note: 'longer sleeve on you than the black Ralph Lauren.'
 }, {
   id: 'c5',
-  name: 'Lemaire Relaxed Trouser',
-  price: '$420',
-  image: '/images/jeans.jpg',
-  tags: ['wool blend', 'tapered'],
-  note: 'pair with your white sneakers'
+  name: 'OrSlow 105 Straight-Leg Jeans',
+  brand: 'OrSlow',
+  price: '$300',
+  image: '/images/products/orslow-105.jpg',
+  tags: ['washed black', 'straight-leg', 'vintage 501-style'],
+  note: "best vintage-inspired 90s Levi's 501 on the market."
 }, {
   id: 'c6',
-  name: 'Auralee Cotton Sweater',
-  price: '$395',
-  image: '/images/tee.jpg',
-  tags: ['cashmere', 'ribbed'],
-  note: 'weekend wear'
-}, {
-  id: 'c7',
-  name: 'Jil Sander Linen Shirt',
-  price: '$560',
-  image: '/images/polo.jpg',
-  tags: ['loose fit', '100% linen'],
-  note: 'unbuttoned, untucked — always'
-}, {
-  id: 'c8',
-  name: 'Our Legacy Suede Jacket',
-  price: '$890',
-  image: '/images/blazer.jpg',
-  tags: ['suede', 'vintage wash'],
-  note: 'best piece you\'ll reach for constantly'
-}, {
-  id: 'c9',
-  name: 'Acne Studios Wide Trousers',
-  price: '$480',
-  image: '/images/jeans.jpg',
-  tags: ['wide leg', 'wool'],
-  note: 'wear high-waisted'
-}, {
-  id: 'c10',
-  name: 'Maison Margiela Tabi Derby',
-  price: '$1,100',
-  image: '/images/tee.jpg',
-  tags: ['leather', 'split toe'],
-  note: 'the shoe that anchors any look'
-}, {
-  id: 'c11',
-  name: 'Dries Van Noten Scarf',
-  price: '$195',
-  image: '/images/polo.jpg',
-  tags: ['printed silk', 'oversized'],
-  note: 'loop casually over the shoulder'
-}, {
-  id: 'c12',
-  name: 'Margaret Howell Knit',
-  price: '$345',
-  image: '/images/tee.jpg',
-  tags: ['merino', 'boxy'],
-  note: 'effortless layering piece'
+  name: 'Giorgio Armani Short Sleeve Shirt',
+  brand: 'Giorgio Armani',
+  price: '$135.00',
+  image: '/images/products/armani-short-sleeve.jpg',
+  tags: ['modal jersey', 'half-placket', 'black'],
+  note: "looks like sheer linen but it's modal. older Armani is elite."
 }];
 
 const topRowCards: SectionCardItem[] = allCards.slice(0, 6).map((card, index) => ({
@@ -194,7 +159,7 @@ function ProductCardTile({
         <div className="flex w-[52%] flex-col px-3 py-3">
           <div className="flex justify-end">
             <span className="text-[7px] uppercase tracking-[0.18em] text-[#9e9e9e]">
-              Spring Edit 2026
+              {card.brand}
             </span>
           </div>
           <h3 className="mt-2.5 leading-tight text-[#1a1a1a]" style={{
