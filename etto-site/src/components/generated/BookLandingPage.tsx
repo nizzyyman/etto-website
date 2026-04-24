@@ -16,10 +16,10 @@ const titleVariants = {
     }
   })
 };
-const CARD_FAN_DURATION_MS = 950;
-const CARD_FADE_DURATION_MS = 550;
-const CARD_STAGGER_MS = 100;
-const CARD_FAN_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+const CARD_FAN_DURATION_MS = 600;
+const CARD_FADE_DURATION_MS = 200;
+const CARD_STAGGER_MS = 340;
+const CARD_FAN_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const CARD_FADE_EASE = 'cubic-bezier(0.4, 0, 0.2, 1)';
 interface ProductCard {
   id: string;
@@ -39,10 +39,10 @@ interface CardMotionData {
   offsetY: number;
   order: number;
 }
-const STACK_NUDGE_X = 3;
-const STACK_NUDGE_Y = 2;
-const STACK_SCALE = 0.94;
-const STACK_ROTATE = -1.5;
+const STACK_NUDGE_X = 0;
+const STACK_NUDGE_Y = 0;
+const STACK_SCALE = 1;
+const STACK_ROTATE = 0;
 const allCards: ProductCard[] = [{
   id: 'c1',
   name: 'Giorgio Armani Long Sleeve Shirt',
@@ -303,9 +303,8 @@ export const BookLandingPage = () => {
   return <>
       <main className="flex min-h-[calc(100vh-240px)] w-full flex-col justify-end px-5 pb-24 select-none md:block md:min-h-[calc(100vh-80px)] md:pb-0 md:pt-8">
         {['The', 'workspace', 'for stylists'].map((line, i) => <div key={line} className="overflow-hidden">
-            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="text-white md:text-[#1a1a1a]" style={{
+            <motion.div custom={i} initial="hidden" animate="visible" variants={titleVariants} className="leading-[1.1] text-white md:leading-none md:text-[#1a1a1a]" style={{
           fontSize: 'clamp(68px, 13.5vw, 220px)',
-          lineHeight: 1.0,
           fontFamily: 'ABC Diatype Bold',
           fontWeight: 700,
           letterSpacing: '-0.01em'
