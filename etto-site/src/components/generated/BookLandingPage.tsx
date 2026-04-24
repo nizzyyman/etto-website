@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import greenEllipse from '../../assets/green-ellipse.svg';
 const titleVariants = {
   hidden: {
@@ -128,7 +128,8 @@ function ProductCardTile({
   motionData,
   animated,
   ready,
-  registerCell
+  registerCell,
+  isMobile
 }: {
   tileKey: string;
   card: ProductCard;
@@ -136,7 +137,16 @@ function ProductCardTile({
   animated: boolean;
   ready: boolean;
   registerCell: (node: HTMLDivElement | null) => void;
+  isMobile: boolean;
 }) {
+  const scrollRef = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: scrollRef,
+    offset: ['start 0.95', 'start 0.5']
+  });
+  const mobileY = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const mobileOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   const isLead = motionData.order === 0;
   const hiddenTranslateX = isLead ? 0 : motionData.offsetX + STACK_NUDGE_X;
   const hiddenTranslateY = isLead ? 0 : motionData.offsetY + STACK_NUDGE_Y;
@@ -145,16 +155,24 @@ function ProductCardTile({
   const transform = !ready ? 'translate(0px, 0px) scale(1) rotate(0deg)' : animated ? 'translate(0px, 0px) scale(1) rotate(0deg)' : `translate(${hiddenTranslateX}px, ${hiddenTranslateY}px) scale(${hiddenScale}) rotate(${hiddenRotate}deg)`;
   const opacity = !ready ? isLead ? 1 : 0 : animated || isLead ? 1 : 0;
   const delay = isLead ? 0 : (motionData.order - 1) * CARD_STAGGER_MS;
+
+  const baseStyle = {
+    boxShadow: '0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)',
+    fontFamily: "'ABC Diatype', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    zIndex: sectionCardItems.length - motionData.order
+  };
+  const articleStyle = isMobile
+    ? { ...baseStyle, y: mobileY, opacity: mobileOpacity }
+    : {
+        ...baseStyle,
+        transformOrigin: 'left center',
+        transform,
+        opacity,
+        transition: ready ? [`transform ${CARD_FAN_DURATION_MS}ms ${CARD_FAN_EASE} ${delay}ms`, `opacity ${CARD_FADE_DURATION_MS}ms ${CARD_FADE_EASE} ${delay}ms`].join(', ') : 'none'
+      };
+
   return <div ref={registerCell} data-card-key={tileKey} className="relative h-full">
-      <article className="flex h-full w-full flex-row bg-white will-change-transform" style={{
-      boxShadow: '0 10px 30px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06)',
-      fontFamily: "'ABC Diatype', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-      transformOrigin: 'left center',
-      zIndex: sectionCardItems.length - motionData.order,
-      transform,
-      opacity,
-      transition: ready ? [`transform ${CARD_FAN_DURATION_MS}ms ${CARD_FAN_EASE} ${delay}ms`, `opacity ${CARD_FADE_DURATION_MS}ms ${CARD_FADE_EASE} ${delay}ms`].join(', ') : 'none'
-    }}>
+      <motion.article ref={scrollRef} className="flex h-full w-full flex-row bg-white will-change-transform" style={articleStyle}>
         <div className="w-[48%] flex-shrink-0 p-2">
           <div className="h-full w-full overflow-hidden bg-[#ece9e2]">
             <img src={card.image} alt={card.name} className="block h-full w-full object-cover object-top" />
@@ -207,7 +225,7 @@ function ProductCardTile({
             </p>
           </div>
         </div>
-      </article>
+      </motion.article>
     </div>;
 }
 
@@ -222,8 +240,22 @@ export const BookLandingPage = () => {
   const [cardsAnimated, setCardsAnimated] = React.useState(false);
   const [hasPassedHero, setHasPassedHero] = React.useState(false);
   const [thirdInView, setThirdInView] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const visibleCards = React.useMemo(
+    () => (isMobile ? topRowCards.filter((item) => item.card.id !== 'c4') : topRowCards),
+    [isMobile]
+  );
 
   const measureCards = React.useCallback(() => {
+    if (window.innerWidth < 768) return;
     const sequence = window.innerWidth >= 768 ? desktopClockwiseOrder : sectionCardItems.map(item => item.key);
     const orderByKey = new Map(sequence.map((key, index) => [key, index]));
     const rectsByKey = sectionCardItems.reduce<Record<string, DOMRect>>((acc, item) => {
@@ -332,7 +364,7 @@ export const BookLandingPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {topRowCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} registerCell={node => {
+            {visibleCards.map(item => <ProductCardTile key={item.key} tileKey={item.key} card={item.card} motionData={motionDataByKey[item.key] ?? defaultMotionData} animated={cardsAnimated} ready={cardsReady} isMobile={isMobile} registerCell={node => {
             cardRefs.current[item.key] = node;
           }} />)}
           </div>
