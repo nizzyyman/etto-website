@@ -465,7 +465,7 @@ export const BookLandingPage = () => {
             opacity: 0,
             y: 24
           }} transition={{
-            delay: 1.99,
+            delay: 1.95,
             duration: 0.65,
             ease: [0.22, 1, 0.36, 1]
           }} className="flex max-w-[520px] flex-1 flex-col gap-8 pt-1 text-left">
