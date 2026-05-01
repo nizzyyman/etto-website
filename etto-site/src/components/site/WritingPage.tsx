@@ -18,8 +18,11 @@ export function WritingPage() {
             >
               {writingArticle.title}
             </h1>
-            <p className="mb-8 max-w-[680px] text-[16px] leading-[1.55] text-[#71717a]">
+            <p className="mb-3 max-w-[680px] text-[16px] leading-[1.55] text-[#71717a]">
               {writingArticle.deck}
+            </p>
+            <p className="mb-8 text-[13px] leading-[1.5] text-[#a1a1aa]">
+              {writingArticle.datePublished}
             </p>
             <div className="h-px w-full bg-[#18181b]" />
           </header>
