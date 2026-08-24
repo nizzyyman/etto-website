@@ -1,6 +1,22 @@
 {
   "rewrites": [
     {
+      "source": "/NYFW",
+      "destination": "/nyfw.html"
+    },
+    {
+      "source": "/NYFW/",
+      "destination": "/nyfw.html"
+    },
+    {
+      "source": "/nyfw",
+      "destination": "/nyfw.html"
+    },
+    {
+      "source": "/nyfw/",
+      "destination": "/nyfw.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
