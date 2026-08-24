@@ -1,8 +1,9 @@
 import { Container, Theme } from './settings/types';
 import { BookLandingPage } from './components/generated/BookLandingPage';
+import { NYFWPage } from './components/site/NYFWPage';
 import { PrivacyPage } from './components/site/PrivacyPage';
 import { SiteChrome } from './components/site/SiteChrome';
-import { HOME_PATH, PRIVACY_PATH, WRITING_PATH } from './components/site/siteConfig';
+import { HOME_PATH, NYFW_PATH, PRIVACY_PATH, WRITING_PATH } from './components/site/siteConfig';
 import { WritingPage } from './components/site/WritingPage';
 
 let theme: Theme = 'light';
@@ -32,6 +33,12 @@ function App() {
   }
 
   const currentPath = typeof window === 'undefined' ? HOME_PATH : normalizePath(window.location.pathname);
+
+  // Standalone temporary event page: no header/footer chrome.
+  if (currentPath === NYFW_PATH) {
+    return <NYFWPage />;
+  }
+
   const heroVideoSrc = currentPath === HOME_PATH ? '/videos/open-closet.mp4' : undefined;
   const routedPage = <SiteChrome heroVideoSrc={heroVideoSrc}>{renderRoute(currentPath)}</SiteChrome>;
 
