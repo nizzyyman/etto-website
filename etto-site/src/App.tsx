@@ -34,8 +34,9 @@ function App() {
 
   const currentPath = typeof window === 'undefined' ? HOME_PATH : normalizePath(window.location.pathname);
 
-  // Standalone temporary event page: no header/footer chrome.
-  if (currentPath === NYFW_PATH) {
+  // Standalone temporary event page: no header/footer chrome. Case-insensitive
+  // since the slug gets shared/typed as "etto.ai/nyfw" as often as "/NYFW".
+  if (currentPath.toLowerCase() === NYFW_PATH.toLowerCase()) {
     return <NYFWPage />;
   }
 
