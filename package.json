@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npm --prefix etto-site run dev",
-    "build": "npm --prefix etto-site run build",
+    "dev": "npm --prefix etto-site run dev --",
+    "build": "npm --prefix etto-site run build --",
+    "postinstall": "npm --prefix etto-site ci",
     "legacy:dev": "vite",
     "legacy:build": "vite build"
   },
