@@ -2,8 +2,11 @@
   "name": "etto-website-root",
   "version": "1.0.0",
   "main": "index.js",
+  "workspaces": [
+    "etto-site"
+  ],
   "scripts": {
-    "dev": "npm --prefix etto-site run dev",
+    "dev": "npm --prefix etto-site run dev --",
     "build": "npm --prefix etto-site run build",
     "legacy:dev": "vite",
     "legacy:build": "vite build"
